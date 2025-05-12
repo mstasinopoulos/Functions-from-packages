@@ -1,0 +1,1364 @@
+---
+title: "The Functions in `gamlss.ggplots`"
+author:
+  - name: De Bastiani, F.
+    affiliation: Federal University of Pernambuco, Brazil  
+  - name: Heller, G.
+    affiliation: University of Syndey, Austalia  
+  - name: Kneib, T.
+    affiliation: University of Gottigan, Gernany
+  - name: Mayr, A.
+    affiliation: University of Marburg, Gernany  
+  - name: Julian Merder
+    affiliation: University of Marburg, Gernany  
+  - name: Rigby, R. A.
+    affiliation: University of Greenwich, UK
+  - name: Stasinopoulos, M. D.
+    affiliation: University of Greenwich, UK
+    email: d.stasinopoulos@gre.ac.uk
+  - name: Stauffer, Reto
+    affiliation: University of Innsbruck, Austria
+  - name: Umlauf, N,   
+    affiliation: University of Innsbruck, Austria
+  - name: Zeileis, A.  
+    affiliation: University of Innsbruck, Austria
+
+
+format: 
+  html: 
+    code-fold: false
+    toc: true
+toc-depth: 2
+editor: visual
+---
+
+# Introduction {#sec-introduction}
+
+## Packages
+
+This booklet provides an overview of the R package `gamlss.ggplots` and its functions, focusing on their use and the output they generate.
+
+The `gamlss.ggplots` package offers a set of `ggplot2`-based visual tools for diagnostic and exploratory plots specifically tailored for models fitted using `gamlss()` and `gamlss2()`. Most of the functions in this package are compatible with both model types, making them broadly useful across the Generalized Additive Models for Location, Scale and Shape framework.
+
+Supported Model Objects
+
+- `gamlss` — the original modeling interface for GAMLSS
+- `gamlss2` — a modern interface with cleaner formula syntax and streamlined model handling
+
+## Packages Versions
+
+The latest versions of the key packages are:
+
+```{r}
+#| message: false
+#| fig-show: hide
+#| warning: false
+rm(list=ls())
+#getRversion()
+library(gamlss)
+library(gamlss2)
+library(ggplot2)
+library(gamlss.ggplots)
+library("dplyr") 
+packageVersion("gamlss")
+packageVersion("gamlss2")
+packageVersion("gamlss.ggplots")
+
+```
+## Overview of the `gamlss.ggplots` Package
+
+Originally, the package `gamlss.ggplots` included all the functionality currently split between `gamlss.ggplots` and `gamlss.prepdata`. Due to maintenance challenges caused by the growing size and complexity of the package, it was divided into two separate components:
+
+	- `gamlss.ggplots` — visualization and diagnostics
+	
+	- `gamlss.prepdata` — data preparation utilities
+
+At this stage, `gamlss.ggplots` is experimental. Some functions are not yet exported (i.e., “hidden”) to allow for further testing and validation. These hidden functions can still be accessed using the triple-colon syntax:
+```{r}
+#| eval: false 
+gamlss.ggplots:::function_name()
+```
+
+
+
+### Function Categories
+
+Functions in gamlss.ggplots can be broadly classified into three categories:
+
+#### 1. Before-fitting a model functions
+
+Most if the before-fitting a model functions are moved to `gamlss.prepdata` package  but few visualizing distribution families are remaining. Distribution relatated function names begin with `family_Name()` 
+- Example: `family_pdf(NO)` which plots the density distribution from the Normal GAMLSS family.
+
+#### 2. After-fitting a model functions
+
+These functions are used after a model has been fitted, providing diagnostics, interpretation aids, and predictions.
+
+a. **Residual-based diagnostics** - `resid_NAME()` – Diagnostics on residuals
+E.g., `resid_wp()` produces a worm plot for assessing the distribution.
+
+b. **Fitted value** visualizations - `fitted_NAME()` – Visualizes fitted parameters ($\mu$, $\sigma$, etc.) from a fitted model.
+
+c. **Response** variable plots
+	`resp_NAME()` – Plots the response variable against various model-based quantities such as parameters or quantiles.
+
+d. Model **interpretation**
+- `pe_NAME()` – Plots partial effects to aid model interpretation.
+-	`influence_NAME()` – Shows influence measures of model terms.
+-	`predict_NAME()` – Provides predictions, often using a newdata argument.
+
+e. Model **comparison** diagnostics
+	- `model_NAME()` – Functions for comparing multiple models, typically using diagnostic statistics or GAIC.
+
+
+
+#### 3. Utility functions
+
+These functions serve as helpers for data exploration and bootstrap analyses.
+
+a. Single-vector visualizations
+	•	y_NAME() – For example, y_hist(y) plots a histogram, y_acf(y) plots the autocorrelation function.
+
+b. Bootstrap summaries
+	•	boot_NAME() – Plots parameter estimates or fitted values across bootstrap samples.
+
+c. Function imitations
+
+Some utility functions imitate existing gamlss functions.
+E.g., `histSmo_plot()` mimics `histSmo()` but uses ggplot2.
+
+
+Because the package is at an experimental stage, some of the functions are hidden to allowed time for checking. The hidden functions can be accessed using `gamlss.ggplots:::functionname()`.
+
+
+
+
+Note future functions that are not included in the package at the moment are:
+
+-   `ale_param()` for accumulated local effects of a specific term on the parameter (Mikis)
+
+-   `pd_param()` for partial dependants plots of a specific term on the parameter (Mikis)
+
+-   `pe_exceedance()` (Julian)
+
+## The model
+
+The general GAMLSS model can be written as $$
+\begin{split}
+y_i     &  \stackrel{\small{ind}}{\sim }  \mathcal{D}( \theta_1, \ldots, \theta_k) \nonumber \\
+g(\theta_1) &= \mathcal{ML}_1(x_{1i},x_{2i}, \ldots,  x_{pi}) \nonumber \\
+ \ldots &= \ldots \nonumber\\
+g(\theta_k) &= \mathcal{ML}_k(x_{1i},x_{2i}, \ldots,  x_{pi}). 
+ \end{split}
+ $$ {#eq-GAMLSS_ML} When only *additive smoothing* terms are fitted the model can be written; $$\begin{split}
+y_i     &  \stackrel{\small{ind}}{\sim }  \mathcal{D}( \theta_1, \ldots, \theta_k) \nonumber \\
+g(\theta_1)  &= b_0 + s_1(x_{1i})  +  \cdots,  +s_p(x_{pi}) \nonumber\\
+ \cdots &=& \cdots \nonumber\\
+g(\theta_k)  &= b_0 + s_1(x_{1i})  +   \cdots,  +s_p(x_{pi}).
+\end{split}
+$$ {#eq-GAMLSS}
+
+## Distribution Families {#sec-Family}
+
+Here there are no fitted models, and the only requirement are values for the parameters. Note that those function may at a later stage move to `gamlss.prepdata`.
+
+### `family_pdf()`
+
+The function `family_pdf()` plots individual pdf's from **gamlss.family** distribution. It needs the family argument.
+
+#### Continuous
+
+```{r}
+#| fig-height: 5
+#| label: fig-fam_pdf_continuous
+#| fig.cap: "Continuous response example: plotting the pdf of a normal random variable."
+#| warning: false
+family_pdf(NO, from=-5,to=5, mu=0, sigma=c(.5,1,2))
+```
+
+#### Discrere counts
+
+```{r}
+#| fig-height: 5
+#| label: fig-fam_pdf_discrete
+#| fig.cap: "Count response example: plotting the pdf of a beta binomial."
+#| warning: false
+family_pdf(NBI, to=15, mu=1, sigma=c(.5,1,2), alpha=.9, size.seqment = 3)
+```
+
+#### Discrere binomial type
+
+```{r}
+#| fig-height: 5
+#| label: fig-fam_pdf_binomial
+#| fig.cap: "Beta binomial response example: plotting the pdf of a beta binomial."
+#| warning: false
+family_pdf(BB, to=15, mu=.5, sigma=c(.5,1,2),  alpha=.9, , size.seqment = 3)
+```
+
+### `family_cdf`
+
+The function plots individual cdf's from **gamlss.family** distribution. It needs the family argument.
+
+#### Continuous
+
+```{r}
+#| fig-height: 5
+#| label: fig-fam_cdf_continuous
+#| fig.cap: "Continuous response example: plotting the cdf of a normal random variable."
+#| warning: false
+family_cdf(NO, from=-5,to=5, mu=0, sigma=c(.5,1,2))
+```
+
+#### Discrere counts
+
+```{r}
+#| fig-height: 5
+#| label: fig-fam_cdf_discrete
+#| fig.cap: "Count response example: plotting the cdf of a negative binomial."
+#| warning: false
+family_cdf(NBI, to=15, mu=1, sigma=c(.5,1,2), alpha=.9, size.seqment = 3)
+```
+
+#### Discrere binomial type
+
+```{r}
+#| fig-height: 5
+#| label: fig-fam_cdf_binomial
+#| fig.cap: "Count response example: plotting the cdf of a beta binomial."
+#| warning: false
+family_cdf(BB, to=15, mu=.5, sigma=c(.5,1,2),  alpha=.9, , size.seqment = 3)
+```
+
+### `family_cor()`
+
+The function `family_cor()` provides a crude way of checking the inter correlation of parameters within any `gamlss.family` distribution. It
+
+-   generates 10000 values from the specified distribution,
+
+-   fits the distribution to the generared data and
+
+-   plots the correlation coefficients of the parameters.
+
+Those correlation coefficients are taken from the fitted variance covariance matrix.
+
+::: callout-warning
+The method only provides an idea of how the correlations between parameters are at specified points of the distribution parameters. At different parameter points the distribution could behave completely different.
+:::
+
+```{r}
+#| fig-height: 5
+#| label: fig-fam_correlation
+#| fig.cap: "Family correlation of a BCTo distribution at specified values of the parameters."
+#| warning: false
+#source("~/Dropbox/github/gamlss-ggplots/R/family_cor.R")
+gamlss.ggplots:::family_cor("BCTo", mu=1, sigma=0.11, nu=1, tau=5, no.sim=10000)
+```
+
+## Fitting different model {#sec-Fitting}
+
+First we fit different GAMLSS models. The models will to be used for demonstration later.
+
+#### The `null` model using Normal distribution.
+
+```{r}
+data(rent)
+# Null model 
+m0<-gamlss(R~1,family=GA,data=rent)
+g0<-gamlss2(R~1,family=GA,data=rent)
+```
+
+#### Additive smooth model using Normal distribution.
+
+Fit additive smooth terms for `Fl` and `A` in the $\mu$ using the Normal distribution.
+
+```{r}
+# Smooth terms for Fl  and A  in mu, normal
+m1<-gamlss(R~pb(Fl)+pb(A),family=NO,data=rent)
+g1<-gamlss2(R~s(Fl)+s(A),family=NO,data=rent)
+```
+
+Fit additive smooth terms for `Fl` and `A` and main effects for `H` and `loc` in the $\mu$ using the Normal distribution.
+
+```{r}
+m2<-gamlss(R~pb(Fl)+pb(A)+H+loc, family=NO, data=rent)
+g2<-gamlss2(R~s(Fl)+s(A)+H+loc, family=NO, data=rent)
+```
+
+#### Additive smooth model using gamma distribution.
+
+Fit additive smooth terms for `Fl` and `A` and main effects for `H` and `loc` in the $\mu$ using Gamma distribution.
+
+```{r}
+# Smooth terms for Fl  and A main effects for H and loc in mu, gamma
+m3<-gamlss(R~pb(Fl)+pb(A)+H+loc,family=GA,data=rent)
+g3<-gamlss2(R~s(Fl)+s(A)+H+loc,family=GA,data=rent)
+```
+
+Fit additive smooth terms for `Fl` and `A` and main effects for `H` and `loc` in both $\mu$ and $\sigma$ parameters using Gamma distribution.
+
+```{r}
+m4<-gamlss(R~pb(Fl)+pb(A)+H+loc, sigma.fo=~pb(Fl)+pb(A)+H+loc, 
+           family=GA,data=rent)
+g4<-gamlss2(R~s(Fl)+s(A)+H+loc, sigma.fo=~s(Fl)+s(A)+H+loc, 
+           family=GA,data=rent)
+```
+
+#### Additive smooth model using `s()` and the gamma distribution.
+
+We bring the package *gamlss.add* for extra smoothers
+
+```{r}
+#| warning: false
+#| message: false
+library(gamlss.add)
+```
+
+Fit interaction smooth terms for `Fl` and `A` in $\mu$, additive main smooth effect for for `Fl` and `A` in $\sigma$ and main effects for `H` and `loc` in both $\mu$ and $\sigma$ using a gamma family.
+
+```{r}
+m5<-gamlss(R~ga(~s(Fl, A))+H+loc, sigma.fo=~pb(Fl)+pb(A)+H+loc, 
+           family=GA,data=rent)
+g5<-gamlss2(R~s(Fl, A)+H+loc, sigma.fo=~s(Fl)+s(A)+H+loc, 
+           family=GA,data=rent)
+```
+
+Fit interaction smooth terms for `Fl` and `A`, interaction for `H` and `loc` in $\mu$ and and main effects only in $\sigma$ using a gamma family.
+
+```{r}
+m6<-gamlss(R~ga(~s(Fl, A))+H*loc, sigma.fo=~pb(Fl)+pb(A)+H+loc, 
+           family=GA,data=rent)
+g6<-gamlss2(R~s(Fl, A)+H*loc, sigma.fo=~s(Fl)+s(A)+H+loc, 
+           family=GA,data=rent)
+```
+
+Fit a penalised varying coefficient model (a simpler form of smoothing in two dimensions that `s(Fl, A)`) in $\mu$. Additive main smooth effect for for `Fl` and `A` in $\sigma$ and main effects for `H` and `loc` in both $\mu$ and $\sigma$ using a gamma family.
+
+```{r}
+m7<-gamlss(R~pvc(Fl, by=A)+H+loc, sigma.fo=~pb(Fl)+pb(A)+H+loc, 
+           family=GA,data=rent)
+g7<-gamlss2(R~s(Fl,by=A)+H+loc, sigma.fo=~s(Fl)+s(A)+H+loc, 
+           family=GA,data=rent)
+
+```
+
+#### Neural network using Gamma distribution
+
+Fit Neural networks for `Fl`, `A`, `H`, and `loc` for both $\mu$ and $\sigma$ \# gamma family
+
+```{r}
+m8<-gamlss(R~nn(~Fl+A+H+loc,   size = 10,
+                     decay = 0.01,  maxit = 100), 
+               sigma.fo=~nn(~Fl+A+H+loc, decay = 0.01), 
+           family=GA,data=rent)
+g8<-gamlss2(R~n(~Fl+A+H+loc,   size = 10, decay = 0.01), 
+               sigma.fo=~n(~Fl+A+H+loc, size = 3,decay = 0.01), 
+           family=GA,data=rent)
+
+```
+
+#### Regression trees fits using Gamma distribution
+
+Fit regression trees for `Fl`, `A`, `H`, and `loc` for both $\mu$ and $\sigma$
+
+```{r}
+m9<-gamlss(R~tr(~Fl+A+H+loc), 
+               sigma.fo=~tr(~Fl+A+H+loc), 
+           family=GA,data=rent)
+g9<-gamlss2(R~tr(~Fl+A+H+loc), 
+               sigma.fo=~tr(~Fl+A+H+loc), 
+           family=GA,data=rent)
+```
+
+Checking the models using different GAIC. The *best* model using AIC is `m5` while using BIC is `m4`.
+
+```{r}
+T1 <- GAIC.table(m1,m2,m3,m4,m5,m6,m7, m8, m9)
+T1
+model_GAIC(m1,m2,m3,m4,m5,m6,m7, m8, m9)
+```
+
+::: callout-warning
+`GAIC.table` is not working for `gamlss2` objects
+:::
+
+```{r}
+# T2 <- GAIC.table(g1,g2,g3,g4,g5,g6,g7, g8, g9)
+# T2
+model_GAIC(g1,g2,g3,g4,g5,g6,g7, g8, g9)
+```
+
+## Residuals 
+
+This section describes plots to do with the residuals of a single GAMLSS fitted model. Plotting, the residuals is very important, because if the model is correct, the residuals of the model should be like a white noise. In GAMLSS we use the (randomised) normalised residuals. Randomisation happens only if the distribution is discreet, or if it is censored. Normalisation means that if the model is correct or adequate, then the residuals should look like a normal distribution.
+
+### `resid_index()`
+
+By plotting, the residual against the data index we would expect that there is no pattern in the plot because of the assumption that the observations (given the explanatory variables) are independent. @fig-resid_index show the standard residual plot against the index of the data. The argument `value` has to do with the *outliers* hoghlighted in the plot and can be change to a higher cut-off point. Other type of residuals, suitable standardised, not necessarily GAMLSS model residuals, can be plotted by using the argument `resid`.
+
+```{r}
+#| label: fig-resid_index
+#| fig-cap: "Residual plot."
+#| warning: false
+gg <-resid_index(g4)
+gg
+```
+
+#### Different models
+
+Residual plots from different models can be plotted in different graphs see @fig-figure2.
+
+```{r}
+#| label: fig-figure2
+#| fig-cap: "Residual plot."
+#| warning: false
+g11 <-resid_index(g1)
+g12 <-resid_index(g2)
+g13 <-resid_index(g3)
+g14 <-resid_index(g4)
+library(gridExtra)
+grid.arrange(g11,g12,g13,g14 )
+```
+
+#### Different range of an x-variable
+
+Here the residual plot is split against one continuous explanatory variables `Fl` using the function `facet_wrap()`. The function splits in three different cut points because the `cut_number(rent\$Fl, 3)` is used. Note that in order for `facet_wrap()` to work we had to suppress the horizontal likes using the argument `no.lines=TRUE`.
+
+```{r}
+#| label: fig-figure1113
+#| fig-cap: "Resisduals plot against the x-variable split in tree sections."
+#| warning: false
+resid_index(g1, no.lines=TRUE)+
+   facet_wrap(~cut_number(rent$Fl, 3))
+```
+
+Here we split according to one continuous an one categorical x-variables.
+
+```{r}
+#| label: fig-figure11131
+#| fig-cap: "Residuals plot against two x-variable split in tree sections."
+#| warning: false
+resid_index(g1, no.lines=TRUE) +
+  facet_grid(cut_number(rent$Fl, 3)~rent$loc)
+```
+
+### `resid_mu()`
+
+A plot of the residual against the fitted values of the model, usually reveals whether there is a heterogeneity in the data. The `resid_mu()` plots the residual from model `m1` against the fitted values for the model for $\mu$:
+
+```{r}
+#| label: fig-figure1111
+#| fig-cap: "Residuals plot against the fitted values for models `m1`"
+#| warning: false
+resid_mu(g1)
+```
+
+We can observe a fan type of behaviour in the plot, that is the residuals are become bigger for larger fitted values of the response. This behaviour is typical for models with heterogeneity in the data. Remember `m1` does not have a model for $\sigma$. In model `m4` we fit an mode for $\sigma$ so the residuals are better.
+
+```{r}
+#| label: fig-figure11111
+#| fig-cap: "Residuals plot against the fitted values for models `m4`"
+#| warning: false
+resid_mu(g4)
+```
+
+### `resid_quantile()`
+
+Residual plots from model `m1` against the fitted quantile (including the median) values can be obtained using:
+
+```{r}
+#| label: figure1111_quantile
+#| fig-cap: "Residuals plot against the  fitted 50 percent fitted quantiles of model `m4`"
+#| warning: false
+resid_quantile(g4)
+```
+
+### `resid_xvar()`
+
+#### Against a continuous explanatory variable
+
+Residual plots against a continuous explanatory variables can be plotted using: `resid_xvar()`:
+
+```{r}
+#| label: figure1112
+#| fig-cap: "Resisduals plot against the x-variables"
+#| warning: false
+resid_xvar(g1,Fl)
+resid_xvar(g1,A)
+```
+
+#### Against a categorical explanatory variable
+
+The function is working differently for categorical x-variables.
+
+```{r}
+#| label: figure11121
+#| fig-cap: "Resisduals plot against categorical x-variables for model `m1`"
+#| warning: false
+resid_xvar(g1,H)
+resid_xvar(g1,loc)
+```
+
+Or for a different models:
+
+```{r}
+#| label: figure11122
+#| fig-cap: "Resisduals plot against categorical x-variables for model `m4`"
+#| warning: false
+resid_xvar(g4,loc)
+```
+
+### `resid_qqplot()`
+
+The function `resid_qqplot()` can be use to get a QQ-plot of the residuals.
+
+```{r}
+#| label: fig-figure2_1
+#| fig-cap: "QQ-plot for model `m1`"
+#| warning: false
+gg <-resid_qqplot(g1)
+gg
+```
+
+The plot appears in @fig-figure2_1.
+
+For comparing two different models you can use
+
+To add another model QQ-plot try
+
+::: callout-warning
+`add_resid_qqplot` is not working for extra `gamlss2` objects
+:::
+
+```{r}
+#| label: fig-figure21
+#| fig-cap: "QQ-plot for modela `m1` and `m4`"
+#| warning: false
+gg1 <-add_resid_qqplot(gg, m4)
+#gg1
+```
+
+or alternatively you can use the function `model_qqplot()` which can display more than two models.
+
+#### For different values of x-variables
+
+```{r}
+#| label: fig-figure211
+#| fig-cap: "QQ-plot of the residuals of model `m1` against `Fl` and `A' "
+#| warning: false
+gg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)+ 
+  ggtitle("qqplot of model m1 against Fl and A") 
+```
+
+```{r}
+#| label: fig-figure211_1
+#| fig-cap: "QQ-plot of the residuals of models `m1` and `m4` against `Fl` and `A' "
+#| warning: false
+gg1+facet_grid(cut_number(rent$Fl, 3)~rent$loc)+ 
+  ggtitle("qqplot of models m1 and m4 against Fl and A")
+```
+
+### `resid_wp()`, Worm plots
+
+The worm plot for a single model can be plotted using:
+
+```{r}
+#| label: fig-figure3_a
+#| fig-cap: "Worm-plot of the residuals for model `m4`"
+#| warning: false
+gg<-resid_wp(g4)
+gg
+```
+
+See @fig-figure3_a.
+
+#### `resid_wp_wrap()`
+
+The worm plot for a single model at different values of an explanatory variable can be plotted using:
+
+```{r}
+#| label: fig-figure3_b
+#| fig-cap: "Worm-plot of the residuals for model `m4` at different values of `A`"
+#| warning: false
+gg1 <-resid_wp_wrap(g4, xvar=rent$A)
+gg1
+```
+
+See @fig-figure3_b
+
+### `resid_density()`
+
+#### The single density
+
+The function `resid_density()` plots the density of the residuals for one model while the function `model_densitity()` for more than one model.
+
+Here we plot the density of the residuals for model `m4`. See Figure @fig-figure4 for the plot.
+
+```{r}
+#| label: fig-figure4
+#| fig-cap: "A density plot of the residuals"
+#| warning: false
+gg<-resid_density(g4)
+gg
+```
+
+#### The multiple densities
+
+Here we plot the density of the residuals for model `m4` against two explanatory variables, `Fl` and `A`.
+
+```{r}
+#| label: fig-figure41
+#| fig-cap: "A density plot of the residuals against `Fl` and `A`"
+#| warning: false
+gg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)
+```
+
+### `resid_ecdf()`
+
+Figure @fig-figure7 show the empirical cumulative distribution function of the residuals of model `m4`
+
+```{r}
+#| label: fig-figure7
+#| fig-cap: "The ECDF of the residuals."
+#| warning: false
+gg <- resid_ecdf(g4)
+gg
+```
+
+Below cdf of a normally distributed variable with $\mu=0$ and $\sigma=1$ is added to the previous plot.
+
+```{r}
+#| label: fig-figure71
+#| fig-cap: "The ECDF of the residuals with added normal distribution."
+#| warning: false
+gg+stat_function(fun = pNO, args=list(mu=0, sigma=1), col="red")
+```
+
+### `resid_dtop()`
+
+The function `resid_dtop()` plot a de-trended empirical cdf plot. See @fig-figure6 for the plot.
+
+```{r}
+#| label: fig-figure6
+#| fig-cap: "A detrended Own's plot."
+#| warning: false
+gg<-resid_dtop(g4)
+gg
+```
+
+### `resid_plots()`
+
+The function `resid_plots()` tries to imitate the function `plot.gamlss()` of the **gamlss** package.
+
+```{r}
+#| label: fig-figure80
+#| fig-cap: "The plot of residuals."
+#| warning: false
+resid_plots(g4)
+```
+
+#### Different themes
+
+There are also different themes in the plot. Next in Figure @fig-figure81 we are trying `theme="new"`:
+
+```{r}
+#| label: fig-figure81
+#| fig-cap: "The plot of residuals with `theme=new'."
+#| warning: false
+resid_plots(g4, theme="new")
+```
+
+@fig-figure82 has `theme="ecdf"`:
+
+```{r}
+#| label: fig-figure82
+#| fig-cap: "The plot of residuals with `theme=ecdf'."
+#| warning: false
+resid_plots(g4, theme="ecdf")
+```
+
+@fig-figure83 has `theme="ecdf"`:
+
+```{r}
+#| label: fig-figure83
+#| fig-cap: "The plot of residuals with `theme=ts'."
+#| warning: false
+  resid_plots(g4, theme="ts")
+```
+
+### `resid_symmetry()`
+
+A symmetry plot is useful for detecting asymmetry (skewnwess) in the residuals. Here we plot the symmetry plot of the residuals for model `m4`.
+
+```{r}
+#| label: fig-figure4_1_1
+#| fig-cap: "A symmetry plot of the residuals."
+#| warning: false
+gg<-resid_symmetry(g4)
+gg
+```
+
+## Responce
+
+### `resp_mu()` {#sec-respmu}
+
+Plotting, the response variable against the fitted values is a traditional way of checking the adequacy of the model in linear regression model situation. The closer the points of the plot to 45% line the better the model. Also a hight correlation coeficient indicates a good fit. For GAMLSS this is equivalent of plotting the response against the fitted values of the $\mu$ model. A strong linear pattern indicates that the $\mu$ model is adequate.
+
+@fig-figure_resp_1 plots the response variable against the fitted values for $\mu$. The plot also show the 45 degrees line between the two variables. The relation should be close to linear as possible. The correlation between the response and the fitted values for $\mu$ is `r cor(rent$R, fitted(g4))` which is reasonable hight.
+
+```{r}
+#| label: fig-figure_resp_1
+#| fig-cap: "Response  against the `mu` fitted values."
+#| warning: false
+resp_mu(g4)
+```
+
+### `resp_param()`
+
+GAMLSS have more than one parameters, so plotting the response variable against the the other parameters fitted values could be of interest. The function `resp_param()` can do that. It plots the response against any parameter fitted values. @fig-resp_param_sigma shows the response against the fitted values for $\mu$ and $\sigma$ respectively for model `g4`. The first plot has the usual interpretation describes in Section @sec-respmu the second need more thought.
+
+```{r}
+#| label: fig-resp_param_sigma
+#| fig-cap: "Residuals plot against the  fitted `mu` and `sigma`, respectively, for model `g4' "
+#| warning: false
+resp_param(g4)
+# resp_param(g4, "sigma")
+```
+
+### `resp_quantile`
+
+The function `resp_quantile` plots the response variable against any fitted quantile. Here we plot the respose against the 0.95 quantile. Again the interpretation needs more thought.
+
+```{r}
+#| label: fig-figure_resp_3
+#| fig-cap: "The respose against the fitted median."
+#| warning: false
+resp_quantile(g4, quantile=0.95)
+```
+
+## Fitted 
+
+### `fitted_devianceIncr()`
+
+The function`fitted_devianceIncr()` plots the deviance increment from a fitted `gamlss` model.
+
+```{r}
+#| label: fig-fitted_devianceIncr
+#| fig-cap: "Plotting deviance increment from a fitted GAMLSS model."
+#| warning: false
+fitted_devianceIncr(g4)
+```
+
+### `fitted_leverage()`
+
+The function plots the linear leverage from a fitted GAMLSS model.
+
+```{r}
+#| label: fig-fitted_leverage
+#| fig-cap: "Plotting linear leverage from a fitted GAMLSS model."
+#| warning: false
+fitted_leverage(m4)
+```
+
+::: callout-warning
+`fitted_leverage` is not working for `gamlss2` objects
+:::
+
+### `fitted_pdf()`
+
+The function `fitted_pdf()` plots individual pdf's from a fitted model. It needs the argument `obs` indicating which observation number to plot.
+
+First a continuous distribution:
+
+```{r}
+#| label: fig-fitted_pdf_1
+#| fig-cap: "Probability functions for a continuous responses."
+#| warning: false
+a1 <- gamlss2(y~pb(x),sigma.fo=~x, data=abdom, family=LO)
+fitted_pdf(a1, obs=c(500,610),from=280, to=500)
+```
+
+For a infinite count response:
+
+```{r}
+#| label: fig-fitted_pdf_count
+#| fig-cap: "Probability functions for a count responses."
+#| warning: false
+p1 <- gamlss2(y~pb(x)+qrt, data=aids, family=NBI) 
+fitted_pdf(p1, obs=10:15, from=25, to=130, alpha=.9) 
+```
+
+This is a binomial example:
+
+```{r}
+#| label: fig-fitted_pdf_binom
+#| fig-cap: "Probability functions for a binomial responses."
+#| warning: false
+h <- gamlss(y~ward+loglos+year, ~year+ward, family=BB, data=aep)
+fitted_pdf(h, obs=c(10:15), alpha=.9)
+```
+
+::: callout-warning
+`binomial type distributions` are not working for `gamlss2` objects
+:::
+
+### `fitted_cdf()`
+
+The function `fitted_cdf()` plots individual pdf's from a fitted model. It needs the argument `obs` indicating which observation number to plot. %
+
+First a continuous distribution:
+
+```{r}
+#| label: fig-fitted_cdf
+#| fig-cap: "Probability functions for a continuous responses."
+#| warning: false
+fitted_cdf(a1, obs=c(500,610),from=280, to=500)
+```
+
+Here is a count response data example
+
+```{r}
+#| label: fig-fitted_cdf_count
+#| fig-cap: "Probability functions for a count responses."
+#| warning: false
+fitted_cdf(p1, obs=10:15, from=25, to=130, alpha=.9)
+```
+
+Here is a binomial response data example
+
+```{r}
+#| label: fig-fitted_cdf_binomial
+#| fig-cap: "Probability functions for a binomial responses."
+#| warning: false
+h<-gamlss(y~ward+loglos+year, sigma.formula=~year+ward, family=BB, data=aep)
+fitted_cdf(h, obs=c(10:15),  alpha=.9)
+```
+
+### `fitted_cdf_data()`
+
+The function `fitted_cdf_data()` plots individual pdf's from a fitted model but also add the data points. It needs the argument `obs` indicating which obs
+
+```{r}
+#| label: fig-fitted_cdf_data
+#| fig-cap: "Probability functions for a binomial responses."
+#| warning: false
+fitted_cdf_data(a1, obs=c(500,610),from=280, to=500)
+```
+
+### `fitted_centiles()` {#sec-fittedcentiles0}
+
+See Section @sec-fittedcentiles.
+
+## Models
+
+### `model_GAIC()`
+
+The functions `model_GAIC()` and `model_GAIC_lollipop()` are identical but the appearance is different.
+
+```{r}
+#| label: fig-figure9
+#| fig-cap: "plotting the GAIC."
+#| warning: false
+gg<-model_GAIC(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)
+gg
+```
+
+### `model_GAIC_lollipop()`
+
+```{r}
+#| label: fig-figure9_1
+#| fig-cap: "plotting the GAIC."
+#| warning: false
+gg1<-model_GAIC_lollipop(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)
+gg1
+```
+
+### `model_density()`
+
+To plot the residuals densities of all `m1`, `m2`, `m3`, and `m4` models use:
+
+```{r}
+#| label: figure5
+#| fig-cap: "A density plot of the residuals from different models."
+#| warning: false
+gg <-  model_density(g1, g2, g3, g4)
+gg
+```
+
+For multiple plots use:
+
+```{r}
+#| label: figure5_b
+#| fig-cap: "A density plot of the residuals from different models."
+#| warning: false
+gg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)
+```
+
+### `model_qqplot()`
+
+The function `model_qqplot()` can be use to get a QQ-plots for more that one fitted model residuals.
+
+```{r}
+#| label: fig-figure21A
+#| fig-cap: "QQ-plot of the residuals of models `m1`, `m2`, `m3` and `m4`."
+#| warning: false
+gg <- model_qqplot(g1, g2, g3, g4)
+gg
+```
+
+::: callout-warning
+something is wrong here `g2` and `g3` are not appearing
+:::
+
+For multiple plots use;
+
+```{r}
+#| label: fig-figure21B
+#| fig-cap: "Multiple QQ-plots of the residuals of models `m1`, `m2`, `m3` and `m4`."
+#| warning: false
+gg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)
+```
+
+The resulting plot is shown on the @fig-figure21B.
+
+### `model_wp()`
+
+The function `model_wp()` can be use to get a worm-plots for multiple fitted models residuals.
+
+```{r}
+#| label: fig-figure21ZIBIA
+#| fig-cap: "Worm-plot of the residuals of models `m1`, `m2`, `m3` and `m4`."
+#| warning: false
+gg <- model_wp(g1, g2, g3, g4)
+gg
+```
+
+### `model_wp_wrap()`
+
+For model worm plots at differenbt values of the explnatory variables use;
+
+```{r}
+#| label: fig-figure21ZIBIB
+#| fig-cap: "Multiple worm-plot of the residuals of models `m1`, `m2`, `m3` and `m4`."
+#| warning: false
+gg1 <- model_wp_wrap(g1, g2, g3, g4, xvar=rent$A)
+gg1
+```
+
+The resulting plot is shown on the right side of Figure @fig-figure21ZIBIB.
+
+## Bucket plots
+
+### `moment_bucket()` and `model_mom_bucket()`
+
+The function `model_mom_bucket()` can be use to get the moment bucket plot for one or more fitted model residuals. Note that `moment_bucket()` is synonymous to `model_mom_bucket()`.
+
+```{r}
+#| label: fig-figure21_BC
+#| fig-cap: "Single moment bucket plots of the residuals of models  `m1`, `m2`, `m3` and `m4`."
+#| warning: false
+gg <- moment_bucket(g1, g2, g3, g4)
+gg
+```
+
+### `moment_bucket_wrap()`
+
+For multiple plots use
+
+```{r}
+#| label: fig-figure21_BD
+#| fig-cap: "Multiple moment bucket plots of the residuals of models  `g1`, `g2`, `g3` and `g4`."
+#| warning: false
+gg1 <- moment_bucket_wrap(m1, m2, m3, m4, xvar=rent$A)
+gg1 
+```
+
+::: callout-warning
+Not working with `gamlls2` objects
+:::
+
+The resulting plot is shown on the right side of Figure @fig-figure21_BD.
+
+### `moment_gray_both()` and `moment_colour_both()`
+
+Note that the background of the bucket plots is generated by the functions
+
+```{r}
+#| label: fig-figure21_BCA
+#| fig-cap: "The background of the moment bucket plot."
+#| warning: false
+moment_gray_both()
+moment_colour_both()
+```
+
+### `model_devianceIncr_diff()`
+
+The function plots the difference in deviance increment between two fitted `gamlss` models.
+
+```{r}
+#| label: fig-model_devianceIncr_diff
+#| fig-cap: "Deviance difference between models `m3` and `m4`."
+#| warning: false
+model_devianceIncr_diff(m3,m4)
+```
+
+::: callout-warning
+Not working with `gamlls2` objects
+:::
+
+### `model_pca()`
+
+This function it uses Principal Component Analysis (PCA) for the residual of multiple models and plots a bi-plot the first and second components.
+
+```{r}
+#| label: fig-model_pca
+#| fig-cap: "A PCA of different models residuals`."
+#| warning: false
+gg <- model_pca(g1,g2,g3,g4)
+gg
+```
+
+### `model_centiles()` {#sec-modelcentiles0}
+
+See Section @sec-modelcentiles.
+
+## Plots for $y$ vectors
+
+### `y_hist()`
+
+Here we generate a vector from a `BCCG` distribution and plot its histogram and its density function .
+
+```{r}
+#| label: fig-y_hist
+#| fig-cap: "Plotting a histogram of single variable and its density function."
+#| warning: false
+y <- rBCCG(1000, mu=3, sigma=.1, nu=-1)
+gg <- y_hist(y)
+gg
+```
+
+Here we add the true pdf of the generated variable.
+
+```{r}
+#| label: fig-hist_added
+#| fig-cap: "Plotting a histogram of single variable and the `true` distribution supperimpose"
+#| warning: false
+gg + stat_function(fun = dBCT, args=list(mu=3, sigma=.1,  nu=-1, tau=5),
+      geom = "area", alpha=0.5, fill="lightblue", color="black", n=301)
+```
+
+### `y_dots()`
+
+The dots function is appropriate for long tail distributions be cause emphasise the the long left ot right tail of $y$.
+
+```{r}
+#| label: fig-y_dots
+#| fig-cap: "Plotting the $y$ in dots to emphisise the long right tail."
+#| warning: false
+y <- rBCT(1000, mu=3, sigma=.1, nu=-1, tau=4)
+gg <- y_dots(y)
+gg
+```
+
+### `y_ecdf()`
+
+The empirical cdf of a variables can be plotted using the function `y_ecdf()`
+
+```{r}
+#| label: fig-y_ecdf
+#| fig-cap: "Plotting the empirical cdf of a variable."
+#| warning: false
+y <- rBCT(1000, mu=3, sigma=.1, nu=-1, tau=4)
+gg <- y_ecdf(y)
+gg
+```
+
+Here is how you can add the theoretical cdf.
+
+```{r}
+#| label: fig-y_ecdf_add
+#| fig-cap: "Plotting the empirical cdf of a variable plues its theoretical cdf."
+#| warning: false
+gg+ stat_function(fun = 
+          pBCT, args=list(mu=3, sigma=.1,  nu=-1, tau=5), 
+          color="red", n=301)
+```
+
+### `y_acf()`
+
+The functions `y_acf()` take a single time series vector and plot its auto-correlation function.
+
+```{r}
+#| label: fig-y_acf
+#| fig-cap: "Plotting ACF of  the first difference of FTSE."
+#| warning: false
+y_acf(diff(EuStockMarkets[,1])) 
+```
+
+### `y_pacf()`
+
+The functions `y_pacf()` take a single time series vector and plot its partial auto-correlation function.
+
+```{r}
+#| label: fig-y_pacf
+#| fig-cap: "Plotting PACF of  the first difference of FTSE."
+#| warning: false
+y_pacf(diff(EuStockMarkets[,1])) 
+```
+
+### `y_symmetry()`
+
+Here we plot the symmetry plot of the variable $y$.
+
+```{r}
+#| label: fig-y_symmetry
+#| fig-cap: "A symmetry plot of the rent data."
+#| warning: false
+gg<-y_symmetry(rent$R)
+gg
+```
+
+## Partial effects
+
+Those functions should be called `fitted_pe\_\...` but we have dropped the `fitted` part to simplify the notation.
+
+### `pe_terms()`
+
+The function plots individual terms from a fitted `gamlss` model. It is equivalent to `term.plot()`. Note that the function will produce up to 9 term plots before ask for the next page.
+
+```{r}
+#| label: fig-pe_terms
+#| fig-cap: "Plotting terms from a fitted GAMLSS model."
+#| warning: false
+gamlss.ggplots:::pe_terms(m4, partial=T)
+```
+
+The function `pe_terms()` uses the function `lpred()` to obtain the partial fitted terms. The function `lpred()` is using the parameter `model.frame` which has already evaluate the factors as a set of dummy variables. The partial terms are then evaluated by fixing the other terms on their means and after subtraction for the mean of the response.
+
+::: callout-warning
+Not working with `gamlls2` objects
+:::
+
+## interpretation 
+
+### `pe_param()`
+
+The function `pe_param()` plots the partial effect of one or two specified term(s) given all other terms in the model remain fixed at predetermined values. Depending on length of the argument `term` the function `pe_param()` uses the function `pe_1_param()` or `pe_2_param()` to plot the partial effects. Here we plot it against a continuous variable `A`:
+
+```{r}
+#| label: fig-pe_param
+#| fig-cap: "Plotting partial terms from `A`."
+#| warning: false
+pe_param(g4, "A")
+```
+
+Here we plot it against a categorical variable `loc`:
+
+```{r}
+#| label: fig-pe_param_loc
+#| fig-cap: "Plotting partial terms from `loc`."
+#| warning: false
+pe_param(g4, "loc")
+```
+
+Here we use two continuous variables `A` and `Fl`:
+
+```{r}
+#| label: fig-pe_param_2_ConCont
+#| fig-cap: "Plotting partial terms from `A` and `Fl`."
+#| warning: false
+gamlss.ggplots:::pe_param(g4, c("A", "Fl"))
+```
+
+Here we use two continuous variables `A` and `Fl` but with the argument `filled = TRUE`:
+
+```{r}
+#| label: fig-pe_param_2_ConCont_1
+#| fig-cap: "Plotting partial terms from `A` and `Fl`."
+#| warning: false
+gamlss.ggplots:::pe_param(g4, c("A", "Fl"), filled = TRUE)
+```
+
+Here we use one continuous `A` and one categorical variables `loc`:
+
+```{r}
+#| label: fig-pe_param_2_ConCat
+#| fig-cap: "Plotting partial terms from `loc` and `A`."
+#| warning: false
+gamlss.ggplots:::pe_param(g4, c("A", "loc"))
+```
+
+Here we use two categorical variables `H` and `loc`:
+
+```{r}
+#| label: fig-pe_param_2_CatCat
+#| fig-cap: "Plotting partial terms from `loc` and `H`."
+#| warning: false
+gamlss.ggplots:::pe_param(g4, c("H", "loc"))
+```
+
+### `pe_param_grid()`
+
+The function `pe_param_grid()` show multiple plots of partial effects (main effect or first order interactions) given all other terms in the model remain fixed at predetermined values.
+
+```{r}
+#| label: fig-pe_param_grid_1
+#| fig-cap: "Plotting partial terms from `loc` and `H`."
+#| warning: false
+gamlss.ggplots:::pe_param_grid(g5, list(c("Fl", "A"), c("H", "loc")))
+```
+
+```{r}
+#| label: fig-pe_param_grid_2
+#| fig-cap: "Plotting the partial effect of terms in model `m6`. Note that the plot on the left panel is a genuine first order interaction term fitted with a 2 dimensional smoother using  the interface with the package `mgcv` while the plot on the right panel is created using the two factors `H` and `loc` is just a two dimensional plot of the two main effects  for `H` and `loc` respectively, since no interaction was fitted for those two terms"
+#| warning: false
+gamlss.ggplots:::pe_param_grid(g5, list(c("Fl", "A"), c("H", "loc")))
+```
+
+## prediction
+
+### `predict_pdf()`
+
+Now with `newdata` we use \`predict_pdf':
+
+```{r}
+#| label: fig-predict_pdf
+#| fig-cap: "Plotting linear leverage from a fitted GAMLSS model."
+#| warning: false
+predict_pdf(a1, newdata=abdom[c(11,15,20,25),], from=38, to=130)
+```
+
+## Centile estimation (Utilities)
+
+Here we use three different GAMLSS models. Note that for all centile functions the name of the x-variable should appear in the plotting function as in the actual data otherwise the function will not find it:
+
+#### fractional polynomials basis
+
+```{r}
+#| cache: TRUE
+#| warning: false
+m1 =gamlss(head~bfp(age,c(-2,-1,-.5,0,.5,1,2,3)), 
+           ~bfp(age,c(-2,-1,-.5,0,.5,1,2,3)),
+           ~bfp(age,c(-2,-1,-.5,0,.5,1,2,3)),
+           ~bfp(age,c(-2,-1,-.5,0,.5,1,2,3)),
+           data=db, family=BCTo, trace=FALSE)
+```
+
+#### P-splines
+
+```{r}
+#| cache: TRUE
+#| warning: false
+m2 =gamlss(head~pb(age^.3), 
+           ~pb(age^.3), 
+           ~pb(age^.3),
+           ~pb(age^.3),
+           data=db, family=BCTo, c.crit=0.01, 
+           trace=FALSE, n.cyc=50)
+```
+
+#### fractional polynomials
+
+```{r}
+#| cache: TRUE
+#| warning: false
+m3 =gamlss(head~fp(age,3), 
+           ~fp(age,3), 
+           ~fp(age,3),
+           ~fp(age,3),
+           data=db, family=BCTo, c.crit=0.01, 
+           trace=FALSE, n.cyc=50)
+GAIC.table(m1,m2, m3)
+```
+
+::: callout-warning
+This needs to be translated to `gamlls2` objects
+:::
+
+### Classical functions
+
+Those the three classical GAMLSS centile functions;
+
+```{r}
+#| eval: false 
+centiles(m1)#  works
+#######################################################################
+centiles.fan(m1)#  works
+#######################################################################
+centiles.com(m1,m2,m3 )# works
+```
+
+Note that you can actually can specify the x variable and produce identical results:
+
+```{r}
+#| eval: false 
+centiles(m1, xvar=db$age)# works
+centiles(m1, xvar=age)# works
+```
+
+### `fitted_centiles()` {#sec-fittedcentiles}
+
+The `fitted_centiles()` function, produces identical results with the function `centiles()` of **gamlss**.
+
+```{r}
+#| label: fig-fitted_centiles
+#| fig-cap: "Plotting the centiles for model `m2`."
+#| warning: false
+fitted_centiles(m2)
+```
+
+The function `fitted_centiles()'  can be used with`facet_wrap()\`:
+
+```{r}
+#| label: fig-fitted_centiles3
+#| fig-cap: "Plotting the centiles for models `m1`, `m2` and `m3`."
+#| warning: false
+fitted_centiles(m2)+
+  facet_wrap(cut_number(db$age, 3), scales = "free_x")
+```
+
+### `fitted_centiles_legend()` {#sec-fittedcentileslegend}
+
+To have legend in the plot use the following which it takes more time.
+
+```{r}
+#| label: fig-fitted_centiles_legend
+#| fig-cap: "Plotting the centiles for model `m2`."
+#| warning: false
+fitted_centiles_legend(m1)
+```
+
+### `model_centiles()` {#sec-modelcentiles}
+
+If you wnat to check the centiles curves for all models used;
+
+```{r}
+#| label: fig-model_centiles
+#| fig-cap: "Plotting the centiles for models `m1`, `m2` and `m3`."
+#| warning: false
+model_centiles(m1,m2,m3,  xvar=age)
+```
+
+or
+
+```{r}
+#| label: fig-model_centiles2
+#| fig-cap: "Plotting the centiles for models `m1`, `m2` and `m3`."
+#| warning: false
+model_centiles(m1,m2,m3,  xvar=age, in.one=TRUE)
+```
+
+The function `model_centiles(..., in.one=TRUE)'  can be used with`facet_wrap()\`:
+
+```{r}
+#| label: fig-model_centiles3
+#| fig-cap: "Plotting the centiles for models `m1`, `m2` and `m3`."
+#| warning: false
+model_centiles(m1,m2,m3, xvar=age, in.one=TRUE)+
+  facet_wrap(cut_number(db$age, 4), scales = "free_x")# working
+```
+
+## Boostrapping {#sec-Boostrapping}
+
+`to be continue`
+
