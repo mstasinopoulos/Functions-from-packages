@@ -1,0 +1,8 @@
+---
+title: "About extra materrial for GAMLSS packages "
+---
+
+This site is created to provide a platform to explain some of the function in GAMLSS packages in `R` software.
+
+
+

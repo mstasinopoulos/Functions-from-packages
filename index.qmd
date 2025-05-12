@@ -1,0 +1,27 @@
+---
+title: "Extra material for GAMLSS packages"
+author:
+  - name: De Bastiani, F.
+    affiliation: Federal University of Pernambuco, Brazil  
+  - name: Heller, G.
+    affiliation: University of Syndey, Austalia  
+  - name: Kneib, T.
+    affiliation: University of Gottigan, Gernany
+  - name: Mayr, A.
+    affiliation: University of Marburg, Gernany  
+  - name: Rigby, R. A.
+    affiliation: University of Greenwich, UK
+  - name: Stasinopoulos, M. D.
+    affiliation: University of Greenwich, UK
+    email: d.stasinopoulos@gre.ac.uk
+  - name: Stauffer, Reto
+    affiliation: University of Innsbruck, Austria
+  - name: Umlauf, N,   
+    affiliation: University of Innsbruck, Austria
+  - name: Zeileis, A.  
+    affiliation: University of Innsbruck, Austria
+---
+
+This website contains information about the functions in packages `gamlss.prepdata` and `gamlss.ggplots`
+
+-   the package [gamlss.prepdata](gamlss-prepdata.qmd)

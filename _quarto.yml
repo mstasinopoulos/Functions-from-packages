@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "Extra material for GAMLSS packages"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - gamlss-prepdata.qmd
+sidebar:
+  contents: auto
+  
+format:
+  html:
+    theme: sky
+    css: styles.css
+    toc: true
+
+editor: visual
+
+  
+
