@@ -25,3 +25,5 @@ author:
 This website contains information about the functions in packages `gamlss.prepdata` and `gamlss.ggplots`
 
 -   the package [gamlss.prepdata](gamlss-prepdata.qmd)
+
+-   the package [gamlss.ggplots](gamlss-ggplots.qmd)

@@ -9,6 +9,7 @@ website:
         text: Home
       - about.qmd
       - gamlss-prepdata.qmd
+      - gamlss-ggplots.qmd
 sidebar:
   contents: auto
   
