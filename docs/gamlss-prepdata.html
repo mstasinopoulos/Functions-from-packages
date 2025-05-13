@@ -195,6 +195,10 @@ window.Quarto = {
     <a class="nav-link active" href="./gamlss-prepdata.html" aria-current="page"> 
 <span class="menu-text">The Functions in the Package <code>gamlss.prepdata</code></span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./gamlss-ggplots.html"> 
+<span class="menu-text">The Functions in <code>gamlss.ggplots</code></span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -212,13 +216,13 @@ window.Quarto = {
    
   <ul class="collapse">
   <li><a href="#sec-introduction" id="toc-sec-introduction" class="nav-link active" data-scroll-target="#sec-introduction">Introduction</a></li>
-  <li><a href="#introduction-to-the-gamlss.prepdata-package" id="toc-introduction-to-the-gamlss.prepdata-package" class="nav-link" data-scroll-target="#introduction-to-the-gamlss.prepdata-package">Introduction to the <code>gamlss.prepdata</code> Package</a></li>
-  <li><a href="#distributional-regression-model" id="toc-distributional-regression-model" class="nav-link" data-scroll-target="#distributional-regression-model">Distributional Regression model</a></li>
+  <li><a href="#gamlss.prepdata" id="toc-gamlss.prepdata" class="nav-link" data-scroll-target="#gamlss.prepdata"><code>gamlss.prepdata</code></a></li>
+  <li><a href="#distributional-regression" id="toc-distributional-regression" class="nav-link" data-scroll-target="#distributional-regression">Distributional Regression</a></li>
   <li><a href="#sec-Information" id="toc-sec-Information" class="nav-link" data-scroll-target="#sec-Information">Ιnformation functions</a></li>
   <li><a href="#sec-Graphical-functions" id="toc-sec-Graphical-functions" class="nav-link" data-scroll-target="#sec-Graphical-functions">Graphical functions</a></li>
-  <li><a href="#sec-Features" id="toc-sec-Features" class="nav-link" data-scroll-target="#sec-Features">Features</a></li>
+  <li><a href="#sec-Features" id="toc-sec-Features" class="nav-link" data-scroll-target="#sec-Features">Feature functions</a></li>
   <li><a href="#sec-Partition" id="toc-sec-Partition" class="nav-link" data-scroll-target="#sec-Partition">Data Partition</a></li>
-  <li><a href="#sec-Family" id="toc-sec-Family" class="nav-link" data-scroll-target="#sec-Family">Plotting Distribution Families</a></li>
+  <li><a href="#sec-Family" id="toc-sec-Family" class="nav-link" data-scroll-target="#sec-Family">Distribution Families</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="gamlss-prepdata.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
@@ -348,8 +352,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="introduction-to-the-gamlss.prepdata-package" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-the-gamlss.prepdata-package">Introduction to the <code>gamlss.prepdata</code> Package</h2>
+<section id="gamlss.prepdata" class="level2">
+<h2 class="anchored" data-anchor-id="gamlss.prepdata"><code>gamlss.prepdata</code></h2>
 <p>The <code>gamlss.prepdata</code> package originated from the <code>gamlss.ggplots</code> package. As <code>gamlss.ggplots</code> became too large for easy maintenance, it was split into two separate packages, and <code>gamlss.prepdata</code> was created.</p>
 <p>Since <code>gamlss.prepdata</code> is still at an experimental stage, some functions are hidden to allow time for thorough checking and validation. These hidden functions can still be accessed using the triple colon notation, for example: <code>gamlss.prepdata:::</code>.</p>
 <p>The functions available in <code>gamlss.prepdata</code> are intended for pre-fitting — that is, to be used before applying the <code>gamlss()</code> or <code>gamlss2()</code> fitting functions. The available functions can be grouped into the following categories:</p>
@@ -406,8 +410,8 @@ window.Quarto = {
 <p>Next, we define what we mean by <strong>distributional regression</strong>.</p>
 </section>
 </section>
-<section id="distributional-regression-model" class="level2">
-<h2 class="anchored" data-anchor-id="distributional-regression-model">Distributional Regression model</h2>
+<section id="distributional-regression" class="level2">
+<h2 class="anchored" data-anchor-id="distributional-regression">Distributional Regression</h2>
 <p>The aim of this vignette is to demonstrate how to manipulate and prepare data before applying a distributional regression analysis.</p>
 <p>The general form a distributional regression model can be written as; <span id="eq-GAMLSS_ML"><span class="math display">\[
 \begin{split}
@@ -1504,7 +1508,7 @@ Important
 </section>
 </section>
 <section id="sec-Features" class="level2">
-<h2 class="anchored" data-anchor-id="sec-Features">Features</h2>
+<h2 class="anchored" data-anchor-id="sec-Features">Feature functions</h2>
 <p>The features functions are functions to help with the continuous explanatory x-variables; We divide them here in four sections; Functions for</p>
 <ul>
 <li><p><code>outliers</code>;</p></li>
@@ -2216,7 +2220,7 @@ that is, 1541 observations. </code></pre>
 </section>
 </section>
 <section id="sec-Family" class="level2">
-<h2 class="anchored" data-anchor-id="sec-Family">Plotting Distribution Families</h2>
+<h2 class="anchored" data-anchor-id="sec-Family">Distribution Families</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

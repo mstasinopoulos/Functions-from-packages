@@ -196,21 +196,83 @@ window.Quarto = {
   <li><a href="#sec-introduction" id="toc-sec-introduction" class="nav-link active" data-scroll-target="#sec-introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  <li><a href="#packages-versions" id="toc-packages-versions" class="nav-link" data-scroll-target="#packages-versions">Packages Versions</a></li>
-  <li><a href="#overview-of-the-gamlss.ggplots-package" id="toc-overview-of-the-gamlss.ggplots-package" class="nav-link" data-scroll-target="#overview-of-the-gamlss.ggplots-package">Overview of the <code>gamlss.ggplots</code> Package</a></li>
-  <li><a href="#the-model" id="toc-the-model" class="nav-link" data-scroll-target="#the-model">The model</a></li>
-  <li><a href="#sec-Family" id="toc-sec-Family" class="nav-link" data-scroll-target="#sec-Family">Distribution Families</a></li>
-  <li><a href="#sec-Fitting" id="toc-sec-Fitting" class="nav-link" data-scroll-target="#sec-Fitting">Fitting different model</a></li>
-  <li><a href="#residuals" id="toc-residuals" class="nav-link" data-scroll-target="#residuals">Residuals</a></li>
-  <li><a href="#responce" id="toc-responce" class="nav-link" data-scroll-target="#responce">Responce</a></li>
-  <li><a href="#fitted" id="toc-fitted" class="nav-link" data-scroll-target="#fitted">Fitted</a></li>
-  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
-  <li><a href="#bucket-plots" id="toc-bucket-plots" class="nav-link" data-scroll-target="#bucket-plots">Bucket plots</a></li>
-  <li><a href="#plots-for-y-vectors" id="toc-plots-for-y-vectors" class="nav-link" data-scroll-target="#plots-for-y-vectors">Plots for <span class="math inline">\(y\)</span> vectors</a></li>
-  <li><a href="#partial-effects" id="toc-partial-effects" class="nav-link" data-scroll-target="#partial-effects">Partial effects</a></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">interpretation</a></li>
-  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">prediction</a></li>
-  <li><a href="#centile-estimation-utilities" id="toc-centile-estimation-utilities" class="nav-link" data-scroll-target="#centile-estimation-utilities">Centile estimation (Utilities)</a></li>
+  <li><a href="#versions" id="toc-versions" class="nav-link" data-scroll-target="#versions">Versions</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#gamlss" id="toc-gamlss" class="nav-link" data-scroll-target="#gamlss">GAMLSS</a></li>
+  </ul></li>
+  <li><a href="#sec-Family" id="toc-sec-Family" class="nav-link" data-scroll-target="#sec-Family">Distributions</a>
+  <ul class="collapse">
+  <li><a href="#family_pdf" id="toc-family_pdf" class="nav-link" data-scroll-target="#family_pdf"><code>family_pdf()</code></a></li>
+  <li><a href="#family_cdf" id="toc-family_cdf" class="nav-link" data-scroll-target="#family_cdf"><code>family_cdf</code></a></li>
+  <li><a href="#family_cor" id="toc-family_cor" class="nav-link" data-scroll-target="#family_cor"><code>family_cor()</code></a></li>
+  </ul></li>
+  <li><a href="#sec-Fitting" id="toc-sec-Fitting" class="nav-link" data-scroll-target="#sec-Fitting">Fits</a></li>
+  <li><a href="#residuals" id="toc-residuals" class="nav-link" data-scroll-target="#residuals">Residuals</a>
+  <ul class="collapse">
+  <li><a href="#resid_index" id="toc-resid_index" class="nav-link" data-scroll-target="#resid_index"><code>resid_index()</code></a></li>
+  <li><a href="#resid_mu" id="toc-resid_mu" class="nav-link" data-scroll-target="#resid_mu"><code>resid_mu()</code></a></li>
+  <li><a href="#resid_quantile" id="toc-resid_quantile" class="nav-link" data-scroll-target="#resid_quantile"><code>resid_quantile()</code></a></li>
+  <li><a href="#resid_xvar" id="toc-resid_xvar" class="nav-link" data-scroll-target="#resid_xvar"><code>resid_xvar()</code></a></li>
+  <li><a href="#resid_qqplot" id="toc-resid_qqplot" class="nav-link" data-scroll-target="#resid_qqplot"><code>resid_qqplot()</code></a></li>
+  <li><a href="#resid_wp-worm-plots" id="toc-resid_wp-worm-plots" class="nav-link" data-scroll-target="#resid_wp-worm-plots"><code>resid_wp()</code>, Worm plots</a></li>
+  <li><a href="#resid_wp_wrap" id="toc-resid_wp_wrap" class="nav-link" data-scroll-target="#resid_wp_wrap"><code>resid_wp_wrap()</code></a></li>
+  <li><a href="#resid_density" id="toc-resid_density" class="nav-link" data-scroll-target="#resid_density"><code>resid_density()</code></a></li>
+  <li><a href="#resid_ecdf" id="toc-resid_ecdf" class="nav-link" data-scroll-target="#resid_ecdf"><code>resid_ecdf()</code></a></li>
+  <li><a href="#resid_dtop" id="toc-resid_dtop" class="nav-link" data-scroll-target="#resid_dtop"><code>resid_dtop()</code></a></li>
+  <li><a href="#resid_plots" id="toc-resid_plots" class="nav-link" data-scroll-target="#resid_plots"><code>resid_plots()</code></a></li>
+  <li><a href="#resid_symmetry" id="toc-resid_symmetry" class="nav-link" data-scroll-target="#resid_symmetry"><code>resid_symmetry()</code></a></li>
+  </ul></li>
+  <li><a href="#responce" id="toc-responce" class="nav-link" data-scroll-target="#responce">Responce</a>
+  <ul class="collapse">
+  <li><a href="#sec-respmu" id="toc-sec-respmu" class="nav-link" data-scroll-target="#sec-respmu"><code>resp_mu()</code></a></li>
+  <li><a href="#resp_param" id="toc-resp_param" class="nav-link" data-scroll-target="#resp_param"><code>resp_param()</code></a></li>
+  <li><a href="#resp_quantile" id="toc-resp_quantile" class="nav-link" data-scroll-target="#resp_quantile"><code>resp_quantile</code></a></li>
+  </ul></li>
+  <li><a href="#fitted" id="toc-fitted" class="nav-link" data-scroll-target="#fitted">Fitted</a>
+  <ul class="collapse">
+  <li><a href="#fitted_devianceincr" id="toc-fitted_devianceincr" class="nav-link" data-scroll-target="#fitted_devianceincr"><code>fitted_devianceIncr()</code></a></li>
+  <li><a href="#fitted_leverage" id="toc-fitted_leverage" class="nav-link" data-scroll-target="#fitted_leverage"><code>fitted_leverage()</code></a></li>
+  <li><a href="#fitted_pdf" id="toc-fitted_pdf" class="nav-link" data-scroll-target="#fitted_pdf"><code>fitted_pdf()</code></a></li>
+  <li><a href="#fitted_cdf" id="toc-fitted_cdf" class="nav-link" data-scroll-target="#fitted_cdf"><code>fitted_cdf()</code></a></li>
+  <li><a href="#fitted_cdf_data" id="toc-fitted_cdf_data" class="nav-link" data-scroll-target="#fitted_cdf_data"><code>fitted_cdf_data()</code></a></li>
+  </ul></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a>
+  <ul class="collapse">
+  <li><a href="#model_gaic" id="toc-model_gaic" class="nav-link" data-scroll-target="#model_gaic"><code>model_GAIC()</code></a></li>
+  <li><a href="#model_gaic_lollipop" id="toc-model_gaic_lollipop" class="nav-link" data-scroll-target="#model_gaic_lollipop"><code>model_GAIC_lollipop()</code></a></li>
+  <li><a href="#model_density" id="toc-model_density" class="nav-link" data-scroll-target="#model_density"><code>model_density()</code></a></li>
+  <li><a href="#model_qqplot" id="toc-model_qqplot" class="nav-link" data-scroll-target="#model_qqplot"><code>model_qqplot()</code></a></li>
+  <li><a href="#model_wp" id="toc-model_wp" class="nav-link" data-scroll-target="#model_wp"><code>model_wp()</code></a></li>
+  <li><a href="#model_wp_wrap" id="toc-model_wp_wrap" class="nav-link" data-scroll-target="#model_wp_wrap"><code>model_wp_wrap()</code></a></li>
+  <li><a href="#model_mom_bucket" id="toc-model_mom_bucket" class="nav-link" data-scroll-target="#model_mom_bucket">`model_mom_bucket()</a></li>
+  <li><a href="#moment_bucket_wrap" id="toc-moment_bucket_wrap" class="nav-link" data-scroll-target="#moment_bucket_wrap"><code>moment_bucket_wrap()</code></a></li>
+  <li><a href="#model_devianceincr_diff" id="toc-model_devianceincr_diff" class="nav-link" data-scroll-target="#model_devianceincr_diff"><code>model_devianceIncr_diff()</code></a></li>
+  <li><a href="#model_pca" id="toc-model_pca" class="nav-link" data-scroll-target="#model_pca"><code>model_pca()</code></a></li>
+  </ul></li>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">Vectors</a>
+  <ul class="collapse">
+  <li><a href="#y_hist" id="toc-y_hist" class="nav-link" data-scroll-target="#y_hist"><code>y_hist()</code></a></li>
+  <li><a href="#y_dots" id="toc-y_dots" class="nav-link" data-scroll-target="#y_dots"><code>y_dots()</code></a></li>
+  <li><a href="#y_ecdf" id="toc-y_ecdf" class="nav-link" data-scroll-target="#y_ecdf"><code>y_ecdf()</code></a></li>
+  <li><a href="#y_acf" id="toc-y_acf" class="nav-link" data-scroll-target="#y_acf"><code>y_acf()</code></a></li>
+  <li><a href="#y_pacf" id="toc-y_pacf" class="nav-link" data-scroll-target="#y_pacf"><code>y_pacf()</code></a></li>
+  <li><a href="#y_symmetry" id="toc-y_symmetry" class="nav-link" data-scroll-target="#y_symmetry"><code>y_symmetry()</code></a></li>
+  </ul></li>
+  <li><a href="#partial-effects" id="toc-partial-effects" class="nav-link" data-scroll-target="#partial-effects">Partial effects</a>
+  <ul class="collapse">
+  <li><a href="#pe_terms" id="toc-pe_terms" class="nav-link" data-scroll-target="#pe_terms"><code>pe_terms()</code></a></li>
+  <li><a href="#pe_param" id="toc-pe_param" class="nav-link" data-scroll-target="#pe_param"><code>pe_param()</code></a></li>
+  <li><a href="#pe_param_grid" id="toc-pe_param_grid" class="nav-link" data-scroll-target="#pe_param_grid"><code>pe_param_grid()</code></a></li>
+  </ul></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">prediction</a>
+  <ul class="collapse">
+  <li><a href="#predict_pdf" id="toc-predict_pdf" class="nav-link" data-scroll-target="#predict_pdf"><code>predict_pdf()</code></a></li>
+  </ul></li>
+  <li><a href="#centile-estimation" id="toc-centile-estimation" class="nav-link" data-scroll-target="#centile-estimation">Centile estimation</a>
+  <ul class="collapse">
+  <li><a href="#sec-fittedcentiles" id="toc-sec-fittedcentiles" class="nav-link" data-scroll-target="#sec-fittedcentiles"><code>fitted_centiles()</code></a></li>
+  <li><a href="#sec-fittedcentileslegend" id="toc-sec-fittedcentileslegend" class="nav-link" data-scroll-target="#sec-fittedcentileslegend"><code>fitted_centiles_legend()</code></a></li>
+  <li><a href="#sec-modelcentiles" id="toc-sec-modelcentiles" class="nav-link" data-scroll-target="#sec-modelcentiles"><code>model_centiles()</code></a></li>
   <li><a href="#sec-Boostrapping" id="toc-sec-Boostrapping" class="nav-link" data-scroll-target="#sec-Boostrapping">Boostrapping</a></li>
   </ul></li>
   </ul>
@@ -266,7 +328,7 @@ window.Quarto = {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            University of Marburg, Gernany
+            University of Canterbury, New Zealand
           </p>
       </div>
     <div class="quarto-title-meta-contents">
@@ -335,8 +397,8 @@ window.Quarto = {
 <li><code>gamlss2</code> — a modern interface with cleaner formula syntax and streamlined model handling</li>
 </ul>
 </section>
-<section id="packages-versions" class="level2">
-<h2 class="anchored" data-anchor-id="packages-versions">Packages Versions</h2>
+<section id="versions" class="level2">
+<h2 class="anchored" data-anchor-id="versions">Versions</h2>
 <p>The latest versions of the key packages are:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
@@ -360,8 +422,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="overview-of-the-gamlss.ggplots-package" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-the-gamlss.ggplots-package">Overview of the <code>gamlss.ggplots</code> Package</h2>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Originally, the package <code>gamlss.ggplots</code> included all the functionality currently split between <code>gamlss.ggplots</code> and <code>gamlss.prepdata</code>. Due to maintenance challenges caused by the growing size and complexity of the package, it was divided into two separate components:</p>
 <pre><code>- `gamlss.ggplots` — visualization and diagnostics
 
@@ -417,8 +479,8 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="the-model" class="level2">
-<h2 class="anchored" data-anchor-id="the-model">The model</h2>
+<section id="gamlss" class="level2">
+<h2 class="anchored" data-anchor-id="gamlss">GAMLSS</h2>
 <p>The general GAMLSS model can be written as <span id="eq-GAMLSS_ML"><span class="math display">\[
 \begin{split}
 y_i     &amp;  \stackrel{\small{ind}}{\sim }  \mathcal{D}( \theta_1, \ldots, \theta_k) \nonumber \\
@@ -434,11 +496,12 @@ g(\theta_k)  &amp;= b_0 + s_1(x_{1i})  +   \cdots,  +s_p(x_{pi}).
 \end{split}
 \tag{2}\]</span></span></p>
 </section>
-<section id="sec-Family" class="level2">
-<h2 class="anchored" data-anchor-id="sec-Family">Distribution Families</h2>
+</section>
+<section id="sec-Family" class="level1">
+<h1>Distributions</h1>
 <p>Here there are no fitted models, and the only requirement are values for the parameters. Note that those function may at a later stage move to <code>gamlss.prepdata</code>.</p>
-<section id="family_pdf" class="level3">
-<h3 class="anchored" data-anchor-id="family_pdf"><code>family_pdf()</code></h3>
+<section id="family_pdf" class="level2">
+<h2 class="anchored" data-anchor-id="family_pdf"><code>family_pdf()</code></h2>
 <p>The function <code>family_pdf()</code> plots individual pdf’s from <strong>gamlss.family</strong> distribution. It needs the family argument.</p>
 <section id="continuous" class="level4">
 <h4 class="anchored" data-anchor-id="continuous">Continuous</h4>
@@ -495,8 +558,8 @@ Figure&nbsp;3: Beta binomial response example: plotting the pdf of a beta binomi
 </div>
 </section>
 </section>
-<section id="family_cdf" class="level3">
-<h3 class="anchored" data-anchor-id="family_cdf"><code>family_cdf</code></h3>
+<section id="family_cdf" class="level2">
+<h2 class="anchored" data-anchor-id="family_cdf"><code>family_cdf</code></h2>
 <p>The function plots individual cdf’s from <strong>gamlss.family</strong> distribution. It needs the family argument.</p>
 <section id="continuous-1" class="level4">
 <h4 class="anchored" data-anchor-id="continuous-1">Continuous</h4>
@@ -553,8 +616,8 @@ Figure&nbsp;6: Count response example: plotting the cdf of a beta binomial.
 </div>
 </section>
 </section>
-<section id="family_cor" class="level3">
-<h3 class="anchored" data-anchor-id="family_cor"><code>family_cor()</code></h3>
+<section id="family_cor" class="level2">
+<h2 class="anchored" data-anchor-id="family_cor"><code>family_cor()</code></h2>
 <p>The function <code>family_cor()</code> provides a crude way of checking the inter correlation of parameters within any <code>gamlss.family</code> distribution. It</p>
 <ul>
 <li><p>generates 10000 values from the specified distribution,</p></li>
@@ -593,11 +656,11 @@ Figure&nbsp;7: Family correlation of a BCTo distribution at specified values of 
 </div>
 </section>
 </section>
-<section id="sec-Fitting" class="level2">
-<h2 class="anchored" data-anchor-id="sec-Fitting">Fitting different model</h2>
+<section id="sec-Fitting" class="level1">
+<h1>Fits</h1>
 <p>First we fit different GAMLSS models. The models will to be used for demonstration later.</p>
-<section id="the-null-model-using-normal-distribution." class="level4">
-<h4 class="anchored" data-anchor-id="the-null-model-using-normal-distribution.">The <code>null</code> model using Normal distribution.</h4>
+<section id="the-null-model-using-normal-distribution." class="level3">
+<h3 class="anchored" data-anchor-id="the-null-model-using-normal-distribution.">The <code>null</code> model using Normal distribution.</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(rent)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Null model </span></span>
@@ -613,8 +676,8 @@ GAMLSS-RS iteration  2: Global Deviance = 28611.5819 eps = 0.000000     </code><
 </div>
 </div>
 </section>
-<section id="additive-smooth-model-using-normal-distribution." class="level4">
-<h4 class="anchored" data-anchor-id="additive-smooth-model-using-normal-distribution.">Additive smooth model using Normal distribution.</h4>
+<section id="additive-smooth-model-using-normal-distribution." class="level3">
+<h3 class="anchored" data-anchor-id="additive-smooth-model-using-normal-distribution.">Additive smooth model using Normal distribution.</h3>
 <p>Fit additive smooth terms for <code>Fl</code> and <code>A</code> in the <span class="math inline">\(\mu\)</span> using the Normal distribution.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Smooth terms for Fl  and A  in mu, normal</span></span>
@@ -645,8 +708,8 @@ GAMLSS-RS iteration  3: Global Deviance = 28063.5654 eps = 0.000000     </code><
 </div>
 </div>
 </section>
-<section id="additive-smooth-model-using-gamma-distribution." class="level4">
-<h4 class="anchored" data-anchor-id="additive-smooth-model-using-gamma-distribution.">Additive smooth model using gamma distribution.</h4>
+<section id="additive-smooth-model-using-gamma-distribution." class="level3">
+<h3 class="anchored" data-anchor-id="additive-smooth-model-using-gamma-distribution.">Additive smooth model using gamma distribution.</h3>
 <p>Fit additive smooth terms for <code>Fl</code> and <code>A</code> and main effects for <code>H</code> and <code>loc</code> in the <span class="math inline">\(\mu\)</span> using Gamma distribution.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Smooth terms for Fl  and A main effects for H and loc in mu, gamma</span></span>
@@ -682,8 +745,8 @@ GAMLSS-RS iteration  3: Global Deviance = 27613.1728 eps = 0.000000     </code><
 </div>
 </div>
 </section>
-<section id="additive-smooth-model-using-s-and-the-gamma-distribution." class="level4">
-<h4 class="anchored" data-anchor-id="additive-smooth-model-using-s-and-the-gamma-distribution.">Additive smooth model using <code>s()</code> and the gamma distribution.</h4>
+<section id="additive-smooth-model-using-s-and-the-gamma-distribution." class="level3">
+<h3 class="anchored" data-anchor-id="additive-smooth-model-using-s-and-the-gamma-distribution.">Additive smooth model using <code>s()</code> and the gamma distribution.</h3>
 <p>We bring the package <em>gamlss.add</em> for extra smoothers</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gamlss.add)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -749,8 +812,8 @@ GAMLSS-RS iteration  3: Global Deviance = 27731.6805 eps = 0.000000     </code><
 </div>
 </div>
 </section>
-<section id="neural-network-using-gamma-distribution" class="level4">
-<h4 class="anchored" data-anchor-id="neural-network-using-gamma-distribution">Neural network using Gamma distribution</h4>
+<section id="neural-network-using-gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="neural-network-using-gamma-distribution">Neural network using Gamma distribution</h3>
 <p>Fit Neural networks for <code>Fl</code>, <code>A</code>, <code>H</code>, and <code>loc</code> for both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> # gamma family</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>m8<span class="ot">&lt;-</span><span class="fu">gamlss</span>(R<span class="sc">~</span><span class="fu">nn</span>(<span class="sc">~</span>Fl<span class="sc">+</span>A<span class="sc">+</span>H<span class="sc">+</span>loc,   <span class="at">size =</span> <span class="dv">10</span>,</span>
@@ -758,24 +821,24 @@ GAMLSS-RS iteration  3: Global Deviance = 27731.6805 eps = 0.000000     </code><
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">sigma.fo=</span><span class="sc">~</span><span class="fu">nn</span>(<span class="sc">~</span>Fl<span class="sc">+</span>A<span class="sc">+</span>H<span class="sc">+</span>loc, <span class="at">decay =</span> <span class="fl">0.01</span>), </span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">family=</span>GA,<span class="at">data=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GAMLSS-RS iteration 1: Global Deviance = 27574.91 
-GAMLSS-RS iteration 2: Global Deviance = 27473.94 
-GAMLSS-RS iteration 3: Global Deviance = 27471.27 
-GAMLSS-RS iteration 4: Global Deviance = 27471.27 </code></pre>
+<pre><code>GAMLSS-RS iteration 1: Global Deviance = 27560.43 
+GAMLSS-RS iteration 2: Global Deviance = 27456.86 
+GAMLSS-RS iteration 3: Global Deviance = 27454.46 
+GAMLSS-RS iteration 4: Global Deviance = 27454.46 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>g8<span class="ot">&lt;-</span><span class="fu">gamlss2</span>(R<span class="sc">~</span><span class="fu">n</span>(<span class="sc">~</span>Fl<span class="sc">+</span>A<span class="sc">+</span>H<span class="sc">+</span>loc,   <span class="at">size =</span> <span class="dv">10</span>, <span class="at">decay =</span> <span class="fl">0.01</span>), </span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">sigma.fo=</span><span class="sc">~</span><span class="fu">n</span>(<span class="sc">~</span>Fl<span class="sc">+</span>A<span class="sc">+</span>H<span class="sc">+</span>loc, <span class="at">size =</span> <span class="dv">3</span>,<span class="at">decay =</span> <span class="fl">0.01</span>), </span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">family=</span>GA,<span class="at">data=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GAMLSS-RS iteration  1: Global Deviance = 27451.1239 eps = 0.094659     
-GAMLSS-RS iteration  2: Global Deviance = 27419.8177 eps = 0.001140     
-GAMLSS-RS iteration  3: Global Deviance = 27419.4945 eps = 0.000011     
-GAMLSS-RS iteration  4: Global Deviance = 27419.4945 eps = 0.000000     </code></pre>
+<pre><code>GAMLSS-RS iteration  1: Global Deviance = 27454.8269 eps = 0.094536     
+GAMLSS-RS iteration  2: Global Deviance = 27423.9693 eps = 0.001123     
+GAMLSS-RS iteration  3: Global Deviance = 27423.6124 eps = 0.000013     
+GAMLSS-RS iteration  4: Global Deviance = 27423.6123 eps = 0.000000     </code></pre>
 </div>
 </div>
 </section>
-<section id="regression-trees-fits-using-gamma-distribution" class="level4">
-<h4 class="anchored" data-anchor-id="regression-trees-fits-using-gamma-distribution">Regression trees fits using Gamma distribution</h4>
+<section id="regression-trees-fits-using-gamma-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="regression-trees-fits-using-gamma-distribution">Regression trees fits using Gamma distribution</h3>
 <p>Fit regression trees for <code>Fl</code>, <code>A</code>, <code>H</code>, and <code>loc</code> for both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>m9<span class="ot">&lt;-</span><span class="fu">gamlss</span>(R<span class="sc">~</span><span class="fu">tr</span>(<span class="sc">~</span>Fl<span class="sc">+</span>A<span class="sc">+</span>H<span class="sc">+</span>loc), </span>
@@ -814,7 +877,7 @@ m4 22.250355 27614.78 27655.72 27739.16
 m5 33.146682 27603.70 27664.69 27788.99
 m6 35.262213 27606.81 27671.70 27803.93
 m7 21.380016 28243.66 28283.00 28363.18
-m8 95.000000 27661.27 27836.07 28192.32
+m8 95.000000 27644.46 27819.26 28175.51
 m9 18.000000 27790.53 27823.65 27891.15</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_GAIC</span>(m1,m2,m3,m4,m5,m6,m7, m8, m9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -853,11 +916,11 @@ Warning
 </div>
 </section>
 </section>
-<section id="residuals" class="level2">
-<h2 class="anchored" data-anchor-id="residuals">Residuals</h2>
+<section id="residuals" class="level1">
+<h1>Residuals</h1>
 <p>This section describes plots to do with the residuals of a single GAMLSS fitted model. Plotting, the residuals is very important, because if the model is correct, the residuals of the model should be like a white noise. In GAMLSS we use the (randomised) normalised residuals. Randomisation happens only if the distribution is discreet, or if it is censored. Normalisation means that if the model is correct or adequate, then the residuals should look like a normal distribution.</p>
-<section id="resid_index" class="level3">
-<h3 class="anchored" data-anchor-id="resid_index"><code>resid_index()</code></h3>
+<section id="resid_index" class="level2">
+<h2 class="anchored" data-anchor-id="resid_index"><code>resid_index()</code></h2>
 <p>By plotting, the residual against the data index we would expect that there is no pattern in the plot because of the assumption that the observations (given the explanatory variables) are independent. <a href="#fig-resid_index" class="quarto-xref">Figure&nbsp;8</a> show the standard residual plot against the index of the data. The argument <code>value</code> has to do with the <em>outliers</em> hoghlighted in the plot and can be change to a higher cut-off point. Other type of residuals, suitable standardised, not necessarily GAMLSS model residuals, can be plotted by using the argument <code>resid</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span><span class="fu">resid_index</span>(g4)</span>
@@ -937,8 +1000,8 @@ Figure&nbsp;11: Residuals plot against two x-variable split in tree sections.
 </div>
 </section>
 </section>
-<section id="resid_mu" class="level3">
-<h3 class="anchored" data-anchor-id="resid_mu"><code>resid_mu()</code></h3>
+<section id="resid_mu" class="level2">
+<h2 class="anchored" data-anchor-id="resid_mu"><code>resid_mu()</code></h2>
 <p>A plot of the residual against the fitted values of the model, usually reveals whether there is a heterogeneity in the data. The <code>resid_mu()</code> plots the residual from model <code>m1</code> against the fitted values for the model for <span class="math inline">\(\mu\)</span>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_mu</span>(g1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -972,8 +1035,8 @@ Figure&nbsp;13: Residuals plot against the fitted values for models <code>m4</co
 </div>
 </div>
 </section>
-<section id="resid_quantile" class="level3">
-<h3 class="anchored" data-anchor-id="resid_quantile"><code>resid_quantile()</code></h3>
+<section id="resid_quantile" class="level2">
+<h2 class="anchored" data-anchor-id="resid_quantile"><code>resid_quantile()</code></h2>
 <p>Residual plots from model <code>m1</code> against the fitted quantile (including the median) values can be obtained using:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_quantile</span>(g4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -987,8 +1050,8 @@ Figure&nbsp;13: Residuals plot against the fitted values for models <code>m4</co
 </div>
 </div>
 </section>
-<section id="resid_xvar" class="level3">
-<h3 class="anchored" data-anchor-id="resid_xvar"><code>resid_xvar()</code></h3>
+<section id="resid_xvar" class="level2">
+<h2 class="anchored" data-anchor-id="resid_xvar"><code>resid_xvar()</code></h2>
 <section id="against-a-continuous-explanatory-variable" class="level4">
 <h4 class="anchored" data-anchor-id="against-a-continuous-explanatory-variable">Against a continuous explanatory variable</h4>
 <p>Residual plots against a continuous explanatory variables can be plotted using: <code>resid_xvar()</code>:</p>
@@ -1050,8 +1113,8 @@ Figure&nbsp;13: Residuals plot against the fitted values for models <code>m4</co
 </div>
 </section>
 </section>
-<section id="resid_qqplot" class="level3">
-<h3 class="anchored" data-anchor-id="resid_qqplot"><code>resid_qqplot()</code></h3>
+<section id="resid_qqplot" class="level2">
+<h2 class="anchored" data-anchor-id="resid_qqplot"><code>resid_qqplot()</code></h2>
 <p>The function <code>resid_qqplot()</code> can be use to get a QQ-plot of the residuals.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span><span class="fu">resid_qqplot</span>(g1)</span>
@@ -1126,8 +1189,8 @@ Figure&nbsp;16: QQ-plot of the residuals of models <code>m1</code> and <code>m4<
 </div>
 </section>
 </section>
-<section id="resid_wp-worm-plots" class="level3">
-<h3 class="anchored" data-anchor-id="resid_wp-worm-plots"><code>resid_wp()</code>, Worm plots</h3>
+<section id="resid_wp-worm-plots" class="level2">
+<h2 class="anchored" data-anchor-id="resid_wp-worm-plots"><code>resid_wp()</code>, Worm plots</h2>
 <p>The worm plot for a single model can be plotted using:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>gg<span class="ot">&lt;-</span><span class="fu">resid_wp</span>(g4)</span>
@@ -1146,8 +1209,9 @@ Figure&nbsp;17: Worm-plot of the residuals for model <code>m4</code>
 </div>
 </div>
 <p>See <a href="#fig-figure3_a" class="quarto-xref">Figure&nbsp;17</a>.</p>
-<section id="resid_wp_wrap" class="level4">
-<h4 class="anchored" data-anchor-id="resid_wp_wrap"><code>resid_wp_wrap()</code></h4>
+</section>
+<section id="resid_wp_wrap" class="level2">
+<h2 class="anchored" data-anchor-id="resid_wp_wrap"><code>resid_wp_wrap()</code></h2>
 <p>The worm plot for a single model at different values of an explanatory variable can be plotted using:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span><span class="fu">resid_wp_wrap</span>(g4, <span class="at">xvar=</span>rent<span class="sc">$</span>A)</span>
@@ -1167,9 +1231,8 @@ Figure&nbsp;18: Worm-plot of the residuals for model <code>m4</code> at differen
 </div>
 <p>See <a href="#fig-figure3_b" class="quarto-xref">Figure&nbsp;18</a></p>
 </section>
-</section>
-<section id="resid_density" class="level3">
-<h3 class="anchored" data-anchor-id="resid_density"><code>resid_density()</code></h3>
+<section id="resid_density" class="level2">
+<h2 class="anchored" data-anchor-id="resid_density"><code>resid_density()</code></h2>
 <section id="the-single-density" class="level4">
 <h4 class="anchored" data-anchor-id="the-single-density">The single density</h4>
 <p>The function <code>resid_density()</code> plots the density of the residuals for one model while the function <code>model_densitity()</code> for more than one model.</p>
@@ -1211,8 +1274,8 @@ Figure&nbsp;20: A density plot of the residuals against <code>Fl</code> and <cod
 </div>
 </section>
 </section>
-<section id="resid_ecdf" class="level3">
-<h3 class="anchored" data-anchor-id="resid_ecdf"><code>resid_ecdf()</code></h3>
+<section id="resid_ecdf" class="level2">
+<h2 class="anchored" data-anchor-id="resid_ecdf"><code>resid_ecdf()</code></h2>
 <p>Figure <a href="#fig-figure7" class="quarto-xref">Figure&nbsp;21</a> show the empirical cumulative distribution function of the residuals of model <code>m4</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">resid_ecdf</span>(g4)</span>
@@ -1247,8 +1310,8 @@ Figure&nbsp;22: The ECDF of the residuals with added normal distribution.
 </div>
 </div>
 </section>
-<section id="resid_dtop" class="level3">
-<h3 class="anchored" data-anchor-id="resid_dtop"><code>resid_dtop()</code></h3>
+<section id="resid_dtop" class="level2">
+<h2 class="anchored" data-anchor-id="resid_dtop"><code>resid_dtop()</code></h2>
 <p>The function <code>resid_dtop()</code> plot a de-trended empirical cdf plot. See <a href="#fig-figure6" class="quarto-xref">Figure&nbsp;23</a> for the plot.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>gg<span class="ot">&lt;-</span><span class="fu">resid_dtop</span>(g4)</span>
@@ -1267,8 +1330,8 @@ Figure&nbsp;23: A detrended Own’s plot.
 </div>
 </div>
 </section>
-<section id="resid_plots" class="level3">
-<h3 class="anchored" data-anchor-id="resid_plots"><code>resid_plots()</code></h3>
+<section id="resid_plots" class="level2">
+<h2 class="anchored" data-anchor-id="resid_plots"><code>resid_plots()</code></h2>
 <p>The function <code>resid_plots()</code> tries to imitate the function <code>plot.gamlss()</code> of the <strong>gamlss</strong> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_plots</span>(g4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1337,8 +1400,8 @@ Figure&nbsp;27: The plot of residuals with `theme=ts’.
 </div>
 </section>
 </section>
-<section id="resid_symmetry" class="level3">
-<h3 class="anchored" data-anchor-id="resid_symmetry"><code>resid_symmetry()</code></h3>
+<section id="resid_symmetry" class="level2">
+<h2 class="anchored" data-anchor-id="resid_symmetry"><code>resid_symmetry()</code></h2>
 <p>A symmetry plot is useful for detecting asymmetry (skewnwess) in the residuals. Here we plot the symmetry plot of the residuals for model <code>m4</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>gg<span class="ot">&lt;-</span><span class="fu">resid_symmetry</span>(g4)</span>
@@ -1358,10 +1421,10 @@ Figure&nbsp;28: A symmetry plot of the residuals.
 </div>
 </section>
 </section>
-<section id="responce" class="level2">
-<h2 class="anchored" data-anchor-id="responce">Responce</h2>
-<section id="sec-respmu" class="level3">
-<h3 class="anchored" data-anchor-id="sec-respmu"><code>resp_mu()</code></h3>
+<section id="responce" class="level1">
+<h1>Responce</h1>
+<section id="sec-respmu" class="level2">
+<h2 class="anchored" data-anchor-id="sec-respmu"><code>resp_mu()</code></h2>
 <p>Plotting, the response variable against the fitted values is a traditional way of checking the adequacy of the model in linear regression model situation. The closer the points of the plot to 45% line the better the model. Also a hight correlation coeficient indicates a good fit. For GAMLSS this is equivalent of plotting the response against the fitted values of the <span class="math inline">\(\mu\)</span> model. A strong linear pattern indicates that the <span class="math inline">\(\mu\)</span> model is adequate.</p>
 <p><a href="#fig-figure_resp_1" class="quarto-xref">Figure&nbsp;29</a> plots the response variable against the fitted values for <span class="math inline">\(\mu\)</span>. The plot also show the 45 degrees line between the two variables. The relation should be close to linear as possible. The correlation between the response and the fitted values for <span class="math inline">\(\mu\)</span> is 0.6154328, -0.1275195 which is reasonable hight.</p>
 <div class="cell">
@@ -1380,9 +1443,9 @@ Figure&nbsp;29: Response against the <code>mu</code> fitted values.
 </div>
 </div>
 </section>
-<section id="resp_param" class="level3">
-<h3 class="anchored" data-anchor-id="resp_param"><code>resp_param()</code></h3>
-<p>GAMLSS have more than one parameters, so plotting the response variable against the the other parameters fitted values could be of interest. The function <code>resp_param()</code> can do that. It plots the response against any parameter fitted values. <a href="#fig-resp_param_sigma" class="quarto-xref">Figure&nbsp;30</a> shows the response against the fitted values for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> respectively for model <code>g4</code>. The first plot has the usual interpretation describes in Section <a href="#sec-respmu" class="quarto-xref">Section&nbsp;1.8.1</a> the second need more thought.</p>
+<section id="resp_param" class="level2">
+<h2 class="anchored" data-anchor-id="resp_param"><code>resp_param()</code></h2>
+<p>GAMLSS have more than one parameters, so plotting the response variable against the the other parameters fitted values could be of interest. The function <code>resp_param()</code> can do that. It plots the response against any parameter fitted values. <a href="#fig-resp_param_sigma" class="quarto-xref">Figure&nbsp;30</a> shows the response against the fitted values for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> respectively for model <code>g4</code>. The first plot has the usual interpretation describes in Section <a href="#sec-respmu" class="quarto-xref">Section&nbsp;5.1</a> the second need more thought.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_param</span>(g4)</span>
 <span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co"># resp_param(g4, "sigma")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1400,8 +1463,8 @@ Figure&nbsp;30: Residuals plot against the fitted <code>mu</code> and <code>sigm
 </div>
 </div>
 </section>
-<section id="resp_quantile" class="level3">
-<h3 class="anchored" data-anchor-id="resp_quantile"><code>resp_quantile</code></h3>
+<section id="resp_quantile" class="level2">
+<h2 class="anchored" data-anchor-id="resp_quantile"><code>resp_quantile</code></h2>
 <p>The function <code>resp_quantile</code> plots the response variable against any fitted quantile. Here we plot the respose against the 0.95 quantile. Again the interpretation needs more thought.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_quantile</span>(g4, <span class="at">quantile=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1420,10 +1483,10 @@ Figure&nbsp;31: The respose against the fitted median.
 </div>
 </section>
 </section>
-<section id="fitted" class="level2">
-<h2 class="anchored" data-anchor-id="fitted">Fitted</h2>
-<section id="fitted_devianceincr" class="level3">
-<h3 class="anchored" data-anchor-id="fitted_devianceincr"><code>fitted_devianceIncr()</code></h3>
+<section id="fitted" class="level1">
+<h1>Fitted</h1>
+<section id="fitted_devianceincr" class="level2">
+<h2 class="anchored" data-anchor-id="fitted_devianceincr"><code>fitted_devianceIncr()</code></h2>
 <p>The function<code>fitted_devianceIncr()</code> plots the deviance increment from a fitted <code>gamlss</code> model.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted_devianceIncr</span>(g4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1441,8 +1504,8 @@ Figure&nbsp;32: Plotting deviance increment from a fitted GAMLSS model.
 </div>
 </div>
 </section>
-<section id="fitted_leverage" class="level3">
-<h3 class="anchored" data-anchor-id="fitted_leverage"><code>fitted_leverage()</code></h3>
+<section id="fitted_leverage" class="level2">
+<h2 class="anchored" data-anchor-id="fitted_leverage"><code>fitted_leverage()</code></h2>
 <p>The function plots the linear leverage from a fitted GAMLSS model.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted_leverage</span>(m4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1476,8 +1539,8 @@ Warning
 </div>
 </div>
 </section>
-<section id="fitted_pdf" class="level3">
-<h3 class="anchored" data-anchor-id="fitted_pdf"><code>fitted_pdf()</code></h3>
+<section id="fitted_pdf" class="level2">
+<h2 class="anchored" data-anchor-id="fitted_pdf"><code>fitted_pdf()</code></h2>
 <p>The function <code>fitted_pdf()</code> plots individual pdf’s from a fitted model. It needs the argument <code>obs</code> indicating which observation number to plot.</p>
 <p>First a continuous distribution:</p>
 <div class="cell">
@@ -1563,8 +1626,8 @@ Warning
 </div>
 </div>
 </section>
-<section id="fitted_cdf" class="level3">
-<h3 class="anchored" data-anchor-id="fitted_cdf"><code>fitted_cdf()</code></h3>
+<section id="fitted_cdf" class="level2">
+<h2 class="anchored" data-anchor-id="fitted_cdf"><code>fitted_cdf()</code></h2>
 <p>The function <code>fitted_cdf()</code> plots individual pdf’s from a fitted model. It needs the argument <code>obs</code> indicating which observation number to plot. %</p>
 <p>First a continuous distribution:</p>
 <div class="cell">
@@ -1623,8 +1686,8 @@ Figure&nbsp;39: Probability functions for a binomial responses.
 </div>
 </div>
 </section>
-<section id="fitted_cdf_data" class="level3">
-<h3 class="anchored" data-anchor-id="fitted_cdf_data"><code>fitted_cdf_data()</code></h3>
+<section id="fitted_cdf_data" class="level2">
+<h2 class="anchored" data-anchor-id="fitted_cdf_data"><code>fitted_cdf_data()</code></h2>
 <p>The function <code>fitted_cdf_data()</code> plots individual pdf’s from a fitted model but also add the data points. It needs the argument <code>obs</code> indicating which obs</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted_cdf_data</span>(a1, <span class="at">obs=</span><span class="fu">c</span>(<span class="dv">500</span>,<span class="dv">610</span>),<span class="at">from=</span><span class="dv">280</span>, <span class="at">to=</span><span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1641,16 +1704,16 @@ Figure&nbsp;40: Probability functions for a binomial responses.
 </div>
 </div>
 </div>
-</section>
 <section id="sec-fittedcentiles0" class="level3">
 <h3 class="anchored" data-anchor-id="sec-fittedcentiles0"><code>fitted_centiles()</code></h3>
-<p>See Section <a href="#sec-fittedcentiles" class="quarto-xref">Section&nbsp;1.16.2</a>.</p>
+<p>See Section <a href="#sec-fittedcentiles" class="quarto-xref">Section&nbsp;11.1</a>.</p>
 </section>
 </section>
-<section id="models" class="level2">
-<h2 class="anchored" data-anchor-id="models">Models</h2>
-<section id="model_gaic" class="level3">
-<h3 class="anchored" data-anchor-id="model_gaic"><code>model_GAIC()</code></h3>
+</section>
+<section id="model" class="level1">
+<h1>Model</h1>
+<section id="model_gaic" class="level2">
+<h2 class="anchored" data-anchor-id="model_gaic"><code>model_GAIC()</code></h2>
 <p>The functions <code>model_GAIC()</code> and <code>model_GAIC_lollipop()</code> are identical but the appearance is different.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>gg<span class="ot">&lt;-</span><span class="fu">model_GAIC</span>(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)</span>
@@ -1669,8 +1732,8 @@ Figure&nbsp;41: plotting the GAIC.
 </div>
 </div>
 </section>
-<section id="model_gaic_lollipop" class="level3">
-<h3 class="anchored" data-anchor-id="model_gaic_lollipop"><code>model_GAIC_lollipop()</code></h3>
+<section id="model_gaic_lollipop" class="level2">
+<h2 class="anchored" data-anchor-id="model_gaic_lollipop"><code>model_GAIC_lollipop()</code></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>gg1<span class="ot">&lt;-</span><span class="fu">model_GAIC_lollipop</span>(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)</span>
 <span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1688,8 +1751,8 @@ Figure&nbsp;42: plotting the GAIC.
 </div>
 </div>
 </section>
-<section id="model_density" class="level3">
-<h3 class="anchored" data-anchor-id="model_density"><code>model_density()</code></h3>
+<section id="model_density" class="level2">
+<h2 class="anchored" data-anchor-id="model_density"><code>model_density()</code></h2>
 <p>To plot the residuals densities of all <code>m1</code>, <code>m2</code>, <code>m3</code>, and <code>m4</code> models use:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span>  <span class="fu">model_density</span>(g1, g2, g3, g4)</span>
@@ -1716,8 +1779,8 @@ Figure&nbsp;42: plotting the GAIC.
 </div>
 </div>
 </section>
-<section id="model_qqplot" class="level3">
-<h3 class="anchored" data-anchor-id="model_qqplot"><code>model_qqplot()</code></h3>
+<section id="model_qqplot" class="level2">
+<h2 class="anchored" data-anchor-id="model_qqplot"><code>model_qqplot()</code></h2>
 <p>The function <code>model_qqplot()</code> can be use to get a QQ-plots for more that one fitted model residuals.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">model_qqplot</span>(g1, g2, g3, g4)</span>
@@ -1766,8 +1829,8 @@ Figure&nbsp;44: Multiple QQ-plots of the residuals of models <code>m1</code>, <c
 </div>
 <p>The resulting plot is shown on the <a href="#fig-figure21B" class="quarto-xref">Figure&nbsp;44</a>.</p>
 </section>
-<section id="model_wp" class="level3">
-<h3 class="anchored" data-anchor-id="model_wp"><code>model_wp()</code></h3>
+<section id="model_wp" class="level2">
+<h2 class="anchored" data-anchor-id="model_wp"><code>model_wp()</code></h2>
 <p>The function <code>model_wp()</code> can be use to get a worm-plots for multiple fitted models residuals.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">model_wp</span>(g1, g2, g3, g4)</span>
@@ -1786,8 +1849,8 @@ Figure&nbsp;45: Worm-plot of the residuals of models <code>m1</code>, <code>m2</
 </div>
 </div>
 </section>
-<section id="model_wp_wrap" class="level3">
-<h3 class="anchored" data-anchor-id="model_wp_wrap"><code>model_wp_wrap()</code></h3>
+<section id="model_wp_wrap" class="level2">
+<h2 class="anchored" data-anchor-id="model_wp_wrap"><code>model_wp_wrap()</code></h2>
 <p>For model worm plots at differenbt values of the explnatory variables use;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">model_wp_wrap</span>(g1, g2, g3, g4, <span class="at">xvar=</span>rent<span class="sc">$</span>A)</span>
@@ -1807,12 +1870,9 @@ Figure&nbsp;46: Multiple worm-plot of the residuals of models <code>m1</code>, <
 </div>
 <p>The resulting plot is shown on the right side of Figure <a href="#fig-figure21ZIBIB" class="quarto-xref">Figure&nbsp;46</a>.</p>
 </section>
-</section>
-<section id="bucket-plots" class="level2">
-<h2 class="anchored" data-anchor-id="bucket-plots">Bucket plots</h2>
-<section id="moment_bucket-and-model_mom_bucket" class="level3">
-<h3 class="anchored" data-anchor-id="moment_bucket-and-model_mom_bucket"><code>moment_bucket()</code> and <code>model_mom_bucket()</code></h3>
-<p>The function <code>model_mom_bucket()</code> can be use to get the moment bucket plot for one or more fitted model residuals. Note that <code>moment_bucket()</code> is synonymous to <code>model_mom_bucket()</code>.</p>
+<section id="model_mom_bucket" class="level2">
+<h2 class="anchored" data-anchor-id="model_mom_bucket">`model_mom_bucket()</h2>
+<p>The function <code>model_mom_bucket()</code> (also known as <code>mement_bucket()</code>) can be use to get the moment bucket plot for one or more fitted model residuals. Note that <code>moment_bucket()</code> is synonymous to <code>model_mom_bucket()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">moment_bucket</span>(g1, g2, g3, g4)</span>
 <span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>gg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1830,8 +1890,8 @@ Figure&nbsp;47: Single moment bucket plots of the residuals of models <code>m1</
 </div>
 </div>
 </section>
-<section id="moment_bucket_wrap" class="level3">
-<h3 class="anchored" data-anchor-id="moment_bucket_wrap"><code>moment_bucket_wrap()</code></h3>
+<section id="moment_bucket_wrap" class="level2">
+<h2 class="anchored" data-anchor-id="moment_bucket_wrap"><code>moment_bucket_wrap()</code></h2>
 <p>For multiple plots use</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">moment_bucket_wrap</span>(m1, m2, m3, m4, <span class="at">xvar=</span>rent<span class="sc">$</span>A)</span>
@@ -1863,7 +1923,6 @@ Warning
 </div>
 </div>
 <p>The resulting plot is shown on the right side of Figure <a href="#fig-figure21_BD" class="quarto-xref">Figure&nbsp;48</a>.</p>
-</section>
 <section id="moment_gray_both-and-moment_colour_both" class="level3">
 <h3 class="anchored" data-anchor-id="moment_gray_both-and-moment_colour_both"><code>moment_gray_both()</code> and <code>moment_colour_both()</code></h3>
 <p>Note that the background of the bucket plots is generated by the functions</p>
@@ -1896,8 +1955,9 @@ Figure&nbsp;50: The background of the moment bucket plot.
 </div>
 </div>
 </section>
-<section id="model_devianceincr_diff" class="level3">
-<h3 class="anchored" data-anchor-id="model_devianceincr_diff"><code>model_devianceIncr_diff()</code></h3>
+</section>
+<section id="model_devianceincr_diff" class="level2">
+<h2 class="anchored" data-anchor-id="model_devianceincr_diff"><code>model_devianceIncr_diff()</code></h2>
 <p>The function plots the difference in deviance increment between two fitted <code>gamlss</code> models.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_devianceIncr_diff</span>(m3,m4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1928,8 +1988,8 @@ Warning
 </div>
 </div>
 </section>
-<section id="model_pca" class="level3">
-<h3 class="anchored" data-anchor-id="model_pca"><code>model_pca()</code></h3>
+<section id="model_pca" class="level2">
+<h2 class="anchored" data-anchor-id="model_pca"><code>model_pca()</code></h2>
 <p>This function it uses Principal Component Analysis (PCA) for the residual of multiple models and plots a bi-plot the first and second components.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">model_pca</span>(g1,g2,g3,g4)</span>
@@ -1947,16 +2007,16 @@ Figure&nbsp;52: A PCA of different models residuals`.
 </div>
 </div>
 </div>
-</section>
 <section id="sec-modelcentiles0" class="level3">
 <h3 class="anchored" data-anchor-id="sec-modelcentiles0"><code>model_centiles()</code></h3>
-<p>See Section <a href="#sec-modelcentiles" class="quarto-xref">Section&nbsp;1.16.4</a>.</p>
+<p>See Section <a href="#sec-modelcentiles" class="quarto-xref">Section&nbsp;11.3</a>.</p>
 </section>
 </section>
-<section id="plots-for-y-vectors" class="level2">
-<h2 class="anchored" data-anchor-id="plots-for-y-vectors">Plots for <span class="math inline">\(y\)</span> vectors</h2>
-<section id="y_hist" class="level3">
-<h3 class="anchored" data-anchor-id="y_hist"><code>y_hist()</code></h3>
+</section>
+<section id="vectors" class="level1">
+<h1>Vectors</h1>
+<section id="y_hist" class="level2">
+<h2 class="anchored" data-anchor-id="y_hist"><code>y_hist()</code></h2>
 <p>Here we generate a vector from a <code>BCCG</code> distribution and plot its histogram and its density function .</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rBCCG</span>(<span class="dv">1000</span>, <span class="at">mu=</span><span class="dv">3</span>, <span class="at">sigma=</span>.<span class="dv">1</span>, <span class="at">nu=</span><span class="sc">-</span><span class="dv">1</span>)</span>
@@ -1993,8 +2053,8 @@ Figure&nbsp;54: Plotting a histogram of single variable and the <code>true</code
 </div>
 </div>
 </section>
-<section id="y_dots" class="level3">
-<h3 class="anchored" data-anchor-id="y_dots"><code>y_dots()</code></h3>
+<section id="y_dots" class="level2">
+<h2 class="anchored" data-anchor-id="y_dots"><code>y_dots()</code></h2>
 <p>The dots function is appropriate for long tail distributions be cause emphasise the the long left ot right tail of <span class="math inline">\(y\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rBCT</span>(<span class="dv">1000</span>, <span class="at">mu=</span><span class="dv">3</span>, <span class="at">sigma=</span>.<span class="dv">1</span>, <span class="at">nu=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">tau=</span><span class="dv">4</span>)</span>
@@ -2014,8 +2074,8 @@ Figure&nbsp;55: Plotting the <span class="math inline">\(y\)</span> in dots to e
 </div>
 </div>
 </section>
-<section id="y_ecdf" class="level3">
-<h3 class="anchored" data-anchor-id="y_ecdf"><code>y_ecdf()</code></h3>
+<section id="y_ecdf" class="level2">
+<h2 class="anchored" data-anchor-id="y_ecdf"><code>y_ecdf()</code></h2>
 <p>The empirical cdf of a variables can be plotted using the function <code>y_ecdf()</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rBCT</span>(<span class="dv">1000</span>, <span class="at">mu=</span><span class="dv">3</span>, <span class="at">sigma=</span>.<span class="dv">1</span>, <span class="at">nu=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">tau=</span><span class="dv">4</span>)</span>
@@ -2053,8 +2113,8 @@ Figure&nbsp;57: Plotting the empirical cdf of a variable plues its theoretical c
 </div>
 </div>
 </section>
-<section id="y_acf" class="level3">
-<h3 class="anchored" data-anchor-id="y_acf"><code>y_acf()</code></h3>
+<section id="y_acf" class="level2">
+<h2 class="anchored" data-anchor-id="y_acf"><code>y_acf()</code></h2>
 <p>The functions <code>y_acf()</code> take a single time series vector and plot its auto-correlation function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_acf</span>(<span class="fu">diff</span>(EuStockMarkets[,<span class="dv">1</span>])) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2072,8 +2132,8 @@ Figure&nbsp;58: Plotting ACF of the first difference of FTSE.
 </div>
 </div>
 </section>
-<section id="y_pacf" class="level3">
-<h3 class="anchored" data-anchor-id="y_pacf"><code>y_pacf()</code></h3>
+<section id="y_pacf" class="level2">
+<h2 class="anchored" data-anchor-id="y_pacf"><code>y_pacf()</code></h2>
 <p>The functions <code>y_pacf()</code> take a single time series vector and plot its partial auto-correlation function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_pacf</span>(<span class="fu">diff</span>(EuStockMarkets[,<span class="dv">1</span>])) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2091,8 +2151,8 @@ Figure&nbsp;59: Plotting PACF of the first difference of FTSE.
 </div>
 </div>
 </section>
-<section id="y_symmetry" class="level3">
-<h3 class="anchored" data-anchor-id="y_symmetry"><code>y_symmetry()</code></h3>
+<section id="y_symmetry" class="level2">
+<h2 class="anchored" data-anchor-id="y_symmetry"><code>y_symmetry()</code></h2>
 <p>Here we plot the symmetry plot of the variable <span class="math inline">\(y\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>gg<span class="ot">&lt;-</span><span class="fu">y_symmetry</span>(rent<span class="sc">$</span>R)</span>
@@ -2112,11 +2172,11 @@ Figure&nbsp;60: A symmetry plot of the rent data.
 </div>
 </section>
 </section>
-<section id="partial-effects" class="level2">
-<h2 class="anchored" data-anchor-id="partial-effects">Partial effects</h2>
+<section id="partial-effects" class="level1">
+<h1>Partial effects</h1>
 <p>Those functions should be called <code>fitted_pe\_\...</code> but we have dropped the <code>fitted</code> part to simplify the notation.</p>
-<section id="pe_terms" class="level3">
-<h3 class="anchored" data-anchor-id="pe_terms"><code>pe_terms()</code></h3>
+<section id="pe_terms" class="level2">
+<h2 class="anchored" data-anchor-id="pe_terms"><code>pe_terms()</code></h2>
 <p>The function plots individual terms from a fitted <code>gamlss</code> model. It is equivalent to <code>term.plot()</code>. Note that the function will produce up to 9 term plots before ask for the next page.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>gamlss.ggplots<span class="sc">:::</span><span class="fu">pe_terms</span>(m4, <span class="at">partial=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2148,11 +2208,8 @@ Warning
 </div>
 </div>
 </section>
-</section>
-<section id="interpretation" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation">interpretation</h2>
-<section id="pe_param" class="level3">
-<h3 class="anchored" data-anchor-id="pe_param"><code>pe_param()</code></h3>
+<section id="pe_param" class="level2">
+<h2 class="anchored" data-anchor-id="pe_param"><code>pe_param()</code></h2>
 <p>The function <code>pe_param()</code> plots the partial effect of one or two specified term(s) given all other terms in the model remain fixed at predetermined values. Depending on length of the argument <code>term</code> the function <code>pe_param()</code> uses the function <code>pe_1_param()</code> or <code>pe_2_param()</code> to plot the partial effects. Here we plot it against a continuous variable <code>A</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pe_param</span>(g4, <span class="st">"A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2250,8 +2307,8 @@ Figure&nbsp;67: Plotting partial terms from <code>loc</code> and <code>H</code>.
 </div>
 </div>
 </section>
-<section id="pe_param_grid" class="level3">
-<h3 class="anchored" data-anchor-id="pe_param_grid"><code>pe_param_grid()</code></h3>
+<section id="pe_param_grid" class="level2">
+<h2 class="anchored" data-anchor-id="pe_param_grid"><code>pe_param_grid()</code></h2>
 <p>The function <code>pe_param_grid()</code> show multiple plots of partial effects (main effect or first order interactions) given all other terms in the model remain fixed at predetermined values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>gamlss.ggplots<span class="sc">:::</span><span class="fu">pe_param_grid</span>(g5, <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"Fl"</span>, <span class="st">"A"</span>), <span class="fu">c</span>(<span class="st">"H"</span>, <span class="st">"loc"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2285,10 +2342,10 @@ Figure&nbsp;69: Plotting the partial effect of terms in model <code>m6</code>. N
 </div>
 </section>
 </section>
-<section id="prediction" class="level2">
-<h2 class="anchored" data-anchor-id="prediction">prediction</h2>
-<section id="predict_pdf" class="level3">
-<h3 class="anchored" data-anchor-id="predict_pdf"><code>predict_pdf()</code></h3>
+<section id="prediction" class="level1">
+<h1>prediction</h1>
+<section id="predict_pdf" class="level2">
+<h2 class="anchored" data-anchor-id="predict_pdf"><code>predict_pdf()</code></h2>
 <p>Now with <code>newdata</code> we use `predict_pdf’:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict_pdf</span>(a1, <span class="at">newdata=</span>abdom[<span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">25</span>),], <span class="at">from=</span><span class="dv">38</span>, <span class="at">to=</span><span class="dv">130</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2307,8 +2364,8 @@ Figure&nbsp;70: Plotting linear leverage from a fitted GAMLSS model.
 </div>
 </section>
 </section>
-<section id="centile-estimation-utilities" class="level2">
-<h2 class="anchored" data-anchor-id="centile-estimation-utilities">Centile estimation (Utilities)</h2>
+<section id="centile-estimation" class="level1">
+<h1>Centile estimation</h1>
 <p>Here we use three different GAMLSS models. Note that for all centile functions the name of the x-variable should appear in the plotting function as in the actual data otherwise the function will not find it:</p>
 <section id="fractional-polynomials-basis" class="level4">
 <h4 class="anchored" data-anchor-id="fractional-polynomials-basis">fractional polynomials basis</h4>
@@ -2383,8 +2440,8 @@ Warning
 <span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="fu">centiles</span>(m1, <span class="at">xvar=</span>age)<span class="co"># works</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sec-fittedcentiles" class="level3">
-<h3 class="anchored" data-anchor-id="sec-fittedcentiles"><code>fitted_centiles()</code></h3>
+<section id="sec-fittedcentiles" class="level2">
+<h2 class="anchored" data-anchor-id="sec-fittedcentiles"><code>fitted_centiles()</code></h2>
 <p>The <code>fitted_centiles()</code> function, produces identical results with the function <code>centiles()</code> of <strong>gamlss</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted_centiles</span>(m2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2419,8 +2476,8 @@ Figure&nbsp;72: Plotting the centiles for models <code>m1</code>, <code>m2</code
 </div>
 </div>
 </section>
-<section id="sec-fittedcentileslegend" class="level3">
-<h3 class="anchored" data-anchor-id="sec-fittedcentileslegend"><code>fitted_centiles_legend()</code></h3>
+<section id="sec-fittedcentileslegend" class="level2">
+<h2 class="anchored" data-anchor-id="sec-fittedcentileslegend"><code>fitted_centiles_legend()</code></h2>
 <p>To have legend in the plot use the following which it takes more time.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted_centiles_legend</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2438,8 +2495,8 @@ Figure&nbsp;73: Plotting the centiles for model <code>m2</code>.
 </div>
 </div>
 </section>
-<section id="sec-modelcentiles" class="level3">
-<h3 class="anchored" data-anchor-id="sec-modelcentiles"><code>model_centiles()</code></h3>
+<section id="sec-modelcentiles" class="level2">
+<h2 class="anchored" data-anchor-id="sec-modelcentiles"><code>model_centiles()</code></h2>
 <p>If you wnat to check the centiles curves for all models used;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_centiles</span>(m1,m2,m3,  <span class="at">xvar=</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2489,7 +2546,6 @@ Figure&nbsp;76: Plotting the centiles for models <code>m1</code>, <code>m2</code
 </div>
 </div>
 </div>
-</section>
 </section>
 <section id="sec-Boostrapping" class="level2">
 <h2 class="anchored" data-anchor-id="sec-Boostrapping">Boostrapping</h2>
