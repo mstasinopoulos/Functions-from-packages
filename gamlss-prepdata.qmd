@@ -52,7 +52,7 @@ packageVersion("gamlss2")
 packageVersion("gamlss.prepdata")
 ```
 
-## Introduction to the `gamlss.prepdata` Package
+## `gamlss.prepdata` 
 
 The `gamlss.prepdata` package originated from the `gamlss.ggplots` package. As `gamlss.ggplots` became too large for easy maintenance, it was split into two separate packages, and `gamlss.prepdata` was created.
 
@@ -120,7 +120,7 @@ The `gamlss.prepdata` package is thus a useful tool for carrying out pre-analysi
 
 Next, we define what we mean by **distributional regression**.
 
-## Distributional Regression model
+## Distributional Regression
 
 The aim of this vignette is to demonstrate how to manipulate and prepare data before applying a distributional regression analysis.
 
@@ -686,7 +686,7 @@ It look that no transformation is needed for the continuous explanatory variable
 
 [back to table](#tbl-graphical)
 
-## Features {#sec-Features}
+## Feature functions  {#sec-Features}
 
 The features functions are functions to help with the continuous explanatory x-variables; We divide them here in four sections; Functions for
 
@@ -1151,7 +1151,7 @@ This default behaviour ensures that plotting remains efficient even with very la
 
 [back to table](#tbl-partition)
 
-## Plotting Distribution Families {#sec-Family}
+## Distribution Families {#sec-Family}
 
 ::: callout-note
 All functions listed below belong to the `gamlss.ggplots` package, not the `gamlss.prepdata` package. However, since they can be useful during the pre-modeling stage, they are presented here. The later version of the `gamlss.ggplots` can be found in <https://github.com/gamlss-dev/gamlss.ggplots>
