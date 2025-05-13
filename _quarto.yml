@@ -10,6 +10,7 @@ website:
       - about.qmd
       - gamlss-prepdata.qmd
       - gamlss-ggplots.qmd
+      
 sidebar:
   contents: auto
   
