@@ -214,42 +214,42 @@
     "href": "gamlss-ggplots.html#resid_qqplot",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_qqplot()",
-    "text": "resid_qqplot()\nThe function resid_qqplot() can be use to get a QQ-plot of the residuals.\n\ngg &lt;-resid_qqplot(g1)\ngg\n\n\n\n\n\n\n\nFigure 14: QQ-plot for model m1\n\n\n\n\n\nThe plot appears in Figure 14.\nFor comparing two different models you can use\nTo add another model QQ-plot try\n\n\n\n\n\n\nWarning\n\n\n\nadd_resid_qqplot is not working for extra gamlss2 objects\n\n\n\ngg1 &lt;-add_resid_qqplot(gg, m4)\n#gg1\n\nor alternatively you can use the function model_qqplot() which can display more than two models.\n\nFor different values of x-variables\n\ngg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)+ \n  ggtitle(\"qqplot of model m1 against Fl and A\") \n\n\n\n\n\n\n\nFigure 15: QQ-plot of the residuals of model m1 against Fl and `A’\n\n\n\n\n\n\ngg1+facet_grid(cut_number(rent$Fl, 3)~rent$loc)+ \n  ggtitle(\"qqplot of models m1 and m4 against Fl and A\")\n\n\n\n\n\n\n\nFigure 16: QQ-plot of the residuals of models m1 and m4 against Fl and `A’"
+    "text": "resid_qqplot()\nThe function resid_qqplot() can be use to get a QQ-plot of the residuals.\n\ngg &lt;-resid_qqplot(g1)\ngg\n\n\n\n\n\n\n\nFigure 14: QQ-plot for model m1\n\n\n\n\n\nThe plot appears in Figure 14.\nFor comparing two different models you can use\nTo add another model QQ-plot try\n\n\n\n\n\n\nWarning\n\n\n\nadd_resid_qqplot is not working for extra gamlss2 objects\n\n\n\ngg1 &lt;-add_resid_qqplot(gg, m4)\n#gg1\n\nor alternatively you can use the function model_qqplot() which can display more than two models.\n\nFor different values of x-variables\n\nOne x-variable\n\ngg+facet_grid(cut_number(rent$Fl, 4))+ \n  ggtitle(\"qqplot of model m1 against Fl\") \n\n\n\n\n\n\n\nFigure 15: QQ-plot of the residuals of model m1 against Fl and `A’\n\n\n\n\n\n\n\nTwo x-variables\n\ngg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)+ \n  ggtitle(\"qqplot of model m1 against Fl and A\") \n\n\n\n\n\n\n\nFigure 16: QQ-plot of the residuals of model m1 against Fl and `A’\n\n\n\n\n\n\ngg1+facet_grid(cut_number(rent$Fl, 3)~rent$loc)+ \n  ggtitle(\"qqplot of models m1 and m4 against Fl and A\")\n\n\n\n\n\n\n\nFigure 17: QQ-plot of the residuals of models m1 and m4 against Fl and `A’"
   },
   {
     "objectID": "gamlss-ggplots.html#resid_wp-worm-plots",
     "href": "gamlss-ggplots.html#resid_wp-worm-plots",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_wp(), Worm plots",
-    "text": "resid_wp(), Worm plots\nThe worm plot for a single model can be plotted using:\n\ngg&lt;-resid_wp(g4)\ngg\n\n\n\n\n\n\n\nFigure 17: Worm-plot of the residuals for model m4\n\n\n\n\n\nSee Figure 17."
+    "text": "resid_wp(), Worm plots\nThe worm plot for a single model can be plotted using:\n\ngg&lt;-resid_wp(g4)\ngg\n\n\n\n\n\n\n\nFigure 18: Worm-plot of the residuals for model m4\n\n\n\n\n\nSee Figure 18."
   },
   {
     "objectID": "gamlss-ggplots.html#resid_density",
     "href": "gamlss-ggplots.html#resid_density",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_density()",
-    "text": "resid_density()\n\nThe single density\nThe function resid_density() plots the density of the residuals for one model while the function model_densitity() for more than one model.\nHere we plot the density of the residuals for model m4. See Figure Figure 19 for the plot.\n\ngg&lt;-resid_density(g4)\ngg\n\n\n\n\n\n\n\nFigure 19: A density plot of the residuals\n\n\n\n\n\n\n\nThe multiple densities\nHere we plot the density of the residuals for model m4 against two explanatory variables, Fl and A.\n\ngg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)\n\n\n\n\n\n\n\nFigure 20: A density plot of the residuals against Fl and A"
+    "text": "resid_density()\n\nThe single density\nThe function resid_density() plots the density of the residuals for one model while the function model_densitity() for more than one model.\nHere we plot the density of the residuals for model m4. See Figure Figure 20 for the plot.\n\ngg&lt;-resid_density(g4)\ngg\n\n\n\n\n\n\n\nFigure 20: A density plot of the residuals\n\n\n\n\n\n\n\nThe multiple densities\nHere we plot the density of the residuals for model m4 against two explanatory variables, Fl and A.\n\ngg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)\n\n\n\n\n\n\n\nFigure 21: A density plot of the residuals against Fl and A"
   },
   {
     "objectID": "gamlss-ggplots.html#resid_ecdf",
     "href": "gamlss-ggplots.html#resid_ecdf",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_ecdf()",
-    "text": "resid_ecdf()\nFigure Figure 21 show the empirical cumulative distribution function of the residuals of model m4\n\ngg &lt;- resid_ecdf(g4)\ngg\n\n\n\n\n\n\n\nFigure 21: The ECDF of the residuals.\n\n\n\n\n\nBelow cdf of a normally distributed variable with \\(\\mu=0\\) and \\(\\sigma=1\\) is added to the previous plot.\n\ngg+stat_function(fun = pNO, args=list(mu=0, sigma=1), col=\"red\")\n\n\n\n\n\n\n\nFigure 22: The ECDF of the residuals with added normal distribution."
+    "text": "resid_ecdf()\nFigure Figure 22 show the empirical cumulative distribution function of the residuals of model m4\n\ngg &lt;- resid_ecdf(g4)\ngg\n\n\n\n\n\n\n\nFigure 22: The ECDF of the residuals.\n\n\n\n\n\nBelow cdf of a normally distributed variable with \\(\\mu=0\\) and \\(\\sigma=1\\) is added to the previous plot.\n\ngg+stat_function(fun = pNO, args=list(mu=0, sigma=1), col=\"red\")\n\n\n\n\n\n\n\nFigure 23: The ECDF of the residuals with added normal distribution."
   },
   {
     "objectID": "gamlss-ggplots.html#resid_dtop",
     "href": "gamlss-ggplots.html#resid_dtop",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_dtop()",
-    "text": "resid_dtop()\nThe function resid_dtop() plot a de-trended empirical cdf plot. See Figure 23 for the plot.\n\ngg&lt;-resid_dtop(g4)\ngg\n\n\n\n\n\n\n\nFigure 23: A detrended Own’s plot."
+    "text": "resid_dtop()\nThe function resid_dtop() plot a de-trended empirical cdf plot. See Figure 24 for the plot.\n\ngg&lt;-resid_dtop(g4)\ngg\n\n\n\n\n\n\n\nFigure 24: A detrended Own’s plot."
   },
   {
     "objectID": "gamlss-ggplots.html#resid_plots",
     "href": "gamlss-ggplots.html#resid_plots",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_plots()",
-    "text": "resid_plots()\nThe function resid_plots() tries to imitate the function plot.gamlss() of the gamlss package.\n\nresid_plots(g4)\n\n\n\n\n\n\n\nFigure 24: The plot of residuals.\n\n\n\n\n\n\nDifferent themes\nThere are also different themes in the plot. Next in Figure Figure 25 we are trying theme=\"new\":\n\nresid_plots(g4, theme=\"new\")\n\n\n\n\n\n\n\nFigure 25: The plot of residuals with `theme=new’.\n\n\n\n\n\nFigure 26 has theme=\"ecdf\":\n\nresid_plots(g4, theme=\"ecdf\")\n\n\n\n\n\n\n\nFigure 26: The plot of residuals with `theme=ecdf’.\n\n\n\n\n\nFigure 27 has theme=\"ecdf\":\n\n  resid_plots(g4, theme=\"ts\")\n\n\n\n\n\n\n\nFigure 27: The plot of residuals with `theme=ts’."
+    "text": "resid_plots()\nThe function resid_plots() tries to imitate the function plot.gamlss() of the gamlss package.\n\nresid_plots(g4)\n\n\n\n\n\n\n\nFigure 25: The plot of residuals.\n\n\n\n\n\n\nDifferent themes\nThere are also different themes in the plot. Next in Figure Figure 26 we are trying theme=\"new\":\n\nresid_plots(g4, theme=\"new\")\n\n\n\n\n\n\n\nFigure 26: The plot of residuals with `theme=new’.\n\n\n\n\n\nFigure 27 has theme=\"ecdf\":\n\nresid_plots(g4, theme=\"ecdf\")\n\n\n\n\n\n\n\nFigure 27: The plot of residuals with `theme=ecdf’.\n\n\n\n\n\nFigure 28 has theme=\"ecdf\":\n\n  resid_plots(g4, theme=\"ts\")\n\n\n\n\n\n\n\nFigure 28: The plot of residuals with `theme=ts’."
   },
   {
     "objectID": "gamlss-ggplots.html#the-symmetry-plot-resid_symmetry",
@@ -263,56 +263,56 @@
     "href": "gamlss-ggplots.html#sec-respmu",
     "title": "The Functions in gamlss.ggplots",
     "section": "resp_mu()",
-    "text": "resp_mu()\nPlotting, the response variable against the fitted values is a traditional way of checking the adequacy of the model in linear regression model situation. The closer the points of the plot to 45% line the better the model. Also a hight correlation coeficient indicates a good fit. For GAMLSS this is equivalent of plotting the response against the fitted values of the \\(\\mu\\) model. A strong linear pattern indicates that the \\(\\mu\\) model is adequate.\nFigure 29 plots the response variable against the fitted values for \\(\\mu\\). The plot also show the 45 degrees line between the two variables. The relation should be close to linear as possible. The correlation between the response and the fitted values for \\(\\mu\\) is 0.6154328, -0.1275195 which is reasonable hight.\n\nresp_mu(g4)\n\n\n\n\n\n\n\nFigure 29: Response against the mu fitted values."
+    "text": "resp_mu()\nPlotting, the response variable against the fitted values is a traditional way of checking the adequacy of the model in linear regression model situation. The closer the points of the plot to 45% line the better the model. Also a hight correlation coeficient indicates a good fit. For GAMLSS this is equivalent of plotting the response against the fitted values of the \\(\\mu\\) model. A strong linear pattern indicates that the \\(\\mu\\) model is adequate.\nFigure 30 plots the response variable against the fitted values for \\(\\mu\\). The plot also show the 45 degrees line between the two variables. The relation should be close to linear as possible. The correlation between the response and the fitted values for \\(\\mu\\) is 0.6154328, -0.1275195 which is reasonable hight.\n\nresp_mu(g4)\n\n\n\n\n\n\n\nFigure 30: Response against the mu fitted values."
   },
   {
     "objectID": "gamlss-ggplots.html#resp_param",
     "href": "gamlss-ggplots.html#resp_param",
     "title": "The Functions in gamlss.ggplots",
     "section": "resp_param()",
-    "text": "resp_param()\nGAMLSS have more than one parameters, so plotting the response variable against the the other parameters fitted values could be of interest. The function resp_param() can do that. It plots the response against any parameter fitted values. Figure 30 shows the response against the fitted values for \\(\\mu\\) and \\(\\sigma\\) respectively for model g4. The first plot has the usual interpretation describes in Section Section 5.1 the second need more thought.\n\nresp_param(g4)\n# resp_param(g4, \"sigma\")\n\n\n\n\n\n\n\nFigure 30: Residuals plot against the fitted mu and sigma, respectively, for model `g4’"
+    "text": "resp_param()\nGAMLSS have more than one parameters, so plotting the response variable against the the other parameters fitted values could be of interest. The function resp_param() can do that. It plots the response against any parameter fitted values. Figure 31 shows the response against the fitted values for \\(\\mu\\) and \\(\\sigma\\) respectively for model g4. The first plot has the usual interpretation describes in Section Section 5.1 the second need more thought.\n\nresp_param(g4)\n# resp_param(g4, \"sigma\")\n\n\n\n\n\n\n\nFigure 31: Residuals plot against the fitted mu and sigma, respectively, for model `g4’"
   },
   {
     "objectID": "gamlss-ggplots.html#resp_quantile",
     "href": "gamlss-ggplots.html#resp_quantile",
     "title": "The Functions in gamlss.ggplots",
     "section": "resp_quantile",
-    "text": "resp_quantile\nThe function resp_quantile plots the response variable against any fitted quantile. Here we plot the respose against the 0.95 quantile. Again the interpretation needs more thought.\n\nresp_quantile(g4, quantile=0.95)\n\n\n\n\n\n\n\nFigure 31: The respose against the fitted median."
+    "text": "resp_quantile\nThe function resp_quantile plots the response variable against any fitted quantile. Here we plot the respose against the 0.95 quantile. Again the interpretation needs more thought.\n\nresp_quantile(g4, quantile=0.95)\n\n\n\n\n\n\n\nFigure 32: The respose against the fitted median."
   },
   {
     "objectID": "gamlss-ggplots.html#fitted_devianceincr",
     "href": "gamlss-ggplots.html#fitted_devianceincr",
     "title": "The Functions in gamlss.ggplots",
     "section": "fitted_devianceIncr()",
-    "text": "fitted_devianceIncr()\nThe functionfitted_devianceIncr() plots the deviance increment from a fitted gamlss model.\n\nfitted_devianceIncr(g4)\n\n\n\n\n\n\n\nFigure 32: Plotting deviance increment from a fitted GAMLSS model."
+    "text": "fitted_devianceIncr()\nThe functionfitted_devianceIncr() plots the deviance increment from a fitted gamlss model.\n\nfitted_devianceIncr(g4)\n\n\n\n\n\n\n\nFigure 33: Plotting deviance increment from a fitted GAMLSS model."
   },
   {
     "objectID": "gamlss-ggplots.html#fitted_leverage",
     "href": "gamlss-ggplots.html#fitted_leverage",
     "title": "The Functions in gamlss.ggplots",
     "section": "fitted_leverage()",
-    "text": "fitted_leverage()\nThe function plots the linear leverage from a fitted GAMLSS model.\n\nfitted_leverage(m4)\n\n1969 observations with 5 variables \n\n\n\n\n\n\n\n\nFigure 33: Plotting linear leverage from a fitted GAMLSS model.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nfitted_leverage is not working for gamlss2 objects"
+    "text": "fitted_leverage()\nThe function plots the linear leverage from a fitted GAMLSS model.\n\nfitted_leverage(m4)\n\n1969 observations with 5 variables \n\n\n\n\n\n\n\n\nFigure 34: Plotting linear leverage from a fitted GAMLSS model.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nfitted_leverage is not working for gamlss2 objects"
   },
   {
     "objectID": "gamlss-ggplots.html#fitted_pdf",
     "href": "gamlss-ggplots.html#fitted_pdf",
     "title": "The Functions in gamlss.ggplots",
     "section": "fitted_pdf()",
-    "text": "fitted_pdf()\nThe function fitted_pdf() plots individual pdf’s from a fitted model. It needs the argument obs indicating which observation number to plot.\nFirst a continuous distribution:\n\na1 &lt;- gamlss2(y~pb(x),sigma.fo=~x, data=abdom, family=LO)\n\nGAMLSS-RS iteration  1: Global Deviance = 4884.1282 eps = 0.342686     \nGAMLSS-RS iteration  2: Global Deviance = 4778.7262 eps = 0.021580     \nGAMLSS-RS iteration  3: Global Deviance = 4778.6342 eps = 0.000019     \nGAMLSS-RS iteration  4: Global Deviance = 4778.6342 eps = 0.000000     \n\nfitted_pdf(a1, obs=c(500,610),from=280, to=500)\n\n\n\n\n\n\n\nFigure 34: Probability functions for a continuous responses.\n\n\n\n\n\nFor a infinite count response:\n\np1 &lt;- gamlss2(y~pb(x)+qrt, data=aids, family=NBI) \n\nGAMLSS-RS iteration  1: Global Deviance = 366.3831 eps = 0.366850     \nGAMLSS-RS iteration  2: Global Deviance = 359.6389 eps = 0.018407     \nGAMLSS-RS iteration  3: Global Deviance = 359.6228 eps = 0.000044     \nGAMLSS-RS iteration  4: Global Deviance = 359.6228 eps = 0.000000     \n\nfitted_pdf(p1, obs=10:15, from=25, to=130, alpha=.9) \n\n\n\n\n\n\n\nFigure 35: Probability functions for a count responses.\n\n\n\n\n\nThis is a binomial example:\n\nh &lt;- gamlss(y~ward+loglos+year, ~year+ward, family=BB, data=aep)\n\nGAMLSS-RS iteration 1: Global Deviance = 4490.361 \nGAMLSS-RS iteration 2: Global Deviance = 4483.13 \nGAMLSS-RS iteration 3: Global Deviance = 4483.021 \nGAMLSS-RS iteration 4: Global Deviance = 4483.02 \nGAMLSS-RS iteration 5: Global Deviance = 4483.02 \n\nfitted_pdf(h, obs=c(10:15), alpha=.9)\n\n\n\n\n\n\n\nFigure 36: Probability functions for a binomial responses.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nbinomial type distributions are not working for gamlss2 objects"
+    "text": "fitted_pdf()\nThe function fitted_pdf() plots individual pdf’s from a fitted model. It needs the argument obs indicating which observation number to plot.\nFirst a continuous distribution:\n\na1 &lt;- gamlss2(y~pb(x),sigma.fo=~x, data=abdom, family=LO)\n\nGAMLSS-RS iteration  1: Global Deviance = 4884.1282 eps = 0.342686     \nGAMLSS-RS iteration  2: Global Deviance = 4778.7262 eps = 0.021580     \nGAMLSS-RS iteration  3: Global Deviance = 4778.6342 eps = 0.000019     \nGAMLSS-RS iteration  4: Global Deviance = 4778.6342 eps = 0.000000     \n\nfitted_pdf(a1, obs=c(500,610),from=280, to=500)\n\n\n\n\n\n\n\nFigure 35: Probability functions for a continuous responses.\n\n\n\n\n\nFor a infinite count response:\n\np1 &lt;- gamlss2(y~pb(x)+qrt, data=aids, family=NBI) \n\nGAMLSS-RS iteration  1: Global Deviance = 366.3831 eps = 0.366850     \nGAMLSS-RS iteration  2: Global Deviance = 359.6389 eps = 0.018407     \nGAMLSS-RS iteration  3: Global Deviance = 359.6228 eps = 0.000044     \nGAMLSS-RS iteration  4: Global Deviance = 359.6228 eps = 0.000000     \n\nfitted_pdf(p1, obs=10:15, from=25, to=130, alpha=.9) \n\n\n\n\n\n\n\nFigure 36: Probability functions for a count responses.\n\n\n\n\n\nThis is a binomial example:\n\nh &lt;- gamlss(y~ward+loglos+year, ~year+ward, family=BB, data=aep)\n\nGAMLSS-RS iteration 1: Global Deviance = 4490.361 \nGAMLSS-RS iteration 2: Global Deviance = 4483.13 \nGAMLSS-RS iteration 3: Global Deviance = 4483.021 \nGAMLSS-RS iteration 4: Global Deviance = 4483.02 \nGAMLSS-RS iteration 5: Global Deviance = 4483.02 \n\nfitted_pdf(h, obs=c(10:15), alpha=.9)\n\n\n\n\n\n\n\nFigure 37: Probability functions for a binomial responses.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nbinomial type distributions are not working for gamlss2 objects"
   },
   {
     "objectID": "gamlss-ggplots.html#fitted_cdf",
     "href": "gamlss-ggplots.html#fitted_cdf",
     "title": "The Functions in gamlss.ggplots",
     "section": "fitted_cdf()",
-    "text": "fitted_cdf()\nThe function fitted_cdf() plots individual pdf’s from a fitted model. It needs the argument obs indicating which observation number to plot. %\nFirst a continuous distribution:\n\nfitted_cdf(a1, obs=c(500,610),from=280, to=500)\n\n\n\n\n\n\n\nFigure 37: Probability functions for a continuous responses.\n\n\n\n\n\nHere is a count response data example\n\nfitted_cdf(p1, obs=10:15, from=25, to=130, alpha=.9)\n\n\n\n\n\n\n\nFigure 38: Probability functions for a count responses.\n\n\n\n\n\nHere is a binomial response data example\n\nh&lt;-gamlss(y~ward+loglos+year, sigma.formula=~year+ward, family=BB, data=aep)\n\nGAMLSS-RS iteration 1: Global Deviance = 4490.361 \nGAMLSS-RS iteration 2: Global Deviance = 4483.13 \nGAMLSS-RS iteration 3: Global Deviance = 4483.021 \nGAMLSS-RS iteration 4: Global Deviance = 4483.02 \nGAMLSS-RS iteration 5: Global Deviance = 4483.02 \n\nfitted_cdf(h, obs=c(10:15),  alpha=.9)\n\n\n\n\n\n\n\nFigure 39: Probability functions for a binomial responses."
+    "text": "fitted_cdf()\nThe function fitted_cdf() plots individual pdf’s from a fitted model. It needs the argument obs indicating which observation number to plot. %\nFirst a continuous distribution:\n\nfitted_cdf(a1, obs=c(500,610),from=280, to=500)\n\n\n\n\n\n\n\nFigure 38: Probability functions for a continuous responses.\n\n\n\n\n\nHere is a count response data example\n\nfitted_cdf(p1, obs=10:15, from=25, to=130, alpha=.9)\n\n\n\n\n\n\n\nFigure 39: Probability functions for a count responses.\n\n\n\n\n\nHere is a binomial response data example\n\nh&lt;-gamlss(y~ward+loglos+year, sigma.formula=~year+ward, family=BB, data=aep)\n\nGAMLSS-RS iteration 1: Global Deviance = 4490.361 \nGAMLSS-RS iteration 2: Global Deviance = 4483.13 \nGAMLSS-RS iteration 3: Global Deviance = 4483.021 \nGAMLSS-RS iteration 4: Global Deviance = 4483.02 \nGAMLSS-RS iteration 5: Global Deviance = 4483.02 \n\nfitted_cdf(h, obs=c(10:15),  alpha=.9)\n\n\n\n\n\n\n\nFigure 40: Probability functions for a binomial responses."
   },
   {
     "objectID": "gamlss-ggplots.html#fitted_cdf_data",
     "href": "gamlss-ggplots.html#fitted_cdf_data",
     "title": "The Functions in gamlss.ggplots",
     "section": "fitted_cdf_data()",
-    "text": "fitted_cdf_data()\nThe function fitted_cdf_data() plots individual pdf’s from a fitted model but also add the data points. It needs the argument obs indicating which obs\n\nfitted_cdf_data(a1, obs=c(500,610),from=280, to=500)\n\n\n\n\n\n\n\nFigure 40: Probability functions for a binomial responses.\n\n\n\n\n\n\nfitted_centiles()\nSee Section Section 11.1."
+    "text": "fitted_cdf_data()\nThe function fitted_cdf_data() plots individual pdf’s from a fitted model but also add the data points. It needs the argument obs indicating which obs\n\nfitted_cdf_data(a1, obs=c(500,610),from=280, to=500)\n\n\n\n\n\n\n\nFigure 41: Probability functions for a binomial responses.\n\n\n\n\n\n\nfitted_centiles()\nSee Section Section 11.1."
   },
   {
     "objectID": "gamlss-ggplots.html#sec-fittedcentiles0",
@@ -326,14 +326,14 @@
     "href": "gamlss-ggplots.html#model_gaic",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_GAIC()",
-    "text": "model_GAIC()\nThe functions model_GAIC() and model_GAIC_lollipop() are identical but the appearance is different.\n\ngg&lt;-model_GAIC(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)\ngg\n\n\n\n\n\n\n\nFigure 41: plotting the GAIC."
+    "text": "model_GAIC()\nThe functions model_GAIC() and model_GAIC_lollipop() are identical but the appearance is different.\n\ngg&lt;-model_GAIC(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)\ngg\n\n\n\n\n\n\n\nFigure 42: plotting the GAIC."
   },
   {
     "objectID": "gamlss-ggplots.html#model_gaic_lollipop",
     "href": "gamlss-ggplots.html#model_gaic_lollipop",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_GAIC_lollipop()",
-    "text": "model_GAIC_lollipop()\n\ngg1&lt;-model_GAIC_lollipop(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)\ngg1\n\n\n\n\n\n\n\nFigure 42: plotting the GAIC."
+    "text": "model_GAIC_lollipop()\n\ngg1&lt;-model_GAIC_lollipop(g0,g1,g2,g3,g4, g5,g6,g7,g8,g9)\ngg1\n\n\n\n\n\n\n\nFigure 43: plotting the GAIC."
   },
   {
     "objectID": "gamlss-ggplots.html#model_density",
@@ -347,21 +347,21 @@
     "href": "gamlss-ggplots.html#model_qqplot",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_qqplot()",
-    "text": "model_qqplot()\nThe function model_qqplot() can be use to get a QQ-plots for more that one fitted model residuals.\n\ngg &lt;- model_qqplot(g1, g2, g3, g4)\ngg\n\n\n\n\n\n\n\nFigure 43: QQ-plot of the residuals of models m1, m2, m3 and m4.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nsomething is wrong here g2 and g3 are not appearing\n\n\nFor multiple plots use;\n\ngg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)\n\n\n\n\n\n\n\nFigure 44: Multiple QQ-plots of the residuals of models m1, m2, m3 and m4.\n\n\n\n\n\nThe resulting plot is shown on the Figure 44."
+    "text": "model_qqplot()\nThe function model_qqplot() can be use to get a QQ-plots for more that one fitted model residuals.\n\ngg &lt;- model_qqplot(g1, g2, g3, g4)\ngg\n\n\n\n\n\n\n\nFigure 44: QQ-plot of the residuals of models m1, m2, m3 and m4.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nsomething is wrong here g2 and g3 are not appearing\n\n\nFor multiple plots use;\n\ngg+facet_grid(cut_number(rent$Fl, 3)~rent$loc)\n\n\n\n\n\n\n\nFigure 45: Multiple QQ-plots of the residuals of models m1, m2, m3 and m4.\n\n\n\n\n\nThe resulting plot is shown on the Figure 45."
   },
   {
     "objectID": "gamlss-ggplots.html#model_wp",
     "href": "gamlss-ggplots.html#model_wp",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_wp()",
-    "text": "model_wp()\nThe function model_wp() can be use to get a worm-plots for multiple fitted models residuals.\n\ngg &lt;- model_wp(g1, g2, g3, g4)\ngg\n\n\n\n\n\n\n\nFigure 45: Worm-plot of the residuals of models m1, m2, m3 and m4."
+    "text": "model_wp()\nThe function model_wp() can be use to get a worm-plots for multiple fitted models residuals.\n\ngg &lt;- model_wp(g1, g2, g3, g4)\ngg\n\n\n\n\n\n\n\nFigure 46: Worm-plot of the residuals of models m1, m2, m3 and m4."
   },
   {
     "objectID": "gamlss-ggplots.html#model_wp_wrap",
     "href": "gamlss-ggplots.html#model_wp_wrap",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_wp_wrap()",
-    "text": "model_wp_wrap()\nFor model worm plots at differenbt values of the explnatory variables use;\n\ngg1 &lt;- model_wp_wrap(g1, g2, g3, g4, xvar=rent$A)\ngg1\n\n\n\n\n\n\n\nFigure 46: Multiple worm-plot of the residuals of models m1, m2, m3 and m4.\n\n\n\n\n\nThe resulting plot is shown on the right side of Figure Figure 46."
+    "text": "model_wp_wrap()\nFor model worm plots at differenbt values of the explnatory variables use;\n\ngg1 &lt;- model_wp_wrap(g1, g2, g3, g4, xvar=rent$A)\ngg1\n\n\n\n\n\n\n\nFigure 47: Multiple worm-plot of the residuals of models m1, m2, m3 and m4.\n\n\n\n\n\nThe resulting plot is shown on the right side of Figure Figure 47."
   },
   {
     "objectID": "gamlss-ggplots.html#bucket-plots",
@@ -375,14 +375,14 @@
     "href": "gamlss-ggplots.html#model_devianceincr_diff",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_devianceIncr_diff()",
-    "text": "model_devianceIncr_diff()\nThe function plots the difference in deviance increment between two fitted gamlss models.\n\nmodel_devianceIncr_diff(m3,m4)\n\n\n\n\n\n\n\nFigure 51: Deviance difference between models m3 and m4.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nNot working with gamlls2 objects"
+    "text": "model_devianceIncr_diff()\nThe function plots the difference in deviance increment between two fitted gamlss models.\n\nmodel_devianceIncr_diff(m3,m4)\n\n\n\n\n\n\n\nFigure 52: Deviance difference between models m3 and m4.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nNot working with gamlls2 objects"
   },
   {
     "objectID": "gamlss-ggplots.html#model_pca",
     "href": "gamlss-ggplots.html#model_pca",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_pca()",
-    "text": "model_pca()\nThis function it uses Principal Component Analysis (PCA) for the residual of multiple models and plots a bi-plot the first and second components.\n\ngg &lt;- model_pca(g1,g2,g3,g4)\ngg\n\n\n\n\n\n\n\nFigure 52: A PCA of different models residuals`.\n\n\n\n\n\n\nmodel_centiles()\nSee Section Section 11.3."
+    "text": "model_pca()\nThis function it uses Principal Component Analysis (PCA) for the residual of multiple models and plots a bi-plot the first and second components.\n\ngg &lt;- model_pca(g1,g2,g3,g4)\ngg\n\n\n\n\n\n\n\nFigure 53: A PCA of different models residuals`.\n\n\n\n\n\n\nmodel_centiles()\nSee Section Section 11.3."
   },
   {
     "objectID": "gamlss-ggplots.html#sec-modelcentiles0",
@@ -396,70 +396,70 @@
     "href": "gamlss-ggplots.html#y_hist",
     "title": "The Functions in gamlss.ggplots",
     "section": "y_hist()",
-    "text": "y_hist()\nHere we generate a vector from a BCCG distribution and plot its histogram and its density function .\n\ny &lt;- rBCCG(1000, mu=3, sigma=.1, nu=-1)\ngg &lt;- y_hist(y)\ngg\n\n\n\n\n\n\n\nFigure 53: Plotting a histogram of single variable and its density function.\n\n\n\n\n\nHere we add the true pdf of the generated variable.\n\ngg + stat_function(fun = dBCT, args=list(mu=3, sigma=.1,  nu=-1, tau=5),\n      geom = \"area\", alpha=0.5, fill=\"lightblue\", color=\"black\", n=301)\n\n\n\n\n\n\n\nFigure 54: Plotting a histogram of single variable and the true distribution supperimpose"
+    "text": "y_hist()\nHere we generate a vector from a BCCG distribution and plot its histogram and its density function .\n\ny &lt;- rBCCG(1000, mu=3, sigma=.1, nu=-1)\ngg &lt;- y_hist(y)\ngg\n\n\n\n\n\n\n\nFigure 54: Plotting a histogram of single variable and its density function.\n\n\n\n\n\nHere we add the true pdf of the generated variable.\n\ngg + stat_function(fun = dBCT, args=list(mu=3, sigma=.1,  nu=-1, tau=5),\n      geom = \"area\", alpha=0.5, fill=\"lightblue\", color=\"black\", n=301)\n\n\n\n\n\n\n\nFigure 55: Plotting a histogram of single variable and the true distribution supperimpose"
   },
   {
     "objectID": "gamlss-ggplots.html#y_dots",
     "href": "gamlss-ggplots.html#y_dots",
     "title": "The Functions in gamlss.ggplots",
     "section": "y_dots()",
-    "text": "y_dots()\nThe dots function is appropriate for long tail distributions be cause emphasise the the long left ot right tail of \\(y\\).\n\ny &lt;- rBCT(1000, mu=3, sigma=.1, nu=-1, tau=4)\ngg &lt;- y_dots(y)\ngg\n\n\n\n\n\n\n\nFigure 55: Plotting the \\(y\\) in dots to emphisise the long right tail."
+    "text": "y_dots()\nThe dots function is appropriate for long tail distributions be cause emphasise the the long left ot right tail of \\(y\\).\n\ny &lt;- rBCT(1000, mu=3, sigma=.1, nu=-1, tau=4)\ngg &lt;- y_dots(y)\ngg\n\n\n\n\n\n\n\nFigure 56: Plotting the \\(y\\) in dots to emphisise the long right tail."
   },
   {
     "objectID": "gamlss-ggplots.html#y_ecdf",
     "href": "gamlss-ggplots.html#y_ecdf",
     "title": "The Functions in gamlss.ggplots",
     "section": "y_ecdf()",
-    "text": "y_ecdf()\nThe empirical cdf of a variables can be plotted using the function y_ecdf()\n\ny &lt;- rBCT(1000, mu=3, sigma=.1, nu=-1, tau=4)\ngg &lt;- y_ecdf(y)\ngg\n\n\n\n\n\n\n\nFigure 56: Plotting the empirical cdf of a variable.\n\n\n\n\n\nHere is how you can add the theoretical cdf.\n\ngg+ stat_function(fun = \n          pBCT, args=list(mu=3, sigma=.1,  nu=-1, tau=5), \n          color=\"red\", n=301)\n\n\n\n\n\n\n\nFigure 57: Plotting the empirical cdf of a variable plues its theoretical cdf."
+    "text": "y_ecdf()\nThe empirical cdf of a variables can be plotted using the function y_ecdf()\n\ny &lt;- rBCT(1000, mu=3, sigma=.1, nu=-1, tau=4)\ngg &lt;- y_ecdf(y)\ngg\n\n\n\n\n\n\n\nFigure 57: Plotting the empirical cdf of a variable.\n\n\n\n\n\nHere is how you can add the theoretical cdf.\n\ngg+ stat_function(fun = \n          pBCT, args=list(mu=3, sigma=.1,  nu=-1, tau=5), \n          color=\"red\", n=301)\n\n\n\n\n\n\n\nFigure 58: Plotting the empirical cdf of a variable plues its theoretical cdf."
   },
   {
     "objectID": "gamlss-ggplots.html#y_acf",
     "href": "gamlss-ggplots.html#y_acf",
     "title": "The Functions in gamlss.ggplots",
     "section": "y_acf()",
-    "text": "y_acf()\nThe functions y_acf() take a single time series vector and plot its auto-correlation function.\n\ny_acf(diff(EuStockMarkets[,1])) \n\n\n\n\n\n\n\nFigure 58: Plotting ACF of the first difference of FTSE."
+    "text": "y_acf()\nThe functions y_acf() take a single time series vector and plot its auto-correlation function.\n\ny_acf(diff(EuStockMarkets[,1])) \n\n\n\n\n\n\n\nFigure 59: Plotting ACF of the first difference of FTSE."
   },
   {
     "objectID": "gamlss-ggplots.html#y_pacf",
     "href": "gamlss-ggplots.html#y_pacf",
     "title": "The Functions in gamlss.ggplots",
     "section": "y_pacf()",
-    "text": "y_pacf()\nThe functions y_pacf() take a single time series vector and plot its partial auto-correlation function.\n\ny_pacf(diff(EuStockMarkets[,1])) \n\n\n\n\n\n\n\nFigure 59: Plotting PACF of the first difference of FTSE."
+    "text": "y_pacf()\nThe functions y_pacf() take a single time series vector and plot its partial auto-correlation function.\n\ny_pacf(diff(EuStockMarkets[,1])) \n\n\n\n\n\n\n\nFigure 60: Plotting PACF of the first difference of FTSE."
   },
   {
     "objectID": "gamlss-ggplots.html#y_symmetry",
     "href": "gamlss-ggplots.html#y_symmetry",
     "title": "The Functions in gamlss.ggplots",
     "section": "y_symmetry()",
-    "text": "y_symmetry()\nHere we plot the symmetry plot of the variable \\(y\\).\n\ngg&lt;-y_symmetry(rent$R)\ngg\n\n\n\n\n\n\n\nFigure 60: A symmetry plot of the rent data."
+    "text": "y_symmetry()\nHere we plot the symmetry plot of the variable \\(y\\).\n\ngg&lt;-y_symmetry(rent$R)\ngg\n\n\n\n\n\n\n\nFigure 61: A symmetry plot of the rent data."
   },
   {
     "objectID": "gamlss-ggplots.html#pe_terms",
     "href": "gamlss-ggplots.html#pe_terms",
     "title": "The Functions in gamlss.ggplots",
     "section": "pe_terms()",
-    "text": "pe_terms()\nThe function plots individual terms from a fitted gamlss model. It is equivalent to term.plot(). Note that the function will produce up to 9 term plots before ask for the next page.\n\ngamlss.ggplots:::pe_terms(m4, partial=T)\n\n\n\n\n\n\n\nFigure 61: Plotting terms from a fitted GAMLSS model.\n\n\n\n\n\nThe function pe_terms() uses the function lpred() to obtain the partial fitted terms. The function lpred() is using the parameter model.frame which has already evaluate the factors as a set of dummy variables. The partial terms are then evaluated by fixing the other terms on their means and after subtraction for the mean of the response.\n\n\n\n\n\n\nWarning\n\n\n\nNot working with gamlls2 objects"
+    "text": "pe_terms()\nThe function plots individual terms from a fitted gamlss model. It is equivalent to term.plot(). Note that the function will produce up to 9 term plots before ask for the next page.\n\ngamlss.ggplots:::pe_terms(m4, partial=T)\n\n\n\n\n\n\n\nFigure 62: Plotting terms from a fitted GAMLSS model.\n\n\n\n\n\nThe function pe_terms() uses the function lpred() to obtain the partial fitted terms. The function lpred() is using the parameter model.frame which has already evaluate the factors as a set of dummy variables. The partial terms are then evaluated by fixing the other terms on their means and after subtraction for the mean of the response.\n\n\n\n\n\n\nWarning\n\n\n\nNot working with gamlls2 objects"
   },
   {
     "objectID": "gamlss-ggplots.html#pe_param",
     "href": "gamlss-ggplots.html#pe_param",
     "title": "The Functions in gamlss.ggplots",
     "section": "pe_param()",
-    "text": "pe_param()\nThe function pe_param() plots the partial effect of one or two specified term(s) given all other terms in the model remain fixed at predetermined values. Depending on length of the argument term the function pe_param() uses the function pe_1_param() or pe_2_param() to plot the partial effects. Here we plot it against a continuous variable A:\n\npe_param(g4, \"A\")\n\n\n\n\n\n\n\nFigure 62: Plotting partial terms from A.\n\n\n\n\n\nHere we plot it against a categorical variable loc:\n\npe_param(g4, \"loc\")\n\n\n\n\n\n\n\nFigure 63: Plotting partial terms from loc.\n\n\n\n\n\nHere we use two continuous variables A and Fl:\n\ngamlss.ggplots:::pe_param(g4, c(\"A\", \"Fl\"))\n\n\n\n\n\n\n\nFigure 64: Plotting partial terms from A and Fl.\n\n\n\n\n\nHere we use two continuous variables A and Fl but with the argument filled = TRUE:\n\ngamlss.ggplots:::pe_param(g4, c(\"A\", \"Fl\"), filled = TRUE)\n\n\n\n\n\n\n\nFigure 65: Plotting partial terms from A and Fl.\n\n\n\n\n\nHere we use one continuous A and one categorical variables loc:\n\ngamlss.ggplots:::pe_param(g4, c(\"A\", \"loc\"))\n\n\n\n\n\n\n\nFigure 66: Plotting partial terms from loc and A.\n\n\n\n\n\nHere we use two categorical variables H and loc:\n\ngamlss.ggplots:::pe_param(g4, c(\"H\", \"loc\"))\n\n\n\n\n\n\n\nFigure 67: Plotting partial terms from loc and H."
+    "text": "pe_param()\nThe function pe_param() plots the partial effect of one or two specified term(s) given all other terms in the model remain fixed at predetermined values. Depending on length of the argument term the function pe_param() uses the function pe_1_param() or pe_2_param() to plot the partial effects. Here we plot it against a continuous variable A:\n\npe_param(g4, \"A\")\n\n\n\n\n\n\n\nFigure 63: Plotting partial terms from A.\n\n\n\n\n\nHere we plot it against a categorical variable loc:\n\npe_param(g4, \"loc\")\n\n\n\n\n\n\n\nFigure 64: Plotting partial terms from loc.\n\n\n\n\n\nHere we use two continuous variables A and Fl:\n\ngamlss.ggplots:::pe_param(g4, c(\"A\", \"Fl\"))\n\n\n\n\n\n\n\nFigure 65: Plotting partial terms from A and Fl.\n\n\n\n\n\nHere we use two continuous variables A and Fl but with the argument filled = TRUE:\n\ngamlss.ggplots:::pe_param(g4, c(\"A\", \"Fl\"), filled = TRUE)\n\n\n\n\n\n\n\nFigure 66: Plotting partial terms from A and Fl.\n\n\n\n\n\nHere we use one continuous A and one categorical variables loc:\n\ngamlss.ggplots:::pe_param(g4, c(\"A\", \"loc\"))\n\n\n\n\n\n\n\nFigure 67: Plotting partial terms from loc and A.\n\n\n\n\n\nHere we use two categorical variables H and loc:\n\ngamlss.ggplots:::pe_param(g4, c(\"H\", \"loc\"))\n\n\n\n\n\n\n\nFigure 68: Plotting partial terms from loc and H."
   },
   {
     "objectID": "gamlss-ggplots.html#pe_param_grid",
     "href": "gamlss-ggplots.html#pe_param_grid",
     "title": "The Functions in gamlss.ggplots",
     "section": "pe_param_grid()",
-    "text": "pe_param_grid()\nThe function pe_param_grid() show multiple plots of partial effects (main effect or first order interactions) given all other terms in the model remain fixed at predetermined values.\n\ngamlss.ggplots:::pe_param_grid(g5, list(c(\"Fl\", \"A\"), c(\"H\", \"loc\")))\n\n\n\n\n\n\n\nFigure 68: Plotting partial terms from loc and H.\n\n\n\n\n\n\ngamlss.ggplots:::pe_param_grid(g5, list(c(\"Fl\", \"A\"), c(\"H\", \"loc\")))\n\n\n\n\n\n\n\nFigure 69: Plotting the partial effect of terms in model m6. Note that the plot on the left panel is a genuine first order interaction term fitted with a 2 dimensional smoother using the interface with the package mgcv while the plot on the right panel is created using the two factors H and loc is just a two dimensional plot of the two main effects for H and loc respectively, since no interaction was fitted for those two terms"
+    "text": "pe_param_grid()\nThe function pe_param_grid() show multiple plots of partial effects (main effect or first order interactions) given all other terms in the model remain fixed at predetermined values.\n\ngamlss.ggplots:::pe_param_grid(g5, list(c(\"Fl\", \"A\"), c(\"H\", \"loc\")))\n\n\n\n\n\n\n\nFigure 69: Plotting partial terms from loc and H.\n\n\n\n\n\n\ngamlss.ggplots:::pe_param_grid(g5, list(c(\"Fl\", \"A\"), c(\"H\", \"loc\")))\n\n\n\n\n\n\n\nFigure 70: Plotting the partial effect of terms in model m6. Note that the plot on the left panel is a genuine first order interaction term fitted with a 2 dimensional smoother using the interface with the package mgcv while the plot on the right panel is created using the two factors H and loc is just a two dimensional plot of the two main effects for H and loc respectively, since no interaction was fitted for those two terms"
   },
   {
     "objectID": "gamlss-ggplots.html#predict_pdf",
     "href": "gamlss-ggplots.html#predict_pdf",
     "title": "The Functions in gamlss.ggplots",
     "section": "predict_pdf()",
-    "text": "predict_pdf()\nNow with newdata we use `predict_pdf’:\n\npredict_pdf(a1, newdata=abdom[c(11,15,20,25),], from=38, to=130)\n\n\n\n\n\n\n\nFigure 70: Plotting linear leverage from a fitted GAMLSS model."
+    "text": "predict_pdf()\nNow with newdata we use `predict_pdf’:\n\npredict_pdf(a1, newdata=abdom[c(11,15,20,25),], from=38, to=130)\n\n\n\n\n\n\n\nFigure 71: Plotting linear leverage from a fitted GAMLSS model."
   },
   {
     "objectID": "gamlss-ggplots.html#classical-functions",
@@ -473,21 +473,21 @@
     "href": "gamlss-ggplots.html#sec-fittedcentiles",
     "title": "The Functions in gamlss.ggplots",
     "section": "fitted_centiles()",
-    "text": "fitted_centiles()\nThe fitted_centiles() function, produces identical results with the function centiles() of gamlss.\n\nfitted_centiles(m2)\n\n\n\n\n\n\n\nFigure 71: Plotting the centiles for model m2.\n\n\n\n\n\nThe function fitted_centiles()'  can be used withfacet_wrap()`:\n\nfitted_centiles(m2)+\n  facet_wrap(cut_number(db$age, 3), scales = \"free_x\")\n\n\n\n\n\n\n\nFigure 72: Plotting the centiles for models m1, m2 and m3."
+    "text": "fitted_centiles()\nThe fitted_centiles() function, produces identical results with the function centiles() of gamlss.\n\nfitted_centiles(m2)\n\n\n\n\n\n\n\nFigure 72: Plotting the centiles for model m2.\n\n\n\n\n\nThe function fitted_centiles()'  can be used withfacet_wrap()`:\n\nfitted_centiles(m2)+\n  facet_wrap(cut_number(db$age, 3), scales = \"free_x\")\n\n\n\n\n\n\n\nFigure 73: Plotting the centiles for models m1, m2 and m3."
   },
   {
     "objectID": "gamlss-ggplots.html#sec-fittedcentileslegend",
     "href": "gamlss-ggplots.html#sec-fittedcentileslegend",
     "title": "The Functions in gamlss.ggplots",
     "section": "fitted_centiles_legend()",
-    "text": "fitted_centiles_legend()\nTo have legend in the plot use the following which it takes more time.\n\nfitted_centiles_legend(m1)\n\n\n\n\n\n\n\nFigure 73: Plotting the centiles for model m2."
+    "text": "fitted_centiles_legend()\nTo have legend in the plot use the following which it takes more time.\n\nfitted_centiles_legend(m1)\n\n\n\n\n\n\n\nFigure 74: Plotting the centiles for model m2."
   },
   {
     "objectID": "gamlss-ggplots.html#sec-modelcentiles",
     "href": "gamlss-ggplots.html#sec-modelcentiles",
     "title": "The Functions in gamlss.ggplots",
     "section": "model_centiles()",
-    "text": "model_centiles()\nIf you wnat to check the centiles curves for all models used;\n\nmodel_centiles(m1,m2,m3,  xvar=age)\n\n\n\n\n\n\n\nFigure 74: Plotting the centiles for models m1, m2 and m3.\n\n\n\n\n\nor\n\nmodel_centiles(m1,m2,m3,  xvar=age, in.one=TRUE)\n\n\n\n\n\n\n\nFigure 75: Plotting the centiles for models m1, m2 and m3.\n\n\n\n\n\nThe function model_centiles(..., in.one=TRUE)'  can be used withfacet_wrap()`:\n\nmodel_centiles(m1,m2,m3, xvar=age, in.one=TRUE)+\n  facet_wrap(cut_number(db$age, 4), scales = \"free_x\")# working\n\n\n\n\n\n\n\nFigure 76: Plotting the centiles for models m1, m2 and m3."
+    "text": "model_centiles()\nIf you wnat to check the centiles curves for all models used;\n\nmodel_centiles(m1,m2,m3,  xvar=age)\n\n\n\n\n\n\n\nFigure 75: Plotting the centiles for models m1, m2 and m3.\n\n\n\n\n\nor\n\nmodel_centiles(m1,m2,m3,  xvar=age, in.one=TRUE)\n\n\n\n\n\n\n\nFigure 76: Plotting the centiles for models m1, m2 and m3.\n\n\n\n\n\nThe function model_centiles(..., in.one=TRUE)'  can be used withfacet_wrap()`:\n\nmodel_centiles(m1,m2,m3, xvar=age, in.one=TRUE)+\n  facet_wrap(cut_number(db$age, 4), scales = \"free_x\")# working\n\n\n\n\n\n\n\nFigure 77: Plotting the centiles for models m1, m2 and m3."
   },
   {
     "objectID": "gamlss-ggplots.html#sec-Boostrapping",
@@ -655,28 +655,28 @@
     "href": "gamlss-ggplots.html#resid_symmetry",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_symmetry()",
-    "text": "resid_symmetry()\nA symmetry plot is useful for detecting asymmetry (skewnwess) in the residuals. Here we plot the symmetry plot of the residuals for model m4.\n\ngg&lt;-resid_symmetry(g4)\ngg\n\n\n\n\n\n\n\nFigure 28: A symmetry plot of the residuals."
+    "text": "resid_symmetry()\nA symmetry plot is useful for detecting asymmetry (skewnwess) in the residuals. Here we plot the symmetry plot of the residuals for model m4.\n\ngg&lt;-resid_symmetry(g4)\ngg\n\n\n\n\n\n\n\nFigure 29: A symmetry plot of the residuals."
   },
   {
     "objectID": "gamlss-ggplots.html#resid_wp_wrap",
     "href": "gamlss-ggplots.html#resid_wp_wrap",
     "title": "The Functions in gamlss.ggplots",
     "section": "resid_wp_wrap()",
-    "text": "resid_wp_wrap()\nThe worm plot for a single model at different values of an explanatory variable can be plotted using:\n\ngg1 &lt;-resid_wp_wrap(g4, xvar=rent$A)\ngg1\n\n\n\n\n\n\n\nFigure 18: Worm-plot of the residuals for model m4 at different values of A\n\n\n\n\n\nSee Figure 18"
+    "text": "resid_wp_wrap()\nThe worm plot for a single model at different values of an explanatory variable can be plotted using:\n\ngg1 &lt;-resid_wp_wrap(g4, xvar=rent$A)\ngg1\n\n\n\n\n\n\n\nFigure 19: Worm-plot of the residuals for model m4 at different values of A\n\n\n\n\n\nSee Figure 19"
   },
   {
     "objectID": "gamlss-ggplots.html#model_mom_bucket",
     "href": "gamlss-ggplots.html#model_mom_bucket",
     "title": "The Functions in gamlss.ggplots",
     "section": "`model_mom_bucket()",
-    "text": "`model_mom_bucket()\nThe function model_mom_bucket() (also known as mement_bucket()) can be use to get the moment bucket plot for one or more fitted model residuals. Note that moment_bucket() is synonymous to model_mom_bucket().\n\ngg &lt;- moment_bucket(g1, g2, g3, g4)\ngg\n\n\n\n\n\n\n\nFigure 47: Single moment bucket plots of the residuals of models m1, m2, m3 and m4."
+    "text": "`model_mom_bucket()\nThe function model_mom_bucket() (also known as mement_bucket()) can be use to get the moment bucket plot for one or more fitted model residuals. Note that moment_bucket() is synonymous to model_mom_bucket().\n\ngg &lt;- moment_bucket(g1, g2, g3, g4)\ngg\n\n\n\n\n\n\n\nFigure 48: Single moment bucket plots of the residuals of models m1, m2, m3 and m4."
   },
   {
     "objectID": "gamlss-ggplots.html#moment_bucket_wrap",
     "href": "gamlss-ggplots.html#moment_bucket_wrap",
     "title": "The Functions in gamlss.ggplots",
     "section": "moment_bucket_wrap()",
-    "text": "moment_bucket_wrap()\nFor multiple plots use\n\ngg1 &lt;- moment_bucket_wrap(m1, m2, m3, m4, xvar=rent$A)\ngg1 \n\n\n\n\n\n\n\nFigure 48: Multiple moment bucket plots of the residuals of models g1, g2, g3 and g4.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nNot working with gamlls2 objects\n\n\nThe resulting plot is shown on the right side of Figure Figure 48.\n\nmoment_gray_both() and moment_colour_both()\nNote that the background of the bucket plots is generated by the functions\n\nmoment_gray_both()\nmoment_colour_both()\n\n\n\n\n\n\n\nFigure 49: The background of the moment bucket plot.\n\n\n\n\n\n\n\n\n\n\n\nFigure 50: The background of the moment bucket plot."
+    "text": "moment_bucket_wrap()\nFor multiple plots use\n\ngg1 &lt;- moment_bucket_wrap(m1, m2, m3, m4, xvar=rent$A)\ngg1 \n\n\n\n\n\n\n\nFigure 49: Multiple moment bucket plots of the residuals of models g1, g2, g3 and g4.\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nNot working with gamlls2 objects\n\n\nThe resulting plot is shown on the right side of Figure Figure 49.\n\nmoment_gray_both() and moment_colour_both()\nNote that the background of the bucket plots is generated by the functions\n\nmoment_gray_both()\nmoment_colour_both()\n\n\n\n\n\n\n\nFigure 50: The background of the moment bucket plot.\n\n\n\n\n\n\n\n\n\n\n\nFigure 51: The background of the moment bucket plot."
   },
   {
     "objectID": "gamlss-ggplots.html#xectors",
