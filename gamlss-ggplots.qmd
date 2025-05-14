@@ -542,6 +542,19 @@ or alternatively you can use the function `model_qqplot()` which can display mor
 
 #### For different values of x-variables
 
+##### One x-variable
+
+```{r}
+#| label: fig-figure2111
+#| fig-cap: "QQ-plot of the residuals of model `m1` against `Fl` and `A' "
+#| warning: false
+gg+facet_grid(cut_number(rent$Fl, 4))+ 
+  ggtitle("qqplot of model m1 against Fl") 
+```
+
+
+
+##### Two x-variables
 ```{r}
 #| label: fig-figure211
 #| fig-cap: "QQ-plot of the residuals of model `m1` against `Fl` and `A' "
