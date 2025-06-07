@@ -844,7 +844,8 @@ It’s important to distinguish between the concepts of *transformations* (the s
 #### `xy_Ptrans()` {#sec-xy-Ptrans}
 
 ```{r}
-gamlss.prepdata:::xy_Ptrans(da$area, da$rent) 
+pp<-gamlss.prepdata:::xy_Ptrans(da$area, da$rent) 
+pp
 ```
 
 ```{r}
