@@ -703,6 +703,7 @@ The available functions are;
 | Functions | Usage |
 |:-----------------------------------|-----------------------------------:|
 | [`y_outliers()`](#sec-y-outliers) | identify possible outliers in a continuous variable (see below) |
+| [`y_both_outliers()`](#sec-y-both-outliers) | identify possible outliers using both `zscores` and `quaniles` methodology|
 | [`data_outliers()`](#sec-data-outliers) | identify possible outliers for all continuous x-variable (see also `data_zscores` in @sec-data-zscores) |
 | [`data_leverage()`](#sec-data-leverage-1) | this is a repear of the function from @sec-data-leverage |
 | [`data_scale()`](#sec-data-scale) | scaling all continuous x-variables either to zero mean and one s.d. or to the range \[0,1\] |
@@ -722,7 +723,7 @@ Outliers in the continuous explanatory variables can potentially affect curve fi
 At this preliminary stage of the analysis, where no model has yet been fitted, it is difficult to identify outliers among factors. This is because outliers in factors typically do not appear unusual when examining individual variables. Their outlier status usually becomes apparent only when considered in combination with other variables or factors. Identifying such outliers is a task better suited for the modelling stage of the analysis.
 :::
 
-The function `y_outliers()` in @sec-y-outliers uses a simple algorithm to identify potential one-dimensional outliers in continuous explanatory variables. It is designed specifically for continuous variables.
+The function `y_outliers()` in @sec-y-outliers uses two methodologies to identify outliers; The default uses simple algorithm to identify potential one-dimensional outliers in continuous explanatory variables. It is designed specifically for continuous variables.
 
 -   For variables defined on the full real line, (i.e., from $-\infty$ to $+\infty$, the algorithm fits a parametric distribution—by default, the four-parameter `SHASHo` distribution—and computes z-scores (quantile residuals) to assess outlier status.
 
@@ -736,13 +737,34 @@ Several of the graphical functions described in @sec-Graphical-functions are goo
 
 #### `y_outliers()` {#sec-y-outliers}
 
-The function `y_outliers()` identify outliers in one $X$ variable.
+The function `y_outliers()` identify outliers in one $X$ variable. There are two methodologies to do that;
 
+-  `zscores`: A  distribution is fitted to the data (usually `SHASHo`) then the residuals (z-scores) are taken and observations with large residuals are identified (see also the above comment).
+
+- `quantile`: This is the classical methodology and it is based on sample quantiles.  An observation is identified if it far from the median. How far usually is taken  as three time the semi-inter-quantiles range. The option `value` is set to 4 as a default in the fanction. 
+
+Using the zscores;
 ```{r}
 y_outliers(da$rent)
 ```
+or  using the `quantile` 
+
+```{r}
+y_outliers(da$rent, type="quantile", value=4)
+```
 
 Note that the `y_outliers()` is used by `data_outliers()` to identify outliers in all continuous variables in the data.
+
+[back to table](#tbl-features)
+
+
+#### `y_both_outliers()` {#sec-y-both-outliers}
+
+The function `y_both_outliers()` uses both `zscores` and `quantiles` and reports the obsrarvations appearing in both sets. Note that the defaule `value` is 4 for both cases.
+
+```{r}
+y_both_outliers(da$rent)
+```
 
 [back to table](#tbl-features)
 
@@ -826,7 +848,7 @@ head(data_scale(da, response=rent,  scale.to="0to1"))
 
 ### Transformations {#sec-Transformations}
 
-In the context of outliers, the focus on how far a single observation deviates from the rest of the data. However, when considering **transformations**, the goal shifts toward a better capturing of the relationship between a continuous predictor and the response variable. Specifically, we aim to model **peaks and troughs** in the relationship between a single x-variable and the response better. To achieve this, it is sometimes sufficient to stretch the x-axis so that the predictor variable is more evenly distributed within its its range. A common approach for this is to use a power transformation of the form $T = X^\lambda$. This transoformation can reduce the curvature in the response and make the curve fitting easier. Importantly, the power transformation smoothly transitions into a logarithmic transformation as $\lambda \to 0$, since: $\frac{X^{\lambda} - 1} {\lambda} \rightarrow \log(X) \quad \text{as } \lambda \to 0$. Thus, in the limit as $\lambda \to 0$ is the power traformation is the log transformation $T = \log(X)$.
+In the context of outliers, the focus on how far a single observation deviates from the rest of the data. However, when considering **transformations**, the goal shifts toward a better capturing of the relationship between a continuous predictor and the response variable. Specifically, we aim to model **peaks and troughs** in the relationship between a single x-variable and the response better. To achieve this, it is sometimes sufficient to stretch the x-axis so that the predictor variable is more evenly distributed within its its range. A common approach for this is to use a power transformation of the form $T = X^\lambda$. This transoformation can reduce the curvature in the response and make the curve fitting easier. Importantly, the power transformation smoothly transitions into a logarithmic transformation as $\lambda \to 0$, since: $\frac{X^{\lambda} - 1} {\lambda} \rightarrow \log(X) \quad \text{as } \lambda \to 0$. Thus, in the limit as $\lambda \to 0$ is the power transformation is the log transformation $T = \log(X)$.
 
 <!-- In the context of outliers, we focus on how far an observation is from the rest of the data. However, in the case of transformations, we are more concerned with how to best capture the relationship between a continuous variable in the data and the response. More precisely, we are interest to be able to capture  better peaks and troughs in the relation between one single x and the response.  To do that, sometime it is sufficient to stretch the x-axis in such a way the x-variable is more evenly distributed within its range. A power transformation, $T=X^\lambda$ on the x-variable can achieve this. Often the pawer  transformation makes the  hight curvative in the response to disappear.  Now since $(X^{\lambda} - 1) / \lambda \rightarrow \log X$ as $\lambda \rightarrow 0$ one can assume at the limit of the transformation while lambda goes to zero   the log transformation  $T = \log(X).$ -->
 
