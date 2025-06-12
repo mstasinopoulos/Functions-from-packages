@@ -348,7 +348,7 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"gamlss.prepdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '0.1.8'</code></pre>
+<pre><code>[1] '0.1.9'</code></pre>
 </div>
 </div>
 </section>
@@ -1617,7 +1617,7 @@ Note
 <p>The function <code>y_outliers()</code> identify outliers in one <span class="math inline">\(X\)</span> variable. There are two methodologies to do that;</p>
 <ul>
 <li><p><code>zscores</code>: A distribution is fitted to the data (usually <code>SHASHo</code>) then the residuals (z-scores) are taken and observations with large residuals are identified (see also the above comment).</p></li>
-<li><p><code>quantile</code>: This is the classical methodology and it is based on sample quantiles. An observation is identified if it far from the median. How far usually is taken as three time the semi-inter-quantiles range. The option <code>value</code> is set to 4 as a default in the fanction.</p></li>
+<li><p><code>quantile</code>: This is the classical methodology and it is based on sample quantiles. An observation is identified if it far from the median. How far usually is taken as three time the semi-inter-quantiles range. The option <code>value</code> is set to 4 as a default in the function.</p></li>
 </ul>
 <p>Using the zscores;</p>
 <div class="cell">
@@ -1636,6 +1636,19 @@ Note
 </div>
 </div>
 <p>Note that the <code>y_outliers()</code> is used by <code>data_outliers()</code> to identify outliers in all continuous variables in the data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For very skew data the <code>value</code> in the option <code>type="quantile"</code> need to be increased.</p>
+</div>
+</div>
 <p><a href="#tbl-features">back to table</a></p>
 </section>
 <section id="sec-y-both-outliers" class="level4">
@@ -1655,10 +1668,6 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data_outliers</span>(da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>    rent     area    yearc location     bath  kitchen cheating 
-    2723      132       68        3        2        2        2 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
 <pre><code>$rent
 named integer(0)
 
@@ -1676,7 +1685,7 @@ named integer(0)</code></pre>
 <h4 class="anchored" data-anchor-id="sec-data-leverage-1"><code>data_leverage()</code> (repeat)</h4>
 <p>The function <code>data_leverage()</code>, fisrt describe in <a href="#sec-data-leverage" class="quarto-xref">Section&nbsp;5.0.11</a>, can be used to detect extremes in the continuous variables in the data by fiting a linear model with all the continuous variables in the data and then useing the higher leverage points to identify (multi-dimension) outliers for the observations for all continuous variables. By default, it identifies one percent of the observations with high leverage in the data. Here we use the function as a way to identify the obsrvation (not plottoing).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1700,17 +1709,13 @@ Note
 <p>The function<code>data_leverage()</code> always identifies the top one percent of observations with the highest leverage, which may or may not be outliers. These high-leverage points can have a strong influence on model estimates. To better assess their impact, the list of high-leverage observations returned by <code>data_leverage()</code> should be compared with the list of outliers identified by the <code>data_outliers()</code> function. Observations that appear in both lists are particularly noteworthy, as they may be influential outliers that warrant further investigation.</p>
 </div>
 </div>
-<p>Next we are trying the proceess of identifing if data with high leverage are also coincide with outliers identified using the function <code>data_outliers()</code> function. The function <code>intersect()</code> will flash out the intersection of the two set of observations. First use <code>data_outliers()</code></p>
+<p>Next we are trying the process of identifying if data with high leverage are also coincide with outliers identified using the function <code>data_outliers()</code> function. The function <code>intersect()</code> will flash out the intersection of the two set of observations. First use <code>data_outliers()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>ul <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">data_outliers</span>(da))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    rent     area    yearc location     bath  kitchen cheating 
-    2723      132       68        3        2        2        2 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>ul <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">data_outliers</span>(da))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>then <code>data_leverage()</code>;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>ll<span class="ot">&lt;-</span><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>ll<span class="ot">&lt;-</span><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1718,7 +1723,7 @@ that is, 3082 observations. </code></pre>
 </div>
 <p>and finally we inspect the intersection of the two sets using <code>intersect()</code>;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(ll,ul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(ll,ul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>integer(0)</code></pre>
 </div>
@@ -1739,7 +1744,7 @@ that is, 3082 observations. </code></pre>
 <h4 class="anchored" data-anchor-id="sec-data-scale"><code>data_scale()</code></h4>
 <p>The function <code>data_scale()</code> perform scaling to all continuous variables an a data set. Note that factors in the data set are left untouched because when fitted within a model they will be transform to dummy variable which take values 0 or 1 (a kind of standardization). The response is left also untouched because it is assumed that an appropriate distribution will be fitted. The response variable has to be declared using the argument <code>response.</code> First we use <code>data_scale()</code> to scale to normality.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    area    yearc location     bath  kitchen cheating 
      132       68        3        2        2        2 </code></pre>
@@ -1756,7 +1761,7 @@ that is, 3082 observations. </code></pre>
 </div>
 <p>As we mention before scaling to normality is equivalent of fitting a Normal variable first. The problem with scaling to normality is that if the variables are highly skew or kurtotic scaling them to normality does correct for skewness or kurtosis. Using a parametric distribution with four parameters some of which are skewness and kurtosis parameters it may correct that. Next we standardised using the <code>SHASHo</code> distribution;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">family=</span><span class="st">"SHASHo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">family=</span><span class="st">"SHASHo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    area    yearc location     bath  kitchen cheating 
      132       68        3        2        2        2 </code></pre>
@@ -1773,7 +1778,7 @@ that is, 3082 observations. </code></pre>
 </div>
 <p>The second form od standardisation is to transform all continuous x-variables to a range zero to one. Here is how this is done;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">scale.to=</span><span class="st">"0to1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">scale.to=</span><span class="st">"0to1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    area    yearc location     bath  kitchen cheating 
      132       68        3        2        2        2 </code></pre>
@@ -1826,14 +1831,14 @@ Note
 <section id="sec-xy-Ptrans" class="level4">
 <h4 class="anchored" data-anchor-id="sec-xy-Ptrans"><code>xy_Ptrans()</code></h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>pp<span class="ot">&lt;-</span>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent) </span>
-<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>pp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>pp<span class="ot">&lt;-</span>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent) </span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>pp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.06212</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent, <span class="at">prof=</span><span class="cn">TRUE</span>, <span class="at">k=</span><span class="dv">4</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent, <span class="at">prof=</span><span class="cn">TRUE</span>, <span class="at">k=</span><span class="dv">4</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1846,7 +1851,7 @@ Note
 <section id="sec-data-Ptrans" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-Ptrans"><code>data_Ptrans()</code></h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans</span>(da, <span class="at">response=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans</span>(da, <span class="at">response=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1864,7 +1869,7 @@ $yearc
 <section id="sec-data-Ptrans-1" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-Ptrans-1"><code>data_Ptrans_plot()</code> (repeat)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans_plot</span>(da, rent) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans_plot</span>(da, rent) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1888,23 +1893,23 @@ that is, 3082 observations. </code></pre>
 <h4 class="anchored" data-anchor-id="sec-time-dt2dhour"><code>time_dt2dhour()</code></h4>
 <p>Suppose the variable <code>dt</code> contains both a date and a time. We may want to extract and separate this into two components: one containing the date, and another capturing the hour of the day.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01/01/2011 00:00"</span>, <span class="st">"01/01/2011 01:00"</span>, <span class="st">"01/01/2011 02:00"</span>, <span class="st">"01/01/2011 03:00"</span>, <span class="st">"01/01/2011 04:00"</span>, <span class="st">"01/01/2011 05:00"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01/01/2011 00:00"</span>, <span class="st">"01/01/2011 01:00"</span>, <span class="st">"01/01/2011 02:00"</span>, <span class="st">"01/01/2011 03:00"</span>, <span class="st">"01/01/2011 04:00"</span>, <span class="st">"01/01/2011 05:00"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function to do this separation can lok like;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>time_dt2dhour <span class="ot">&lt;-</span> <span class="cf">function</span>(datetime, <span class="at">format=</span><span class="cn">NULL</span>) </span>
-<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>  { </span>
-<span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a>          X <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">as.data.frame</span>(<span class="fu">strsplit</span>(datetime,<span class="st">' '</span>))) </span>
-<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(X) <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
-<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"date"</span>, <span class="st">"time"</span>) </span>
-<span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>       hour <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">":"</span>,<span class="st">"."</span>,X[,<span class="dv">2</span>])) </span>
-<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>      date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(X[,<span class="dv">1</span>],<span class="at">format=</span>format) </span>
-<span id="cb158-8"><a href="#cb158-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>(date, hour) </span>
-<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>  } </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>time_dt2dhour <span class="ot">&lt;-</span> <span class="cf">function</span>(datetime, <span class="at">format=</span><span class="cn">NULL</span>) </span>
+<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>  { </span>
+<span id="cb156-3"><a href="#cb156-3" aria-hidden="true" tabindex="-1"></a>          X <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">as.data.frame</span>(<span class="fu">strsplit</span>(datetime,<span class="st">' '</span>))) </span>
+<span id="cb156-4"><a href="#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(X) <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb156-5"><a href="#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"date"</span>, <span class="st">"time"</span>) </span>
+<span id="cb156-6"><a href="#cb156-6" aria-hidden="true" tabindex="-1"></a>       hour <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">":"</span>,<span class="st">"."</span>,X[,<span class="dv">2</span>])) </span>
+<span id="cb156-7"><a href="#cb156-7" aria-hidden="true" tabindex="-1"></a>      date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(X[,<span class="dv">1</span>],<span class="at">format=</span>format) </span>
+<span id="cb156-8"><a href="#cb156-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>(date, hour) </span>
+<span id="cb156-9"><a href="#cb156-9" aria-hidden="true" tabindex="-1"></a>  } </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">time_dt2dhour</span>(dt, <span class="st">"%d/%m/%Y"</span>) </span>
-<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a>P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">time_dt2dhour</span>(dt, <span class="st">"%d/%m/%Y"</span>) </span>
+<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        date hour
 1 2011-01-01    0
@@ -1920,16 +1925,16 @@ that is, 3082 observations. </code></pre>
 <h4 class="anchored" data-anchor-id="sec-time-2num"><code>time_2num()</code></h4>
 <p>The second example contains time given in its common format, <code>c("12:35", "10:50")</code> and we would like t change it to numeric which we can use in the model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"12:35"</span>, <span class="st">"10:50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"12:35"</span>, <span class="st">"10:50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function to change this to numeric;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>time_2num <span class="ot">&lt;-</span> <span class="cf">function</span>(time, <span class="at">pattern=</span><span class="st">":"</span>) </span>
-<span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a>  { </span>
-<span id="cb162-3"><a href="#cb162-3" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">gsub</span>(pattern, <span class="st">"."</span>, time) </span>
-<span id="cb162-4"><a href="#cb162-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.numeric</span>(t) </span>
-<span id="cb162-5"><a href="#cb162-5" aria-hidden="true" tabindex="-1"></a>  } </span>
-<span id="cb162-6"><a href="#cb162-6" aria-hidden="true" tabindex="-1"></a><span class="fu">time_2num</span>(t) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>time_2num <span class="ot">&lt;-</span> <span class="cf">function</span>(time, <span class="at">pattern=</span><span class="st">":"</span>) </span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>  { </span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">gsub</span>(pattern, <span class="st">"."</span>, time) </span>
+<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.numeric</span>(t) </span>
+<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a><span class="fu">time_2num</span>(t) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.35 10.50</code></pre>
 </div>
@@ -1941,13 +1946,37 @@ that is, 3082 observations. </code></pre>
 <section id="sec-Partition" class="level2">
 <h2 class="anchored" data-anchor-id="sec-Partition">Data Partition</h2>
 <section id="sec-Intro-Partition" class="level3">
-<h3 class="anchored" data-anchor-id="sec-Intro-Partition">Introdunction to data partition</h3>
-<p>Partitioning the data is essential for comparing different models and checking for overfitting. Figure <a href="#fig-data_split" class="quarto-xref">Figure&nbsp;1</a> illustrates the different ways the data can be split. A dataset can be split multiple times or just once, depending on the size of the dataset. For large datasets, it is common to split the data into a training set and a test set, and, if necessary, a validation set. Observations in the training set are referred to as in-bag<code>, while observations in the test or validation set are termed</code>out-of-bag`.</p>
-<p>The training set is used for fitting the model, the test set is used for prediction and comparison between models, and the validation set is used for tuning the model’s <code>hyperparameters</code>. In additive smoothing regression models, for instance, the hyperparameters refer to the <code>smoothing</code> parameters in the model. Data partitioning allows for performance evaluation, model assumption checks, and detection of overfitting.</p>
-<p>If the fitted model performs reasonably well on both the training and test sets, one can be confident that overfitting has been avoided. Overfitting occurs when a model fails to generalize well to new data, typically because it is too closely fitted to the sample data. In contrast, underfitting refers to a poor model that fails to capture the essential patterns in the data, resulting in a model that is distant from both the sample and the population it is intended to represent.</p>
+<h3 class="anchored" data-anchor-id="sec-Intro-Partition">Introduction to data partition</h3>
+<p>Partitioning the data is essential for comparing different models and checking for overfitting. <a href="#fig-data_split" class="quarto-xref">Figure&nbsp;1</a> illustrates the different ways the data can be split. A dataset can be split multiple times or just once, depending on the size of the dataset. For large datasets, it is common to split the data into a training set and a test set, and, if necessary, a validation set. Observations in the training set are referred to as <code>in-bag</code>, while observations in the test or validation set are termed <code>out-of-bag</code>.</p>
+<p>The training set is used for fitting the model, the test set is used for prediction and comparison between models, and the validation set is used for tuning the model’s <code>hyperparameters</code>. In additive smoothing regression models, for instance, the hyperparameters refer to the <code>smoothing</code> parameters. Data partitioning allows for performance evaluation, model assumption checks, and detection of overfitting.</p>
+<p>If the fitted model performs reasonably well on both the training and test data sets, one can be confident that overfitting has been avoided. Overfitting occurs when a model fails to generalize well to test data, typically because it is too closely fitted to the training data. In contrast, underfitting refers to a poor model that fails to capture the essential patterns in both training and test data, resulting to a model that is far from both the sample and the population intended to represent.</p>
 <!-- Partitioning the data is useful for comparing different models and check for overfitting. @fig-data_split shows different ways the data can be split. A data set can be either split multiple times or split once. For big data sets often the sample data is split once into `training`, and `test` data sets and if needed into a `validation` set. Observations in the the training set are often called **in-bag** and observations in the test set (or validation set) called **out-of-bag**. The training data set is used for fitting the model, test data for prediction and possible comparing the different models and validation for tuning hyper parameters of the model. Note that in additive smoothing regression models the hyper parameters are the smoothing parameters in the model. Splitting the data allows checking the performance, the suitability of the assumptions of the model and for overfitting. If the fitted model, in the training, data set perform reasonable also in the `test` data set then one could feel that **overfitting** has been avoided. Overfitting occurs when the model do not generalised well in new data. This often means that the model is too close to the sample data. By **underfitting**, we mean a bad model, a model which is unable to capture the most important feature in the data. A model which is far from both the sample but also from the population which suppose to represent. -->
-<p>Various goodness-of-fit measures can be used to check and compare different distributional regression models. One of the most popular methods is the Generalized Akaike Information Criterion (GAIC). To calculate the GAIC, only the in-bag data are required, meaning there is no need for data partitioning. However, calculating the GAIC requires an accurate measure of the degrees of freedom used to fit the model. In mathematical (stochastic) models, the degrees of freedom are straightforward to define as they correspond to the number of estimated parameters. In contrast, for algorithmic models, particularly over-parameterized ones like neural networks, estimating degrees of freedom is more challenging. In mathematical models, the degrees of freedom serve as a measure of the model’s complexity. More complex models are typically closer to the training data, which may reduce their ability to generalize well to new data.</p>
-<p>In addition to GAIC, other commonly used goodness-of-fit measures for regression models include the deviance, <span class="math inline">\(R^2\)</span>, and mean squared error (MSE), among others. However, these measures are prone to overfitting when evaluated on the in-bag dataset rather than on the out-of-bag data. Furthermore, <span class="math inline">\(R^2\)</span> may not generalize well to non-normal error distributions, and MSE (and its variations) is often inappropriate for distributional regression models. This is because MSE focuses primarily on the location parameters of the response distribution, while other aspects of the response distribution are often of greater interest to practitioners.</p>
+<p>Various goodness-of-fit measures can be used to check and compare different distributional regression models. One of the most popular methods when there is no portioning of data is the Generalized Akaike Information Criterion (GAIC). To calculate the GAIC, only the in-bag data are required. However, calculating the GAIC requires an accurate measure of the degrees of freedom used to fit the model. For mathematical (stochastic) models, the degrees of freedom are straight forward to define as they correspond the number of estimated parameters. In contrast, for over-parametrised algorithmic models like neural networks, estimating he degrees of freedom is challenging. Note that the degrees of freedom serve as a measure of the model’s complexity. We expect more complex models to be closer to the training data, which may reduce their ability to generalize well to new data (overfitting).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that measure of goodness-of-fit used for the classical regression models when data partition is involves are mostly not appropriate for distributional regression model like GAMLSS. This because those measures concentrate in the behaviour at the centre of the distribution of the response which may or not be of interest to a practitioner.</p>
+</div>
+</div>
+<p>The measures of goodness-of-fit used in classical regression models when partinioning of the data is involve are;</p>
+<ul>
+<li><p><em>RMSE</em>: root mean squared error;</p></li>
+<li><p><em>MAE</em>: mean absolute error;</p></li>
+<li><p><em><span class="math inline">\(R^2\)</span></em>: and</p></li>
+<li><p><em>MAPE</em>: mean absolute percentage error.</p></li>
+</ul>
+<p>All of the above measures of goodness-of-fit are NOT generalize well when the distribution of the response is not symmetric (like the Normal distribution), and also if the focus of the study is not the location parameter (mean or median) of the response distribution. If the focus of the study is on the tail of the distribution (how often a threshold is bridged) those measure are not appropriate. The following two measures are appropriate for distributional regression model and can be use for both into bag and out of bag data sets;</p>
+<ul>
+<li><p><span class="math inline">\(\ell=\log L\)</span>; the log-likelihood, or equivalent the <em>deviance</em> <span class="math inline">\(d=-2 \ell\)</span></p></li>
+<li><p><em>CRPS</em>; the continuous rank probability scores.</p></li>
+</ul>
 <!-- There are different goodness of fit for checking and comparing different distributional regression models. The generalised Akaike criterion, **GAIC** is a very popular method. To calculate the GAIC only the *in-bag* data are needed there is no need for data partition. Calculating the GAIC needs though an accurate measure of the *degrees of freedom* used to fit the model. In mathematical (stochatic) models the degrees of freedom are easy to define because they are the number of estimated parameters. In algorithmic based models, especially the ones overparametrised like neural networks, the degrees of freedom are more difficult to guess. The degrees of freedoms (at least for mathematical models) are a measure of the *complexity* of the model. More complex models are usually closer to the training data, therefore maybe do not generalised well. Apart from the `GAIC` other goodness of fit measures, used in the literature for regression models are; the deviance; the $R^2$; the mean square errors, MSE, e.t.c. All of them are prone to overfitting if they are evaluated in the *in-bag* data set rather than in the *out-of-bag*. One could also argue that $R^2$ is not generalised well to non-normal errors and that MSE and its variations inappropriate for distributional regression models because their focus is in the location parameters of the response distribution ans not in other characteristics of the distribution of the response. Often other part of the distribution are of interest to the practioner. -->
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -1979,19 +2008,27 @@ Figure&nbsp;1: Different ways of splitting data to get in order to get more info
 </div>
 </div>
 </div>
-<p>Partitioning the data into training, test, and validation sets should be done randomly. A potential risk when splitting the data only once arises when the investigation focuses on the tails of the response distribution. In such cases, the few extreme observations may end up in only one of the partitions, leading to potential issues when evaluating the model. Repeatedly reusing parts of the data, such as through bootstrapping or cross-validation, can help mitigate this risk. Multi-splitting the data (shown on the left side of Figure <a href="#fig-data_split" class="quarto-xref">Figure&nbsp;1</a>) enables the evaluation of appropriate goodness-of-fit measures using out-of-bag data. There are two conceptual ways to multi-split a dataset: the first involves rearranging the data, and the second involves reweighting the observations. [As we will see later, the distinction between these two approaches is not always as clear-cut.] Rearranging the data is typically accomplished by creating appropriate indices that select different parts of the data. This leads to methods such as <strong>bootstrapping</strong> or <strong>cross-validation</strong>. On the other hand, reweighting the observations during the fitting process is a technique employed in the <strong>Bayesian Bootstrap</strong> and <strong>boosting</strong>.</p>
+<p>Partitioning the data into training, test, and validation sets should be done randomly. A potential risk when splitting the data once arises when the investigation focuses on the tails of the response distribution. In such cases, the few extreme observations may end up in only one of the partitions, leading to potential issues when evaluating the model. Repeatedly reusing parts of the data, such as through bootstrapping or cross-validation, can help mitigate this risk. Multi-splitting the data (shown on the left side of Figure <a href="#fig-data_split" class="quarto-xref">Figure&nbsp;1</a>) enables the evaluation of appropriate goodness-of-fit measures using out-of-bag data. There are two conceptual ways to multi-split a dataset: the first involves rearranging the data, and the second involves reweighting the observations. [As we will see later, the distinction between these two approaches is not always as clear-cut.] Rearranging the data is typically accomplished by creating appropriate indices that select different parts of the data. For example data in this case are partitioned as <code>data[,index]</code>. This leads to methods such as <strong>bootstrapping</strong> or <strong>cross-validation</strong>. On the other hand, reweighting the observations during the fitting process is a technique employed in the <strong>Bayesian Bootstrap</strong> and <strong>boosting</strong>.</p>
 <!-- Partitioning the data into training, test and validation has to be done randomly. An inherent risk for splitting the data once comes when the interest of the investigation lies on the tail of the distribution of the response. In this, case the few extreme observations, could fall into only one of the partitioning sets creating problems when the model is evaluated. Repetitively reusing (parts) of the data, for example, bootstrapping or cross validation could avoid that. Multi-split of the data (left size of @fig-data_split) allow the evaluation of appropriate measures of goodness of fit in out of bag data. There are conceptuality two different ways of multi-split the data set; the first is by rearrange them and the second is by reweighed. \[We will see at a later stage that this difference is not so clear cut\]. Rearranging the data usually is done by creating appropriate indexes which pick different part of the data. This leads to **bootstrapping** or **cross validation**. Reweighed the observations, during the fit, is done in the **Bayesian Bootstrap** or in **boosting**. -->
-<p>In classical bootstrapping, the data are re-sampled randomly with replacement <span class="math inline">\(B\)</span> times, and the model is refitted the same number of times. While computationally expensive, this process provides additional insights into the model, particularly regarding the variability of its parameters. For distributional regression models, both classical and Bayesian bootstrapping offer extra information about all the parameters in the model—namely, the distributional parameters, fitted coefficients, hyperparameters, and random effects. The Bayesian bootstrap re-weights the data as samples from a multinomial distribution and fits the re-weighted models <span class="math inline">\(B\)</span> times. Like the classical bootstrap, it provides valuable information about the variability of the model’s parameters. In boosting, each weak learner (i.e., each simple fitted model) is reweighted using the residuals from the previous fits. The results of all these learners are then aggregated into the final model. Boosting can be seen as a method of iteratively improving model accuracy by focusing on the previously mispredicted observations.</p>
+<p>In classical bootstrapping, the data are re-sampled randomly with replacement <span class="math inline">\(B\)</span> times, and the model is refitted the same number of times. While computationally expensive, this process provides additional insights into the model and in particular regarding the variability of all its parameters. For distributional regression models, both classical and Bayesian bootstrapping offer extra information about all the fitted parameters of the model which includes the distributional parameters, the fitted coefficients, the hyperparameters, and the random effects. The Bayesian bootstrap re-weights the data as samples from a multinomial distribution and fits the re-weighted models <span class="math inline">\(B\)</span> times. Like the classical bootstrap, it provides valuable information about the variability of all the model parameters. In boosting, each weak learner (i.e., each simple fitted model) is reweighted using the residuals from the previous fits. The results of all these learners are then aggregated into a final model. Boosting can be seen as a method of iteratively improving model accuracy by focusing on the previously mis-fitted observations.</p>
 <!-- In classical *bootstrapping* the data are re-sampled randomly with replacement $B$ times and the model is refitted similar times. The process, while computational expensive, could provides extra information about the model ans especially about the variability of its parameters. For distributional regression models, both *classical* and *Bayesian* bootstrap, provides extra information for all the parameters involved in the model, i.e. the distributional parameters, the fitted coefficients, the hyper parameters and als for the random effects. Bayesian bootstrap re-weights the data as samples from a a multinomial distribution and fits the re-weighted models $B$ times and provides the extra information about the variability of the parameters, the same way like the classical bootstrap does. In *boosting* each week learner, that is, each simple fitted model, is reweighed using as weights the residuals of the previous fits, then all learners are aggregated together for the final model. -->
 <!-- Bootstrapping helps to evaluate how far the sample is from the population by giving an estimate of the variability between the different sub-samples. It also helps to calculate standard errors from a fitted model when there is no an easy way to do so with the conventional methods. It helps us to evaluate the variability of all of the parameters of a fitted GAMLSS by providing standard errors not only for the coefficient of the model but also for the random effects and hyper parameters, see @sec-ParametersforEstimation for the definition of different parameters.  -->
-<p>In <span class="math inline">\(K\)</span>-fold cross-validation, the data are split into <span class="math inline">\(K\)</span> sub-samples. The model is then fitted <span class="math inline">\(k\)</span> times, each time using <span class="math inline">\(k-1\)</span> sub-samples for training and the remaining one sub-sample as the test set. By the end of the process, all <span class="math inline">\(n\)</span> observations will have been used as test data exactly once. The main advantage of <span class="math inline">\(K\)</span>-fold cross-validation is that it provides reliable test data for model evaluation with the additional cost of fitting <span class="math inline">\(K\)</span> models. Leave-One-Out Cross-Validation (LOO) is a special case of k-fold cross-validation, where the model is trained on <span class="math inline">\(n-1\)</span> observations and tested on the remaining single observation, iterating this process <span class="math inline">\(n\)</span> times. Consequently, <span class="math inline">\(n\)</span> different models are refitted. While computationally intensive, LOO ensures that each data point is used for testing, providing an unbiased evaluation of model performance. Both bootstrapping and <span class="math inline">\(K\)</span>-fold cross-validation, when appropriate performance metrics are used, can help in several ways: i) by facilitating model comparison on the test data, ii) by avoiding overfitting, and iii) by assisting in the selection of hyperparameters.</p>
+<p>In <span class="math inline">\(K\)</span>-fold cross-validation, the data are split into <span class="math inline">\(K\)</span> sub-samples. The model is then fitted <span class="math inline">\(K\)</span> times, each time using <span class="math inline">\(K-1\)</span> sub-samples for training and the remaining one sub-sample as test data set. By the end of the process, all <span class="math inline">\(n\)</span> observations will have been used as test data exactly once. The main advantage of <span class="math inline">\(K\)</span>-fold cross-validation is that it provides reliable test data for model evaluation, with the cost of fitting <span class="math inline">\(K\)</span> models. Leave-One-Out Cross-Validation (LOO) is a special case of K-fold cross-validation, where the model is trained on <span class="math inline">\(n-1\)</span> observations and tested on the remaining single observation, iterating this process <span class="math inline">\(n\)</span> times. Consequently, <span class="math inline">\(n\)</span> different models are refitted. While computationally intensive, LOO ensures that each data point is used for testing, providing an unbiased evaluation of model performance. Both bootstrapping and <span class="math inline">\(K\)</span>-fold cross-validation, when appropriate performance metrics are used for the specific problem, can help in several ways: i) by facilitating model comparison , ii) by avoiding overfitting, and iii) by assisting in the selection of hyper-parameters.</p>
+<p>Note that the partition of the data in any distributional regression model, can be achieved different ways;</p>
+<ol type="1">
+<li><p>by <em>splitting</em> the original data frame in different subsets;</p></li>
+<li><p>by using a <em>factor</em> which classifies the partitions;</p></li>
+<li><p>by <em>indexing</em> the original data i.e.&nbsp;<code>data[index,]</code>,</p></li>
+<li><p>by using <em>prior weights</em> in the fitting.</p></li>
+</ol>
 <!-- A $k$-fold *cross validation* splits the data in $k$ sub-samples. The model is then fitted repeatedly $k$ times, each time the $k-1$-fold sets are used for training and the remaining one-fold as test data. By the time that all the $k$ models are fitted we would have $n$ observations fitted as test data fits. So the K-fold cross-validation allows us to get `test` data with the additinal cost of having to fit $K$ models. Leave one out, **LOO**, is an extreme version of the K-fold partition in which we pick $n-1$ observations for training and leave one out for test. In this case we have to refit $n$ different models. Both bootstrapping and $k$-fold cross validation when appropriate measures are used can help i) with model comparison (on test data) ii) by avoiding overfitting and iii) possible selecting the hyper parameters. -->
-<p>Notice that in distributional regression models, there is no inherent need to physically partition the original data into subgroups when performing a single or multiple partitions. The same results can be achieved by indexing the original data.frame or by using prior weights during the model fitting process. For example, in <span class="math inline">\(K\)</span>-fold cross-validation, we need <span class="math inline">\(K\)</span> dummy vectors, <span class="math inline">\(i_k\)</span>, where $k = 1, , K. These dummy vectors take the value of 1 for the <span class="math inline">\(k\)</span>-th set of observations and <span class="math inline">\(0\)</span> for the rest. The dummy vectors <span class="math inline">\(i_k\)</span> can be used in two ways:</p>
+<p>So there is no inherent need for physically partition into subgroups when performing a single or multiple partitions since the same results can be achieved with different methods which could be more appropriate for the data in hand.</p>
+<p>For example for prior weights in <span class="math inline">\(K\)</span>-fold cross-validation, we need <span class="math inline">\(K\)</span> dummy vectors <span class="math inline">\(i_k\)</span>, where $k = 1, , K. These dummy vectors take the value of 1 for the <span class="math inline">\(k\)</span>-th set of observations and <span class="math inline">\(0\)</span> for the rest. The dummy vectors <span class="math inline">\(i_k\)</span> can be used in two ways:</p>
 <ol type="1">
 <li><p>To select the observations from the <code>data.frame</code> for fitting.</p></li>
 <li><p>As prior weights when fitting the model.</p></li>
 </ol>
-<p>Let <code>da</code> represent the <code>data.frame</code> used to fit the model, and <span class="math inline">\(i\)</span> the <span class="math inline">\(i_k\)</span> dummy vector. For each of the <span class="math inline">\(K\)</span> fits, the model fitting process would use the command <span class="math inline">\(data=da[,i]\)</span> to select the appropriate data, and <code>newdata=da[,i==0]</code> for evaluating the out-of-bag measure. Alternatively, one can use <code>weights=i</code> during the model fitting and <code>newdata=da[,i==0]</code> for evaluating any out-of-bag measures. Note that the appropriate measures for comparing models include predictive deviance (PD) and continuous rank probability scores (CRPS). The function data_Kfold() in the package generates the correct dummy vectors as a matrix of dimensions n B, which can be used for the cross-validation process.</p>
+<p>Let <code>da</code> represent the <code>data.frame</code> used to fit the model, and <span class="math inline">\(i\)</span> the <span class="math inline">\(i_k\)</span> a dummy index. vector. For each of the <span class="math inline">\(K\)</span> fits, the model fitting process would use the command <span class="math inline">\(data=da[,i]\)</span> to select the appropriate data, and <code>newdata=da[,i==0]</code> for evaluating the out-of-bag measure. Alternatively, one can use <code>weights=i</code> during the model fitting and <code>newdata=da[,i==0]</code> for evaluating any out-of-bag measures. Note that the appropriate measures for comparing models include predictive deviance (PD) and continuous rank probability scores (CRPS). The function data_Kfold() in the package generates the correct dummy vectors as a matrix of dimensions n B, which can be used for the cross-validation process.</p>
 <!-- Notice that performing a single or multiple partitions in any distributional regression model there is no actually need to split the original data in subclass. The same results can be achieved either by indexing the original `data.frame` or by using prior weights to fit the different models. For example, in the $K$-th fold cross validation, we need $K$ dummy vectors, $i_k$, for $k=1,\ldots,K$, with value $1$ for the $k-1$ samples and $0$ for the rest. The dummy vectors $i_k$ can be used either to select observations from the `data.frame` or as prior weights in the fit. Let us denote `da` the `data.frame` used to fit the model and, `i`, the $i_k$ dummy vector. Then each of the $K$ fits it should have the options `data=da[,i]` when fitting the model and `newdata=da[,i==0]` for evaluation of of the out-of-bag measure. Equivalently, one could use `weights=i` for fitting using prior weights and `newdata=da[,i==0]` for any measure needed to be evaluated at the out-of-bag data. Note that possible measure to use for comparing models are the predictive deviance, **PD** and continuous rank probability scores, **CRPS**. The function in the package which can generate the right dummy vectors as a matrix of dimensions $n \times B$ is `data_Kfold()`, see -->
 <p>For the classical bootstrap, we need <span class="math inline">\(B\)</span> vectors. Unlike cross-validation (CV), where the vectors for indexing and prior weights are identical, bootstrapping requires different vectors. The function <code>data_boot_index()</code> creates the appropriate vectors for indexing, while <code>data_boot_weights()</code> generates the vectors for prior weighting. These vectors should differ whether used as indices to select the relevant columns from the data matrix <code>da</code> or as prior weights, which indicate how many times each observation is selected. Typically, a vector like <span class="math inline">\((1, 0, 2, \ldots, 3, 2)\)</span> means that observation <span class="math inline">\(1\)</span> is picked once, observation <span class="math inline">\(2\)</span> is excluded from the fit, observation <span class="math inline">\(3\)</span> is selected twice, and so on. For Bayesian bootstrap, the <span class="math inline">\(B\)</span> vectors of length <span class="math inline">\(n\)</span> represent weights that sum to <span class="math inline">\(n\)</span>. An out-of-bag observation, in this case, is one with zero weight. This distinction makes the split between rearranged and reweighed in <a href="#fig-data_split" class="quarto-xref">Figure&nbsp;1</a> somewhat artificial, as both methods can be interpreted as refitting approaches using prior weights.</p>
 <!-- For the classical bootstrap, we also need $B$ vectors. Contrary to CV where the vectors for indexing and prior weights are identical, bootstrapping needs different vectors. The function `data_boot_index()` creates appropriate vectors for indexing while `data_boot_weihghts()` for prior weighing. they should be different whether we used them as indices to select the right columls form the data matrix `da` or as prior weights as either for of length $n$ indicating which observations to pick and how many times. Typically a vectors say $(1,0,2,\ldots,3, 2)$, indicates that observation $1$ is picked once, observation $2$ is excluded from the fit, observation $3$ is picked up 2 times e.t.c. For Bayesian bootstrap the $B$ vectors of length $N$ are weights summing up to $n$. A out-of-bag observation in this case can be defined as an observation with zero weights. This note alsmost make the split between **rearranged** and **reweighed** in @fig-data_split rather artificial since both can be thought as refitting methods using prior weights. -->
@@ -2053,11 +2090,11 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-data-part"><code>data_part()</code></h4>
 <p>The function <code>data_part()</code> it does not partitioning the data as such but adds a factor called <code>partition</code> to the data indicating the partition. By default the data are partitioned into two sets the training ,<code>train</code>, and the test data, <code>test</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>dap <span class="ot">&lt;-</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_part</span>(da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>dap <span class="ot">&lt;-</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_part</span>(da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>data partition into two sets </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      rent area yearc location bath kitchen cheating partition
 1 109.9487   26  1918        2    0       0        0     train
@@ -2070,13 +2107,13 @@ Table&nbsp;4: The data partition functions
 </div>
 <p>If the user would like to split the data in two separate <code>data.frame</code>’s she/he can use;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>daTrain <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"train"</span>)</span>
-<span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a>daTest <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"test"</span>)</span>
-<span id="cb168-3"><a href="#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTrain)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>daTrain <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"train"</span>)</span>
+<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>daTest <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"test"</span>)</span>
+<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTrain)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1846    8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1236    8</code></pre>
 </div>
@@ -2094,31 +2131,31 @@ Table&nbsp;4: The data partition functions
 <p>The function <code>data_part_list()</code> creates a list of <code>dataframe</code>s which can be used either for single partition or for cross validation. The argument <code>partition</code> allows the splitting of the data to up to 20 subsets. The default is a list of 2 with elements <code>training</code> and <code>test</code> (single partition).</p>
 <p>Here is a single partition in <code>train</code> and <code>test</code> data sets.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent) </span>
-<span id="cb172-2"><a href="#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent) </span>
+<span id="cb170-2"><a href="#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"train"</span>]]) <span class="co"># training data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"train"</span>]]) <span class="co"># training data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1200    9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"test"</span>]]) <span class="co"># test data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"test"</span>]]) <span class="co"># test data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 769   9</code></pre>
 </div>
 </div>
 <p>Here is a multiple partition for cross validation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent, <span class="at">partition=</span><span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent, <span class="at">partition=</span><span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>10-fold data partition </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"</code></pre>
 </div>
@@ -2129,30 +2166,30 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-data_boot-index"><code>data_boot_index()</code></h4>
 <p>The function <code>data_boot_index()</code> create two lists. The first called <code>IB</code> (for in-bag) and the second <code>OOB</code>, (out-of-bag). Each ellement of the list <code>IB</code> can be use to select a bootstrap sample from the original <code>data.frame</code> while each element of <code>OOB</code> can be use to select the out of sample data points. Note that each bootstap sample approximately contains 2/3 of the original data so we expact on avarage to 1/3 to be in <code>OOB</code> sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a>DD <span class="ot">&lt;-</span> <span class="fu">data_boot_index</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a>DD <span class="ot">&lt;-</span> <span class="fu">data_boot_index</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The class, length and names of the created lists;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "list"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "IB"  "OOB"</code></pre>
 </div>
 </div>
 <p>the first obsevations of the</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>IB[[<span class="dv">1</span>]]) <span class="co"># in bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>IB[[<span class="dv">1</span>]]) <span class="co"># in bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 4 6 8 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>OOB[[<span class="dv">1</span>]]) <span class="co"># out-of-bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>OOB[[<span class="dv">1</span>]]) <span class="co"># out-of-bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  3  5  7 15 21 22</code></pre>
 </div>
@@ -2163,11 +2200,11 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-data_boot-weights"><code>data_boot_weights()</code></h4>
 <p>The function <code>data_boot_weights()</code> create a <span class="math inline">\(n \times B\)</span>. matrix with columns possible weights for bootstap fits. Note that each bootstap sample approximately contains .666 of the original obsbation so we in general we expect 0.333 of the data to have zero weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>MM <span class="ot">&lt;-</span> <span class="fu">data_boot_weights</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>MM <span class="ot">&lt;-</span> <span class="fu">data_boot_weights</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>M</code> is a matrix which columns can be used as weights in bootstrap fits; Here is a plot of the first column</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb196"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(MM[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb194"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(MM[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2178,7 +2215,7 @@ Table&nbsp;4: The data partition functions
 </div>
 <p>and here is the first 6 rows os the matrix;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb197"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 [1,]    1    2    2    1    0    1    3    1    3     1
@@ -2195,8 +2232,8 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-Kfold-index"><code>data_Kfold_index()</code></h4>
 <p>The function <code>data_Kfold()</code> creates a matrix which columns can be use for cross validation either as indices to select data for fitting or as prior weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb199"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb199-1"><a href="#cb199-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_index</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
-<span id="cb199-2"><a href="#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb197"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_index</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
+<span id="cb197-2"><a href="#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 [1,]    1    1    1    1    0    1    1    1    1     1
@@ -2213,8 +2250,8 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-Kfold-weights"><code>data_Kfold_weights()</code></h4>
 <p>The function <code>data_Kfold()</code> creates a matrix which columns can be use for cross validation either as indices to select data for fitting or as prior weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb201"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb201-1"><a href="#cb201-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_weights</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
-<span id="cb201-2"><a href="#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb199"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb199-1"><a href="#cb199-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_weights</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
+<span id="cb199-2"><a href="#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 [1,]    1    1    1    1    0    1    1    1    1     1
@@ -2233,16 +2270,16 @@ Table&nbsp;4: The data partition functions
 <p>The <code>data_cut()</code> function can either: • Automatically reduce the data size based on the total number of observations, or • Subset the data according to a user-specified percentage.</p>
 <p>Here is an example of the function assuming that that the user requires <span class="math inline">\(50%\)</span> of the data;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb203"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb203-1"><a href="#cb203-1" aria-hidden="true" tabindex="-1"></a>da1 <span class="ot">&lt;-</span> <span class="fu">data_cut</span>(rent99, <span class="at">percentage=</span>.<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb201"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb201-1"><a href="#cb201-1" aria-hidden="true" tabindex="-1"></a>da1 <span class="ot">&lt;-</span> <span class="fu">data_cut</span>(rent99, <span class="at">percentage=</span>.<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 50 % of data are saved, 
 that is, 1541 observations. </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(rent99)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb203"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb203-1"><a href="#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(rent99)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3082    9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb207"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb207-1"><a href="#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(da1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(da1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1541    9</code></pre>
 </div>
@@ -2280,7 +2317,7 @@ Note
 <h4 class="anchored" data-anchor-id="family_pdf"><code>family_pdf()</code></h4>
 <p>The function <code>family_pdf()</code> plots individual probability density functions (PDFs) from distributions in the <code>gamlss.family</code> package. Although it typically requires the family argument, it defaults to the Normal distribution (NO) if none is provided.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(<span class="at">from=</span><span class="sc">-</span><span class="dv">5</span>,<span class="at">to=</span><span class="dv">5</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb207"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb207-1"><a href="#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(<span class="at">from=</span><span class="sc">-</span><span class="dv">5</span>,<span class="at">to=</span><span class="dv">5</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_pdf_continuous" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2296,7 +2333,7 @@ Figure&nbsp;2: Continuous response example: plotting the pdf of a normal random 
 </div>
 <p>The following demonstrates how discrete distributions are displayed. We begin with a distribution that can take infinitely many count values—the Negative Binomial distribution;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb210"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb210-1"><a href="#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb208"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb208-1"><a href="#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_pdf_discrete" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2312,7 +2349,7 @@ Figure&nbsp;3: Count response example: plotting the pdf of a beta binomial.
 </div>
 <p>Here we use a discrete distribution with a finite range of possible values: the Beta-Binomial distribution.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb211"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_pdf_binomial" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2331,7 +2368,7 @@ Figure&nbsp;4: Beta binomial response example: plotting the pdf of a beta binomi
 <h4 class="anchored" data-anchor-id="family_cdf"><code>family_cdf</code></h4>
 <p>The function <code>family_cdf()</code> plots cumulative distribution functions (CDFs) from the <strong>gamlss.family</strong> distributions. The primary argument required is the family specifying the distribution to be used.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb212"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb210"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb210-1"><a href="#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_cdf_discrete" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2347,7 +2384,7 @@ Figure&nbsp;5: Count response example: plotting the cdf of a negative binomial.
 </div>
 <p>The CDf of the negative binomial;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb213"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb213-1"><a href="#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb211"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_cdf_binomial" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2385,8 +2422,8 @@ Warning
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb214"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb214-1"><a href="#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="co">#source("~/Dropbox/github/gamlss-ggplots/R/family_cor.R")</span></span>
-<span id="cb214-2"><a href="#cb214-2" aria-hidden="true" tabindex="-1"></a>gamlss.ggplots<span class="sc">:::</span><span class="fu">family_cor</span>(<span class="st">"BCTo"</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fl">0.11</span>, <span class="at">nu=</span><span class="dv">1</span>, <span class="at">tau=</span><span class="dv">5</span>, <span class="at">no.sim=</span><span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb212"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="co">#source("~/Dropbox/github/gamlss-ggplots/R/family_cor.R")</span></span>
+<span id="cb212-2"><a href="#cb212-2" aria-hidden="true" tabindex="-1"></a>gamlss.ggplots<span class="sc">:::</span><span class="fu">family_cor</span>(<span class="st">"BCTo"</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fl">0.11</span>, <span class="at">nu=</span><span class="dv">1</span>, <span class="at">tau=</span><span class="dv">5</span>, <span class="at">no.sim=</span><span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_correlation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
