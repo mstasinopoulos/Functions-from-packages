@@ -830,6 +830,7 @@ Here we have zero outliers but in general we would expect to find common observa
 ### Correlations {#sec-correlations}
 
 The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors.
+Note that the method used to  identify the variables is identical to the method used in the package `caret` see page 5 of @packageCaret. 
 
 #### `data_index_cor()` {#sec-data-index-cor}
 

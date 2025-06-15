@@ -1759,7 +1759,7 @@ that is, 3082 observations. </code></pre>
 </section>
 <section id="sec-correlations" class="level3">
 <h3 class="anchored" data-anchor-id="sec-correlations">Correlations</h3>
-<p>The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors.</p>
+<p>The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors. Note that the method used to identify the variables is identical to the method used in the package <code>caret</code> see page 5 of <span class="citation" data-cites="packageCaret">Kuhn and Max (<a href="#ref-packageCaret" role="doc-biblioref">2008</a>)</span>.</p>
 <section id="sec-data-index-cor" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-index-cor"><code>data_index_cor()</code></h4>
 <p>The function <code>data_index_cor()</code>, It takes a <code>data.frame</code> as input calculates correlation coefficients of the continuous variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.</p>
@@ -2504,6 +2504,9 @@ Figure&nbsp;7: Family correlation of a BCTo distribution at specified values of 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-packageCaret" class="csl-entry" role="listitem">
+Kuhn, and Max. 2008. <span>“Building Predictive Models in r Using the Caret Package.”</span> <em>Journal of Statistical Software</em> 28 (5): 1–26. <a href="https://doi.org/10.18637/jss.v028.i05">https://doi.org/10.18637/jss.v028.i05</a>.
+</div>
 <div id="ref-RigbyStasinopoulos05" class="csl-entry" role="listitem">
 Rigby, R. A., and D. M. Stasinopoulos. 2005. <span>“Generalized Additive Models for Location, Scale and Shape (with Discussion).”</span> <em>Applied Statistics</em> 54: 507–54.
 </div>
