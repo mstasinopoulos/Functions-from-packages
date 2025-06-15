@@ -1372,11 +1372,19 @@ that is, 3082 observations.
 <pre><code>     name1  name2  corrs  
 [1,] "rent" "area" "0.638"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">high_val</span>(Tabpcor, <span class="at">val=</span><span class="fl">0.4</span>, <span class="at">plot=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>For plotting you can use;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrr)</span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">network_plot</span>(Tabpcor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrr)</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">network_plot</span>(Tabpcor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1391,7 +1399,7 @@ that is, 3082 observations.
 <h4 class="anchored" data-anchor-id="sec-data-inter"><code>data_inter()</code></h4>
 <p>The function <code>data_inter()</code> takes a <code>data.frame</code>, fits all pair-wise interactions of the explanatory variables against the response (using a normal model) and produce a graph displaying their significance levels. The idea behind this is to identify possible first order interactions at an early stage of the analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>da <span class="sc">|&gt;</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_inter</span>(<span class="at">response=</span> rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>da <span class="sc">|&gt;</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_inter</span>(<span class="at">response=</span> rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1405,12 +1413,12 @@ that is, 3082 observations. </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>tinter <span class="ot">&lt;-</span>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_inter</span>(da,  <span class="at">response=</span> rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>tinter <span class="ot">&lt;-</span>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_inter</span>(da,  <span class="at">response=</span> rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>tinter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>tinter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         area yearc location  bath kitchen cheating
 area       NA 0.014    0.001 0.119   0.000    0.000
@@ -1423,12 +1431,12 @@ cheating   NA    NA       NA    NA      NA       NA</code></pre>
 </div>
 <p>To get the variables with lower than $0.05 $ significant interactions use;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>Tabinter <span class="ot">&lt;-</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_inter</span>(da, <span class="at">response=</span> rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>Tabinter <span class="ot">&lt;-</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_inter</span>(da, <span class="at">response=</span> rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">low_val</span>(Tabinter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">low_val</span>(Tabinter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     name1      name2      value  
 [1,] "area"     "yearc"    "0.014"
@@ -1440,6 +1448,14 @@ that is, 3082 observations. </code></pre>
 [7,] "location" "kitchen"  "0"    
 [8,] "area"     "cheating" "0"    </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">low_val</span>(Tabinter, <span class="at">plot=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 <p><a href="#tbl-graphical">back to table</a></p>
 <p>NOT DOCUMENTED IN HELP FOR THIS FUNCTION</p>
@@ -1448,7 +1464,7 @@ that is, 3082 observations. </code></pre>
 <h4 class="anchored" data-anchor-id="sec-data-leverage"><code>data_leverage()</code></h4>
 <p>The function <code>data_leverage()</code> uses the linear model methodology to identify posible unusual observations within the explanatory variables as a group (not indivisually). It fit a linear (normal) model with response, the response of the data, and all explanatory variables in the data, as x’s. It then calculates the leverage points and plots them. A leverage is a number between zero and 1. Large leverage correspond to extremes in the x’s.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>rent99[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">9</span>)] <span class="sc">|&gt;</span> <span class="fu">data_leverage</span>( <span class="at">response=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>rent99[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">9</span>)] <span class="sc">|&gt;</span> <span class="fu">data_leverage</span>( <span class="at">response=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1492,9 +1508,9 @@ Important
 </section>
 <section id="sec-data-Ptrans-plot" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-Ptrans-plot"><code>data_Ptrans_plot()</code></h4>
-<p>The essence of this plot is to visually decide whether certain values of <span class="math inline">\(\lambda\)</span> in a power transformation are appropriate or not. <a href="#sec-Transformations" class="quarto-xref">Section&nbsp;6.3</a> describes the power transformation, <span class="math inline">\(T=X^\lambda\)</span> for <span class="math inline">\(\lambda&gt;0\)</span>, in more details. For each continuous explanatory variable <span class="math inline">\(X\)</span>, the function show the response against <span class="math inline">\(X\)</span>, (<span class="math inline">\(\lambda=1\)</span>), the response against the square root of <span class="math inline">\(X\)</span>, (<span class="math inline">\(\lambda=1/2\)</span>) and the response against the log of <span class="math inline">\(X\)</span> (<span class="math inline">\(\lambda \rightarrow 0\)</span>). The user then can decide whether any of those transformation are appropriate.</p>
+<p>The essence of this plot is to visually decide whether certain values of <span class="math inline">\(\lambda\)</span> in a power transformation are appropriate or not. <a href="#sec-Transformations" class="quarto-xref">Section&nbsp;6.4</a> describes the power transformation, <span class="math inline">\(T=X^\lambda\)</span> for <span class="math inline">\(\lambda&gt;0\)</span>, in more details. For each continuous explanatory variable <span class="math inline">\(X\)</span>, the function show the response against <span class="math inline">\(X\)</span>, (<span class="math inline">\(\lambda=1\)</span>), the response against the square root of <span class="math inline">\(X\)</span>, (<span class="math inline">\(\lambda=1/2\)</span>) and the response against the log of <span class="math inline">\(X\)</span> (<span class="math inline">\(\lambda \rightarrow 0\)</span>). The user then can decide whether any of those transformation are appropriate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans_plot</span>(da, rent) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans_plot</span>(da, rent) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1513,9 +1529,10 @@ that is, 3082 observations. </code></pre>
 </section>
 <section id="sec-Features" class="level2">
 <h2 class="anchored" data-anchor-id="sec-Features">Feature functions</h2>
-<p>The features functions are functions to help with the continuous explanatory x-variables; We divide them here in four sections; Functions for</p>
+<p>The features functions are functions to help with the continuous explanatory x-variables; We divide them here in five sections; Functions for</p>
 <ul>
 <li><p><code>outliers</code>;</p></li>
+<li><p><code>correlation</code> between variables;</p></li>
 <li><p><code>scaling</code>;</p></li>
 <li><p><code>transformations</code> and</p></li>
 <li><p>function approproate for <code>time series</code></p></li>
@@ -1553,7 +1570,15 @@ Table&nbsp;3: The outliers, scalling, transformation and time series functions
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="#sec-data-leverage-1"><code>data_leverage()</code></a></td>
-<td style="text-align: right;">this is a repear of the function from <a href="#sec-data-leverage" class="quarto-xref">Section&nbsp;5.0.11</a></td>
+<td style="text-align: right;">this is a repeat of the function from <a href="#sec-data-leverage" class="quarto-xref">Section&nbsp;5.0.11</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="#sec-data-index-cor"><code>data_index_cor()</code></a></td>
+<td style="text-align: right;">this function gives an index of continuous variables to be eliminated because of their high correlation with others continuous variables</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="#sec-data-index-cor"><code>data_index_association()</code></a></td>
+<td style="text-align: right;">this function gives an index of variables to be eliminated because of their high association with others continuous or factor variables</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#sec-data-scale"><code>data_scale()</code></a></td>
@@ -1621,14 +1646,14 @@ Note
 </ul>
 <p>Using the zscores;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_outliers</span>(da<span class="sc">$</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_outliers</span>(da<span class="sc">$</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>named integer(0)</code></pre>
 </div>
 </div>
 <p>or using the <code>quantile</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_outliers</span>(da<span class="sc">$</span>rent, <span class="at">type=</span><span class="st">"quantile"</span>, <span class="at">value=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_outliers</span>(da<span class="sc">$</span>rent, <span class="at">type=</span><span class="st">"quantile"</span>, <span class="at">value=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  321  350  354  379  395  404  420  421  424  426  429  431  433  434  438
 [16]  439  619  657  675  838  851  856 1015 1016 1576 1877 2005 2070 2271 2551
@@ -1655,7 +1680,7 @@ Note
 <h4 class="anchored" data-anchor-id="sec-y-both-outliers"><code>y_both_outliers()</code></h4>
 <p>The function <code>y_both_outliers()</code> uses both <code>zscores</code> and <code>quantiles</code> and reports the obsrarvations appearing in both sets. Note that the defaule <code>value</code> is 4 for both cases.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_both_outliers</span>(da<span class="sc">$</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">y_both_outliers</span>(da<span class="sc">$</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>integer(0)</code></pre>
 </div>
@@ -1666,7 +1691,7 @@ Note
 <h4 class="anchored" data-anchor-id="sec-data-outliers"><code>data_outliers()</code></h4>
 <p>The function <code>data_outliers()</code> uses the <em>z-scores</em> technique described above in order to detect outliers in the continuous variables in the data. It fits a <code>SHASHo</code> distribution to the continuous variable in the data and uses the z-scores (quantile residuals) to identify (one dimension) outliers for those continuous variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data_outliers</span>(da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data_outliers</span>(da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$rent
 named integer(0)
@@ -1685,7 +1710,7 @@ named integer(0)</code></pre>
 <h4 class="anchored" data-anchor-id="sec-data-leverage-1"><code>data_leverage()</code> (repeat)</h4>
 <p>The function <code>data_leverage()</code>, fisrt describe in <a href="#sec-data-leverage" class="quarto-xref">Section&nbsp;5.0.11</a>, can be used to detect extremes in the continuous variables in the data by fiting a linear model with all the continuous variables in the data and then useing the higher leverage points to identify (multi-dimension) outliers for the observations for all continuous variables. By default, it identifies one percent of the observations with high leverage in the data. Here we use the function as a way to identify the obsrvation (not plottoing).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1711,11 +1736,11 @@ Note
 </div>
 <p>Next we are trying the process of identifying if data with high leverage are also coincide with outliers identified using the function <code>data_outliers()</code> function. The function <code>intersect()</code> will flash out the intersection of the two set of observations. First use <code>data_outliers()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>ul <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">data_outliers</span>(da))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>ul <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">data_outliers</span>(da))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>then <code>data_leverage()</code>;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>ll<span class="ot">&lt;-</span><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>ll<span class="ot">&lt;-</span><span class="fu">data_leverage</span>(da, <span class="at">response=</span>rent, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1723,12 +1748,44 @@ that is, 3082 observations. </code></pre>
 </div>
 <p>and finally we inspect the intersection of the two sets using <code>intersect()</code>;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(ll,ul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(ll,ul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>integer(0)</code></pre>
 </div>
 </div>
 <p>Here we have zero outliers but in general we would expect to find common observations for further checking.</p>
+<p><a href="#tbl-features">back to table</a></p>
+</section>
+</section>
+<section id="sec-correlations" class="level3">
+<h3 class="anchored" data-anchor-id="sec-correlations">Correlations</h3>
+<p>The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors.</p>
+<section id="sec-data-index-cor" class="level4">
+<h4 class="anchored" data-anchor-id="sec-data-index-cor"><code>data_index_cor()</code></h4>
+<p>The function <code>data_index_cor()</code>, It takes a <code>data.frame</code> as input calculates correlation coefficients of the continuous variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_index_cor</span>(rent99[,<span class="sc">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4 factors have been omited from the data </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in data_cor(data, type = type, plot = FALSE, percentage = percentage, :</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>numeric(0)</code></pre>
+</div>
+</div>
+<p><a href="#tbl-features">back to table</a></p>
+</section>
+<section id="sec-data-index-association" class="level4">
+<h4 class="anchored" data-anchor-id="sec-data-index-association"><code>data_index_association()</code></h4>
+<p>The function <code>data_index_association()</code>, It takes a <code>data.frame</code> as input calculates the association coefficients of all the variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_index_association</span>(rent99[,<span class="sc">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>numeric(0)</code></pre>
+</div>
+</div>
 <p><a href="#tbl-features">back to table</a></p>
 </section>
 </section>
@@ -1739,12 +1796,12 @@ that is, 3082 observations. </code></pre>
 <li><p><em>scaling to normality</em> and</p></li>
 <li><p><em>scaling to a range from zero to one</em>.</p></li>
 </ol>
-<p>Scaling to normality it means that the variable should have a mean zero and a standard deviation one. Note that, this is equivalent of fitting a Normal distribution to the variables and then taking the z-scores (residuals) of the fit as the transformed variable. The problem with this type of scaling is that skewness and kurtosis in the standardised data persist. One could go further and fit a four parameter distribution instead of a normal where the two extra parameters could account for skewness and kurtosis. The function <code>data_scale()</code> described in <a href="#sec-data-scale" class="quarto-xref">Section&nbsp;6.2.1</a> it gives this option with te argument <code>family</code> in which can used to specify a different distribution.</p>
+<p>Scaling to normality it means that the variable should have a mean zero and a standard deviation one. Note that, this is equivalent of fitting a Normal distribution to the variables and then taking the z-scores (residuals) of the fit as the transformed variable. The problem with this type of scaling is that skewness and kurtosis in the standardised data persist. One could go further and fit a four parameter distribution instead of a normal where the two extra parameters could account for skewness and kurtosis. The function <code>data_scale()</code> described in <a href="#sec-data-scale" class="quarto-xref">Section&nbsp;6.3.1</a> it gives this option with te argument <code>family</code> in which can used to specify a different distribution.</p>
 <section id="sec-data-scale" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-scale"><code>data_scale()</code></h4>
 <p>The function <code>data_scale()</code> perform scaling to all continuous variables an a data set. Note that factors in the data set are left untouched because when fitted within a model they will be transform to dummy variable which take values 0 or 1 (a kind of standardization). The response is left also untouched because it is assumed that an appropriate distribution will be fitted. The response variable has to be declared using the argument <code>response.</code> First we use <code>data_scale()</code> to scale to normality.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    area    yearc location     bath  kitchen cheating 
      132       68        3        2        2        2 </code></pre>
@@ -1761,7 +1818,7 @@ that is, 3082 observations. </code></pre>
 </div>
 <p>As we mention before scaling to normality is equivalent of fitting a Normal variable first. The problem with scaling to normality is that if the variables are highly skew or kurtotic scaling them to normality does correct for skewness or kurtosis. Using a parametric distribution with four parameters some of which are skewness and kurtosis parameters it may correct that. Next we standardised using the <code>SHASHo</code> distribution;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">family=</span><span class="st">"SHASHo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">family=</span><span class="st">"SHASHo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    area    yearc location     bath  kitchen cheating 
      132       68        3        2        2        2 </code></pre>
@@ -1778,7 +1835,7 @@ that is, 3082 observations. </code></pre>
 </div>
 <p>The second form od standardisation is to transform all continuous x-variables to a range zero to one. Here is how this is done;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">scale.to=</span><span class="st">"0to1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data_scale</span>(da, <span class="at">response=</span>rent,  <span class="at">scale.to=</span><span class="st">"0to1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    area    yearc location     bath  kitchen cheating 
      132       68        3        2        2        2 </code></pre>
@@ -1831,18 +1888,18 @@ Note
 <section id="sec-xy-Ptrans" class="level4">
 <h4 class="anchored" data-anchor-id="sec-xy-Ptrans"><code>xy_Ptrans()</code></h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>pp<span class="ot">&lt;-</span>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent) </span>
-<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>pp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>pp<span class="ot">&lt;-</span>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent) </span>
+<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a>pp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.06212</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent, <span class="at">prof=</span><span class="cn">TRUE</span>, <span class="at">k=</span><span class="dv">4</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">xy_Ptrans</span>(da<span class="sc">$</span>area, da<span class="sc">$</span>rent, <span class="at">prof=</span><span class="cn">TRUE</span>, <span class="at">k=</span><span class="dv">4</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1851,7 +1908,7 @@ Note
 <section id="sec-data-Ptrans" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-Ptrans"><code>data_Ptrans()</code></h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans</span>(da, <span class="at">response=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans</span>(da, <span class="at">response=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1869,7 +1926,7 @@ $yearc
 <section id="sec-data-Ptrans-1" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-Ptrans-1"><code>data_Ptrans_plot()</code> (repeat)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans_plot</span>(da, rent) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>gamlss.prepdata<span class="sc">:::</span><span class="fu">data_Ptrans_plot</span>(da, rent) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100 % of data are saved, 
 that is, 3082 observations. </code></pre>
@@ -1877,7 +1934,7 @@ that is, 3082 observations. </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1893,23 +1950,23 @@ that is, 3082 observations. </code></pre>
 <h4 class="anchored" data-anchor-id="sec-time-dt2dhour"><code>time_dt2dhour()</code></h4>
 <p>Suppose the variable <code>dt</code> contains both a date and a time. We may want to extract and separate this into two components: one containing the date, and another capturing the hour of the day.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01/01/2011 00:00"</span>, <span class="st">"01/01/2011 01:00"</span>, <span class="st">"01/01/2011 02:00"</span>, <span class="st">"01/01/2011 03:00"</span>, <span class="st">"01/01/2011 04:00"</span>, <span class="st">"01/01/2011 05:00"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01/01/2011 00:00"</span>, <span class="st">"01/01/2011 01:00"</span>, <span class="st">"01/01/2011 02:00"</span>, <span class="st">"01/01/2011 03:00"</span>, <span class="st">"01/01/2011 04:00"</span>, <span class="st">"01/01/2011 05:00"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function to do this separation can lok like;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>time_dt2dhour <span class="ot">&lt;-</span> <span class="cf">function</span>(datetime, <span class="at">format=</span><span class="cn">NULL</span>) </span>
-<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>  { </span>
-<span id="cb156-3"><a href="#cb156-3" aria-hidden="true" tabindex="-1"></a>          X <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">as.data.frame</span>(<span class="fu">strsplit</span>(datetime,<span class="st">' '</span>))) </span>
-<span id="cb156-4"><a href="#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(X) <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
-<span id="cb156-5"><a href="#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"date"</span>, <span class="st">"time"</span>) </span>
-<span id="cb156-6"><a href="#cb156-6" aria-hidden="true" tabindex="-1"></a>       hour <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">":"</span>,<span class="st">"."</span>,X[,<span class="dv">2</span>])) </span>
-<span id="cb156-7"><a href="#cb156-7" aria-hidden="true" tabindex="-1"></a>      date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(X[,<span class="dv">1</span>],<span class="at">format=</span>format) </span>
-<span id="cb156-8"><a href="#cb156-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>(date, hour) </span>
-<span id="cb156-9"><a href="#cb156-9" aria-hidden="true" tabindex="-1"></a>  } </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>time_dt2dhour <span class="ot">&lt;-</span> <span class="cf">function</span>(datetime, <span class="at">format=</span><span class="cn">NULL</span>) </span>
+<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a>  { </span>
+<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>          X <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">as.data.frame</span>(<span class="fu">strsplit</span>(datetime,<span class="st">' '</span>))) </span>
+<span id="cb164-4"><a href="#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(X) <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb164-5"><a href="#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"date"</span>, <span class="st">"time"</span>) </span>
+<span id="cb164-6"><a href="#cb164-6" aria-hidden="true" tabindex="-1"></a>       hour <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">":"</span>,<span class="st">"."</span>,X[,<span class="dv">2</span>])) </span>
+<span id="cb164-7"><a href="#cb164-7" aria-hidden="true" tabindex="-1"></a>      date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(X[,<span class="dv">1</span>],<span class="at">format=</span>format) </span>
+<span id="cb164-8"><a href="#cb164-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>(date, hour) </span>
+<span id="cb164-9"><a href="#cb164-9" aria-hidden="true" tabindex="-1"></a>  } </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">time_dt2dhour</span>(dt, <span class="st">"%d/%m/%Y"</span>) </span>
-<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">time_dt2dhour</span>(dt, <span class="st">"%d/%m/%Y"</span>) </span>
+<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a>P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        date hour
 1 2011-01-01    0
@@ -1925,16 +1982,16 @@ that is, 3082 observations. </code></pre>
 <h4 class="anchored" data-anchor-id="sec-time-2num"><code>time_2num()</code></h4>
 <p>The second example contains time given in its common format, <code>c("12:35", "10:50")</code> and we would like t change it to numeric which we can use in the model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"12:35"</span>, <span class="st">"10:50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"12:35"</span>, <span class="st">"10:50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function to change this to numeric;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>time_2num <span class="ot">&lt;-</span> <span class="cf">function</span>(time, <span class="at">pattern=</span><span class="st">":"</span>) </span>
-<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>  { </span>
-<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">gsub</span>(pattern, <span class="st">"."</span>, time) </span>
-<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.numeric</span>(t) </span>
-<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>  } </span>
-<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a><span class="fu">time_2num</span>(t) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>time_2num <span class="ot">&lt;-</span> <span class="cf">function</span>(time, <span class="at">pattern=</span><span class="st">":"</span>) </span>
+<span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a>  { </span>
+<span id="cb168-3"><a href="#cb168-3" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">gsub</span>(pattern, <span class="st">"."</span>, time) </span>
+<span id="cb168-4"><a href="#cb168-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.numeric</span>(t) </span>
+<span id="cb168-5"><a href="#cb168-5" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb168-6"><a href="#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="fu">time_2num</span>(t) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.35 10.50</code></pre>
 </div>
@@ -2090,11 +2147,11 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-data-part"><code>data_part()</code></h4>
 <p>The function <code>data_part()</code> it does not partitioning the data as such but adds a factor called <code>partition</code> to the data indicating the partition. By default the data are partitioned into two sets the training ,<code>train</code>, and the test data, <code>test</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>dap <span class="ot">&lt;-</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_part</span>(da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>dap <span class="ot">&lt;-</span> gamlss.prepdata<span class="sc">:::</span><span class="fu">data_part</span>(da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>data partition into two sets </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      rent area yearc location bath kitchen cheating partition
 1 109.9487   26  1918        2    0       0        0     train
@@ -2107,13 +2164,13 @@ Table&nbsp;4: The data partition functions
 </div>
 <p>If the user would like to split the data in two separate <code>data.frame</code>’s she/he can use;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>daTrain <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"train"</span>)</span>
-<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>daTest <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"test"</span>)</span>
-<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTrain)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a>daTrain <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"train"</span>)</span>
+<span id="cb174-2"><a href="#cb174-2" aria-hidden="true" tabindex="-1"></a>daTest <span class="ot">&lt;-</span> <span class="fu">subset</span>(dap, partition<span class="sc">==</span><span class="st">"test"</span>)</span>
+<span id="cb174-3"><a href="#cb174-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTrain)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1846    8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(daTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1236    8</code></pre>
 </div>
@@ -2131,31 +2188,31 @@ Table&nbsp;4: The data partition functions
 <p>The function <code>data_part_list()</code> creates a list of <code>dataframe</code>s which can be used either for single partition or for cross validation. The argument <code>partition</code> allows the splitting of the data to up to 20 subsets. The default is a list of 2 with elements <code>training</code> and <code>test</code> (single partition).</p>
 <p>Here is a single partition in <code>train</code> and <code>test</code> data sets.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent) </span>
-<span id="cb170-2"><a href="#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent) </span>
+<span id="cb178-2"><a href="#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"train"</span>]]) <span class="co"># training data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"train"</span>]]) <span class="co"># training data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1200    9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"test"</span>]]) <span class="co"># test data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(allda[[<span class="st">"test"</span>]]) <span class="co"># test data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 769   9</code></pre>
 </div>
 </div>
 <p>Here is a multiple partition for cross validation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent, <span class="at">partition=</span><span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a>allda <span class="ot">&lt;-</span>  <span class="fu">data_part_list</span>(rent, <span class="at">partition=</span><span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>10-fold data partition </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb186"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb186-1"><a href="#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(allda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"</code></pre>
 </div>
@@ -2166,30 +2223,30 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-data_boot-index"><code>data_boot_index()</code></h4>
 <p>The function <code>data_boot_index()</code> create two lists. The first called <code>IB</code> (for in-bag) and the second <code>OOB</code>, (out-of-bag). Each ellement of the list <code>IB</code> can be use to select a bootstrap sample from the original <code>data.frame</code> while each element of <code>OOB</code> can be use to select the out of sample data points. Note that each bootstap sample approximately contains 2/3 of the original data so we expact on avarage to 1/3 to be in <code>OOB</code> sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a>DD <span class="ot">&lt;-</span> <span class="fu">data_boot_index</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb190-1"><a href="#cb190-1" aria-hidden="true" tabindex="-1"></a>DD <span class="ot">&lt;-</span> <span class="fu">data_boot_index</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The class, length and names of the created lists;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "list"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(DD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "IB"  "OOB"</code></pre>
 </div>
 </div>
 <p>the first obsevations of the</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>IB[[<span class="dv">1</span>]]) <span class="co"># in bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb197"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>IB[[<span class="dv">1</span>]]) <span class="co"># in bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 4 6 8 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>OOB[[<span class="dv">1</span>]]) <span class="co"># out-of-bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb199"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb199-1"><a href="#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DD<span class="sc">$</span>OOB[[<span class="dv">1</span>]]) <span class="co"># out-of-bag</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  3  5  7 15 21 22</code></pre>
 </div>
@@ -2200,22 +2257,22 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-data_boot-weights"><code>data_boot_weights()</code></h4>
 <p>The function <code>data_boot_weights()</code> create a <span class="math inline">\(n \times B\)</span>. matrix with columns possible weights for bootstap fits. Note that each bootstap sample approximately contains .666 of the original obsbation so we in general we expect 0.333 of the data to have zero weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>MM <span class="ot">&lt;-</span> <span class="fu">data_boot_weights</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb201"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb201-1"><a href="#cb201-1" aria-hidden="true" tabindex="-1"></a>MM <span class="ot">&lt;-</span> <span class="fu">data_boot_weights</span>(rent, <span class="at">B=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>M</code> is a matrix which columns can be used as weights in bootstrap fits; Here is a plot of the first column</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb194"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(MM[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb202"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(MM[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-75-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="gamlss-prepdata_files/figure-html/unnamed-chunk-77-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>and here is the first 6 rows os the matrix;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb203"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb203-1"><a href="#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 [1,]    1    2    2    1    0    1    3    1    3     1
@@ -2232,8 +2289,8 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-Kfold-index"><code>data_Kfold_index()</code></h4>
 <p>The function <code>data_Kfold()</code> creates a matrix which columns can be use for cross validation either as indices to select data for fitting or as prior weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb197"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_index</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
-<span id="cb197-2"><a href="#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_index</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
+<span id="cb205-2"><a href="#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 [1,]    1    1    1    1    0    1    1    1    1     1
@@ -2250,8 +2307,8 @@ Table&nbsp;4: The data partition functions
 <h4 class="anchored" data-anchor-id="sec-Kfold-weights"><code>data_Kfold_weights()</code></h4>
 <p>The function <code>data_Kfold()</code> creates a matrix which columns can be use for cross validation either as indices to select data for fitting or as prior weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb199"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb199-1"><a href="#cb199-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_weights</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
-<span id="cb199-2"><a href="#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb207"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb207-1"><a href="#cb207-1" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">data_Kfold_weights</span>(rent, <span class="at">K=</span><span class="dv">10</span>)</span>
+<span id="cb207-2"><a href="#cb207-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 [1,]    1    1    1    1    0    1    1    1    1     1
@@ -2270,16 +2327,16 @@ Table&nbsp;4: The data partition functions
 <p>The <code>data_cut()</code> function can either: • Automatically reduce the data size based on the total number of observations, or • Subset the data according to a user-specified percentage.</p>
 <p>Here is an example of the function assuming that that the user requires <span class="math inline">\(50%\)</span> of the data;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb201"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb201-1"><a href="#cb201-1" aria-hidden="true" tabindex="-1"></a>da1 <span class="ot">&lt;-</span> <span class="fu">data_cut</span>(rent99, <span class="at">percentage=</span>.<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a>da1 <span class="ot">&lt;-</span> <span class="fu">data_cut</span>(rent99, <span class="at">percentage=</span>.<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 50 % of data are saved, 
 that is, 1541 observations. </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb203"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb203-1"><a href="#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(rent99)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb211"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(rent99)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3082    9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(da1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb213"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb213-1"><a href="#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(da1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1541    9</code></pre>
 </div>
@@ -2317,7 +2374,7 @@ Note
 <h4 class="anchored" data-anchor-id="family_pdf"><code>family_pdf()</code></h4>
 <p>The function <code>family_pdf()</code> plots individual probability density functions (PDFs) from distributions in the <code>gamlss.family</code> package. Although it typically requires the family argument, it defaults to the Normal distribution (NO) if none is provided.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb207"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb207-1"><a href="#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(<span class="at">from=</span><span class="sc">-</span><span class="dv">5</span>,<span class="at">to=</span><span class="dv">5</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb215"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb215-1"><a href="#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(<span class="at">from=</span><span class="sc">-</span><span class="dv">5</span>,<span class="at">to=</span><span class="dv">5</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_pdf_continuous" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2333,7 +2390,7 @@ Figure&nbsp;2: Continuous response example: plotting the pdf of a normal random 
 </div>
 <p>The following demonstrates how discrete distributions are displayed. We begin with a distribution that can take infinitely many count values—the Negative Binomial distribution;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb208"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb208-1"><a href="#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb216"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_pdf_discrete" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2349,7 +2406,7 @@ Figure&nbsp;3: Count response example: plotting the pdf of a beta binomial.
 </div>
 <p>Here we use a discrete distribution with a finite range of possible values: the Beta-Binomial distribution.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb217"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb217-1"><a href="#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_pdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_pdf_binomial" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2368,7 +2425,7 @@ Figure&nbsp;4: Beta binomial response example: plotting the pdf of a beta binomi
 <h4 class="anchored" data-anchor-id="family_cdf"><code>family_cdf</code></h4>
 <p>The function <code>family_cdf()</code> plots cumulative distribution functions (CDFs) from the <strong>gamlss.family</strong> distributions. The primary argument required is the family specifying the distribution to be used.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb210"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb210-1"><a href="#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb218"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(NBI, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">alpha=</span>.<span class="dv">9</span>, <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_cdf_discrete" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2384,7 +2441,7 @@ Figure&nbsp;5: Count response example: plotting the cdf of a negative binomial.
 </div>
 <p>The CDf of the negative binomial;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb211"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb219"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb219-1"><a href="#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="fu">family_cdf</span>(BB, <span class="at">to=</span><span class="dv">15</span>, <span class="at">mu=</span>.<span class="dv">5</span>, <span class="at">sigma=</span><span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">alpha=</span>.<span class="dv">9</span>, , <span class="at">size.seqment =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_cdf_binomial" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2422,8 +2479,8 @@ Warning
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb212"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="co">#source("~/Dropbox/github/gamlss-ggplots/R/family_cor.R")</span></span>
-<span id="cb212-2"><a href="#cb212-2" aria-hidden="true" tabindex="-1"></a>gamlss.ggplots<span class="sc">:::</span><span class="fu">family_cor</span>(<span class="st">"BCTo"</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fl">0.11</span>, <span class="at">nu=</span><span class="dv">1</span>, <span class="at">tau=</span><span class="dv">5</span>, <span class="at">no.sim=</span><span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb220"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb220-1"><a href="#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="co">#source("~/Dropbox/github/gamlss-ggplots/R/family_cor.R")</span></span>
+<span id="cb220-2"><a href="#cb220-2" aria-hidden="true" tabindex="-1"></a>gamlss.ggplots<span class="sc">:::</span><span class="fu">family_cor</span>(<span class="st">"BCTo"</span>, <span class="at">mu=</span><span class="dv">1</span>, <span class="at">sigma=</span><span class="fl">0.11</span>, <span class="at">nu=</span><span class="dv">1</span>, <span class="at">tau=</span><span class="dv">5</span>, <span class="at">no.sim=</span><span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fam_correlation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">

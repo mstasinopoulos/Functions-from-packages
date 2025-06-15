@@ -619,6 +619,7 @@ To get the variables with highter than \$0.4 \$ partial correlation values use;
 ```{r}
 Tabpcor <- data_pcor(da, plot=FALSE)
 high_val(Tabpcor, val=0.4)
+high_val(Tabpcor, val=0.4, plot=T)
 ```
 
 For plotting you can use;
@@ -648,11 +649,13 @@ To get the variables with lower than \$0.05 \$ significant interactions use;
 ```{r}
 Tabinter <- gamlss.prepdata:::data_inter(da, response= rent, plot=FALSE)
 low_val(Tabinter)
+low_val(Tabinter, plot=T)
 ```
 
 [back to table](#tbl-graphical)
 
 NOT DOCUMENTED IN HELP FOR THIS FUNCTION
+
 
 #### `data_leverage()` {#sec-data-leverage}
 
@@ -688,9 +691,11 @@ It look that no transformation is needed for the continuous explanatory variable
 
 ## Feature functions  {#sec-Features}
 
-The features functions are functions to help with the continuous explanatory x-variables; We divide them here in four sections; Functions for
+The features functions are functions to help with the continuous explanatory x-variables; We divide them here in five sections; Functions for
 
 -   `outliers`;
+
+-  `correlation` between variables;
 
 -   `scaling`;
 
@@ -705,7 +710,9 @@ The available functions are;
 | [`y_outliers()`](#sec-y-outliers) | identify possible outliers in a continuous variable (see below) |
 | [`y_both_outliers()`](#sec-y-both-outliers) | identify possible outliers using both `zscores` and `quaniles` methodology|
 | [`data_outliers()`](#sec-data-outliers) | identify possible outliers for all continuous x-variable (see also `data_zscores` in @sec-data-zscores) |
-| [`data_leverage()`](#sec-data-leverage-1) | this is a repear of the function from @sec-data-leverage |
+| [`data_leverage()`](#sec-data-leverage-1) | this is a repeat of the function from @sec-data-leverage |
+| [`data_index_cor()`](#sec-data-index-cor) | this function gives an index  of continuous variables to be eliminated because of their high correlation with others continuous variables
+| [`data_index_association()`](#sec-data-index-cor) | this function gives an index  of variables to be eliminated because of their high association with others continuous or factor variables 
 | [`data_scale()`](#sec-data-scale) | scaling all continuous x-variables either to zero mean and one s.d. or to the range \[0,1\] |
 | [`xy_Ptrans()`](#sec-xy-Ptrans) | looking for appropriate power transformation for response against one of the x-variable |
 | [`data_Ptrans()`](#sec-data-Ptrans) | looking for appropriate power transformation for response against all x-variable |
@@ -818,6 +825,32 @@ intersect(ll,ul)
 Here we have zero outliers but in general we would expect to find common observations for further checking.
 
 [back to table](#tbl-features)
+
+
+### Correlations {#sec-correlations}
+
+The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors.
+
+#### `data_index_cor()` {#sec-data-index-cor}
+
+The function  `data_index_cor()`, It takes a `data.frame` as input calculates correlation coefficients  of the continuous variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.      
+
+```{r}
+gamlss.prepdata:::data_index_cor(rent99[,-1])
+```
+
+[back to table](#tbl-features)
+
+#### `data_index_association()` {#sec-data-index-association}
+
+The function  `data_index_association()`, It takes a `data.frame` as input calculates the association coefficients  of all the variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.      
+
+```{r}
+gamlss.prepdata:::data_index_association(rent99[,-1])
+```
+
+[back to table](#tbl-features)
+
 
 ### Scaling {#sec-Scaling}
 
