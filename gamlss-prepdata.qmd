@@ -52,7 +52,7 @@ packageVersion("gamlss2")
 packageVersion("gamlss.prepdata")
 ```
 
-## `gamlss.prepdata` 
+## The package: `gamlss.prepdata` 
 
 The `gamlss.prepdata` package originated from the `gamlss.ggplots` package. As `gamlss.ggplots` became too large for easy maintenance, it was split into two separate packages, and `gamlss.prepdata` was created.
 
@@ -64,41 +64,39 @@ The functions available in `gamlss.prepdata` are intended for pre-fitting — th
 
 These functions provide information about:
 
-```         
-- The size of the dataset
+       
+- the size of the dataset;
 
-- The presence and extent of missing values
+- the  extent of missing values;
 
-- The structure of the dataset
-```
+- the structure of the dataset;
 
--   Whether the variables are numeric or factors, and how they should be prepared for analysis
+-  whether the class of variables is appropriate for analysis.
 
 #### **Plotting** functions
 
-These functions allow plotting for:
+These functions allow plotting;
+   
+-   individual variables;
 
-```         
--   individual variables
+-   pairwise relationships.
 
--   Pairwise relationships between variables.
-```
 
 #### **Features** functions
 
-Functions that assist in
+Functions that assist in:
 
--   Detecting outliers
+-   detecting outliers;
 
--   Applying transformations
+-   applying transformations;
 
--   Scaling variables.
+-   scaling variables.
 
 #### **Data Partition** functions
 
 Functions that facilitate partitioning data to improve inference and avoid overfitting during model selection.
 
-#### Purpose and Usage
+### The purpose 
 
 The information and plotting functions provide valuable insights that assist in building better models, including:
 
@@ -141,7 +139,7 @@ g_k( \boldsymbol{\theta}_k)  &= b_{0k} + s_1(\textbf{x}_{1k})  +   \cdots,  +s_p
 \end{split}
 $$ {#eq-GAMLSS} which is the GAMLSS model introduced by @RigbyStasinopoulos05.
 
-There are three books on GAMLSS, @Stasinopoulosetal2017, @Rigbyetal2019 and @stasinopoulos2024generalized and several 'GAMLSS lecture materials, available from GitHUb, <https://github.com/mstasinopoulos/Porto_short_course.git> and <https://github.com/mstasinopoulos/ShortCourse.git>. The latest **R** packages related to GAMLSS can be found in <https://gamlss-dev.r-universe.dev/builds>.
+There are three books on GAMLSS, @Stasinopoulosetal2017, @Rigbyetal2019 and @stasinopoulos2024generalized and several 'GAMLSS lecture materials, available from GitHUb, <https://mstasinopoulos.github.io/Porto_short_course/> and <https://mstasinopoulos.github.io/ShortCourse/>. The latest **R** packages related to GAMLSS can be found in <https://gamlss-dev.r-universe.dev/builds>.
 
 The aim of this package is to prepare data and extract useful information that can be utilized during the modeling stage.
 
