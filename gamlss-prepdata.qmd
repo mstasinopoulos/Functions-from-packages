@@ -96,27 +96,27 @@ Functions that assist in:
 
 Functions that facilitate partitioning data to improve inference and avoid overfitting during model selection.
 
-### The purpose 
+<!-- ### The purpose  -->
 
-The information and plotting functions provide valuable insights that assist in building better models, including:
+<!-- The information and plotting functions provide valuable insights that assist in building better models, including: -->
 
--   Understanding the distribution of the *response* variable
--   Choosing the appropriate *type* of analysis
--   Examining explanatory variables, including:
-    -   Range and spread of values
-    -   Presence of missing values
-    -   *Associations* and *interactions* between explanatory variables
-    -   Nature of relationships between response and explanatory variables (*linear* or *non-linear*)
+<!-- -   Understanding the distribution of the *response* variable -->
+<!-- -   Choosing the appropriate *type* of analysis -->
+<!-- -   Examining explanatory variables, including: -->
+<!--     -   Range and spread of values -->
+<!--     -   Presence of missing values -->
+<!--     -   *Associations* and *interactions* between explanatory variables -->
+<!--     -   Nature of relationships between response and explanatory variables (*linear* or *non-linear*) -->
 
-The features functions focus on handling outliers, scaling, and transforming explanatory variables (x-variables) before modeling.
+<!-- The features functions focus on handling outliers, scaling, and transforming explanatory variables (x-variables) before modeling. -->
 
-Data partitioning is used to avoid overfitting by ensuring models are evaluated more reliably. It falls under the broader category of data manipulation, although merging datasets is not covered here — only partitioning for improved inference is addressed.
+<!-- Data partitioning is used to avoid overfitting by ensuring models are evaluated more reliably. It falls under the broader category of data manipulation, although merging datasets is not covered here — only partitioning for improved inference is addressed. -->
 
-Most of the pre-fitting functions are data-related, and their names typically start with data (e.g., `data_NAME`), indicating that they either print information, produce plots, or manipulate `data.frame`s.
+<!-- Most of the pre-fitting functions are data-related, and their names typically start with data (e.g., `data_NAME`), indicating that they either print information, produce plots, or manipulate `data.frame`s. -->
 
-The `gamlss.prepdata` package is thus a useful tool for carrying out pre-analysis work before beginning the process of fitting a distributional regression model.
+<!-- The `gamlss.prepdata` package is thus a useful tool for carrying out pre-analysis work before beginning the process of fitting a distributional regression model. -->
 
-Next, we define what we mean by **distributional regression**.
+<!-- Next, we define what we mean by **distributional regression**. -->
 
 ## Distributional Regression
 
@@ -153,33 +153,36 @@ The functions for obtaining information from a dataset are described in this sec
 
 -   Information about the observations in the dataset
 
+-  Transform the variables into suitable **R** classes 
+
 All functions have a `data.frame` as their first argument.
 
 Here is a table of the information functions;
 
 | Functions | Usage |
 |:-----------------------------------|-----------------------------------:|
-| [`data_dim()`](#sec-data-dim) | Returns the number of rows and columns, and calculates the percentage of omitted (missing) observations |
+| [`data_dim()`](#sec-data-dim) | Returns the number of rows and columns, and show the percentage of omitted (missing) observations |
 | [`data_names()`](#sec-data-names) | Lists the names of the variables in the dataset |
 | [`data_rename()`](#sec-data-rename) | Allows renaming of one or more variables in the dataset |
 | [`data_shorter_names()`](#sec-data-shorter-names) | Allows shortening the names of one or more variables in the dataset |
 | [`data_distinct()`](#sec-data-distinct) | Displays the number of distinct values for each variable in the dataset |
 | [`data_which_na()`](#sec-data-which-na) | Displays the count of NA (missing) values for each variable in the dataset |
-| [`data_omit()`](#sec-data-omit) | Removes all rows (observations) that contain any NA (missing) values |
-| [`data_str()`](#sec-data-str) | Displays the class of each variable (e.g., numeric, factor, etc.) along with additional details about the variables |
-| [`data_cha2fac()`](#sec-data-cha2fac) | Converts all character variables in the dataset to factor type |
-| [`data_few2fac()`](#sec-data-few2fac) | Converts variables with a small number of distinct values (e.g., binary or categorical) to factor type |
-| [`data_int2num()`](#sec-data-int2num) | Converts integer variables with several distinct values to numeric type to allow for continuous analysis |
-| [`data_rm()`](#sec-data-rm) | Removes one or more variables (columns) from the dataset as specified by the user |
-| [`data_rmNAvars()`](#sec-data-rmNAvars) | Removes variables which have NA's as all its values. |
-| [`data_rm1val()`](#sec-data-rm1val) | Removes factors that have only a single level (no variability) in the dataset |
-| [`data_select()`](#sec-data-select) | Allows the user to select one or more specific variables (columns) from the dataset for further analysis |
+| [`data_omit()`](#sec-data-omit) | Removes all rows (observations) that contain NA's (missing values) |
+| [`data_str()`](#sec-data-str) | Displays the class for each variable (e.g., numeric, factor, etc.) along with additional detail |
+| [`data_cha2fac()`](#sec-data-cha2fac) | Converts all character variables in the dataset to factors |
+| [`data_few2fac()`](#sec-data-few2fac) | Converts variables with a small number of distinct values (e.g., binary or categorical) to factors |
+| [`data_int2num()`](#sec-data-int2num) | Converts integer variables with several distinct values to numeric |
+| [`data_fac2num()`](#sec-data-fac2num) | Converts factors or characters to   to numeric |
+| [`data_rm()`](#sec-data-rm) | Removes one or more variables (columns) from the dataset |
+| [`data_rmNAvars()`](#sec-data-rmNAvars) | Removes all variables  with NA's as their only value. |
+| [`data_rm1val()`](#sec-data-rm1val) | Removes all variables/factors   with a single value/level   |
+| [`data_select()`](#sec-data-select) | Allows selection of one or more variables (columns) |
 | [`data_exclude_class()`](#sec-data-exclude-class) | Removes all variables of a specified class (e.g., factor, numeric) from the dataset |
-| [`data_only_continuous()`](#sec-data-only-continuous) | Retains only the numeric variables (columns) in the dataset, excluding factors or other variable types |
+| [`data_only_continuous()`](#sec-data-only-continuous) | Retains only the numeric variables (excluding factors or other variable types) |
 
 : A summary table of the functions to obtain information {#tbl-infromation} {tbl-colwidths="\[50,50\]"}
 
-Next we give examples of the functions.
+Next we demonstrate simple  use of the functions.
 
 #### `data_dim()` {#sec-data-dim}
 
@@ -199,7 +202,9 @@ This function provides the names of the variables in the `data.frame`, similar t
 rent99 |> data_names()
 ```
 
-The output of the function is the original data frame. [back to table](#tbl-infromation)
+The output of the function is the original data frame. 
+
+[back to table](#tbl-infromation)
 
 #### `data_rename()` {#sec-data-rename}
 
@@ -232,7 +237,7 @@ Note that there is a risk when using a small value for the `max` option, as it m
 
 #### `data_distinct()` {#sec-data-distinct}
 
-TThe distinct values for each variable are shown below.
+The distinct values for each variable are shown below.
 
 ```{r}
 rent99 |> data_distinct()
@@ -254,9 +259,9 @@ The output of the function is the original data frame nothing is changing.
 
 [back to table](#tbl-infromation)
 
-#### `data_omit` {#sec-data-omit}
+#### `data_omit()` {#sec-data-omit}
 
-The function `data_str()` (similar to the `R` function `str()`) provides information about the types of variables present in the dataset.
+The function `data_omit()` omits all observations with missing values.
 
 ```{r}
 rent99 |> data_omit()
@@ -265,7 +270,7 @@ rent99 |> data_omit()
 The output of the function is a new data frame with all NA's omitted.
 
 ::: callout-warning
-It is important to select the relevant variables before using the data_omit() function, as some unwanted variables may contain many missing values that could lead to unnecessary row omissions.
+It is important to select the relevant variables for the analysis before using the `data_omit()` function, as some unwanted  variables may contain many missing values that that could lead to unnecessary omissions.
 :::
 
 [back to table](#tbl-infromation)
@@ -298,20 +303,20 @@ Since no character were found nothing have changed. The output of the function i
 
 #### `data_few2fac()` {#sec-data-few2fac}
 
-There are occasions when some variables have very few distinct observations, and it may be better to treat them as factors. The function `data_few2fac()` converts vectors with a small number of distinct values into factors.
+There are occasions when some variables have very few distinct observations, and it may be better to treat them as factors. The function `data_few2fac()` converts  (numeric) vectors with a small number of distinct values into factors.
 
 ```{r}
 rent99 |>  data_few2fac() -> da 
 str(da)
 ```
 
-The output of the function is a new data frame. This can be seen by using the **R** function `str()`;
+The output of the function is a new data frame. The results can be seen by using the **R** function `str()`;
 
 [back to table](#tbl-infromation)
 
 #### `data_int2num()` {#sec-data-int2num}
 
-Occasionally, we need to convert integer variables with a very large range of values into numeric vectors, especially for graphics. The function `data_int2num()` performs this conversion.
+Occasionally, we need to convert integer variables with a very large range of values into numeric vectors, especially for plots. The function `data_int2num()` performs this conversion.
 
 ```{r}
 rent99 |> data_int2num() -> da
@@ -321,9 +326,22 @@ The output of the function is a new data frame.
 
 [back to table](#tbl-infromation)
 
+#### `data_fac2num()` {#sec-data-fac2num}
+
+Occasionally, we need to convert integer variables with a very large range of values into numeric vectors, especially for plots. The function `data_int2num()` performs this conversion.
+
+```{r}
+da <- data_fac2num(rent, vars=c("B")) 
+class(da$B)
+```
+
+The output of the function is a new data frame.
+
+[back to table](#tbl-infromation)
+
 #### `data_rm()` {#sec-data-rm}
 
-For plotting datasets, it’s easier to keep only the relevant variables. The function `data_rm()` allows you to remove unnecessary variables, making the dataset more manageable for visualization.
+For analysisng datasets, it’s easier to keep only the relevant variables. The function `data_rm()` allows you to remove unnecessary variables, making the dataset more manageable for analysis.
 
 ```{r}
 data_rm(rent99, c(2,9)) -> da
