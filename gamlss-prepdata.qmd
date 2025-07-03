@@ -1033,7 +1033,7 @@ flowchart TB
 In $K$-fold cross-validation,  (right part of  @fig-data_split), the data are split into $K$ sub-samples. The model is then fitted $K$ times, each time using $K-1$ sub-samples for training and the remaining one sub-sample as test data set. By the end of the process, all $n$ observations will have been used as `test` data exactly once. This is the  main advantage of $K$-fold cross-validation is that provides reliable test data for model evaluation, (with the cost of fitting $K$ models). Leave-One-Out Cross-Validation (LOO) is a special case of K-fold cross-validation, where the model is trained on $n-1$ observations and tested on the remaining single observation, iterating this process $n$ times. Consequently, $n$ different models are refitted. 
 
 ::: callout-note
-Repeated partitions performed in both bootstrapping and k-fold cross validation could mitigating some of the problems assocated from single partitions.
+Repeated partitions (i.e. bootstrapping and k-fold cross validation) could mitigating some of the problems associated from a single partitions.
 :::
 
 
