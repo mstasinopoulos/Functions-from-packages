@@ -166,7 +166,8 @@ Here is a table of the information functions;
 | [`data_rename()`](#sec-data-rename) | Allows renaming of one or more variables in the dataset |
 | [`data_shorter_names()`](#sec-data-shorter-names) | Allows shortening the names of one or more variables in the dataset |
 | [`data_distinct()`](#sec-data-distinct) | Displays the number of distinct values for each variable in the dataset |
-| [`data_which_na()`](#sec-data-which-na) | Displays the count of NA (missing) values for each variable in the dataset |
+| [`data_na_vars()`](#sec-data-na-vars) | Displays the count of NA (missing) values for each variable in the dataset |
+| [`data_na_obs()`](#sec-data-na-obs) | Displays the count of NA (missing) values for each variable in the dataset |
 | [`data_omit()`](#sec-data-omit) | Removes all rows (observations) that contain NA's (missing values) |
 | [`data_str()`](#sec-data-str) | Displays the class for each variable (e.g., numeric, factor, etc.) along with additional detail |
 | [`data_cha2fac()`](#sec-data-cha2fac) | Converts all character variables in the dataset to factors |
@@ -247,17 +248,31 @@ The output of the function is the original data frame.
 
 [back to table](#tbl-infromation)
 
-#### `data_which_na()` {#sec-data-which-na}
+#### `data_na_vars()` {#sec-data-na-vars}
 
 This function provides information about which variables have missing observations and how many missing values there are for each variable;
 
 ```{r}
-rent99 |> data_which_na()
+rent99 |> data_na_vars()
 ```
 
 The output of the function is the original data frame nothing is changing.
 
 [back to table](#tbl-infromation)
+
+
+#### `data_na_obs()` {#sec-data-na-obs}
+
+This function provides information about which variables have missing observations and how many missing values there are for each variable;
+
+```{r}
+rent99 |> data_na_obs()
+```
+
+The output of the function is the original data frame nothing is changing.
+
+[back to table](#tbl-infromation)
+
 
 #### `data_omit()` {#sec-data-omit}
 
@@ -267,7 +282,7 @@ The function `data_omit()` omits all observations with missing values.
 rent99 |> data_omit()
 ```
 
-The output of the function is a new data frame with all NA's omitted.
+The output of the function is a new data frame withll NA's omitted.
 
 ::: callout-warning
 It is important to select the relevant variables for the analysis before using the `data_omit()` function, as some unwanted  variables may contain many missing values that that could lead to unnecessary omissions.
@@ -723,16 +738,16 @@ The available functions are;
 
 | Functions | Usage |
 |:-----------------------------------|-----------------------------------:|
-| [`y_outliers()`](#sec-y-outliers) | identify possible outliers in a continuous variable (see below) |
-| [`y_both_outliers()`](#sec-y-both-outliers) | identify possible outliers using both `zscores` and `quaniles` methodology|
+| [`y_outliers()`](#sec-y-outliers) | identify possible outliers for one continuous variable  |
+| [`y_both_outliers()`](#sec-y-both-outliers) | identify possible outliers using both z-scores and quantile rule methodologies|
 | [`data_outliers()`](#sec-data-outliers) | identify possible outliers for all continuous x-variable (see also `data_zscores` in @sec-data-zscores) |
-| [`data_leverage()`](#sec-data-leverage-1) | this is a repeat of the function from @sec-data-leverage |
-| [`data_index_cor()`](#sec-data-index-cor) | this function gives an index  of continuous variables to be eliminated because of their high correlation with others continuous variables
-| [`data_index_association()`](#sec-data-index-cor) | this function gives an index  of variables to be eliminated because of their high association with others continuous or factor variables 
-| [`data_scale()`](#sec-data-scale) | scaling all continuous x-variables either to zero mean and one s.d. or to the range \[0,1\] |
+| [`data_leverage()`](#sec-data-leverage-1) | this is a repeat of the @sec-data-leverage function |
+| [`data_index_cor()`](#sec-data-index-cor) | this function gives an index  of continuous variables  with high correlation with others continuous variables
+| [`data_index_association()`](#sec-data-index-cor) | this function gives an index  of variables with high association with others continuous or factor variables 
+| [`data_scale()`](#sec-data-scale) | scales all continuous x-variables  to zero mean and one s.d. or to the range \[0,1\] |
 | [`xy_Ptrans()`](#sec-xy-Ptrans) | looking for appropriate power transformation for response against one of the x-variable |
 | [`data_Ptrans()`](#sec-data-Ptrans) | looking for appropriate power transformation for response against all x-variable |
-| [`data_Ptrans_plot()`](#data-Ptrans-plot) | plotting all x's agains the response using identiti ty square root ans log transormations |
+| [`data_Ptrans_plot()`](#data-Ptrans-plot) | plotting all x's agains the response using identity, square root and log transformations |
 
 : The outliers, scalling, transformation and time series functions {#tbl-features} {tbl-colwidths="\[50,50\]"}
 
@@ -740,19 +755,25 @@ The available functions are;
 
 Outliers in the response variable, within a distributional regression framework like GAMLSS, are better handled by selecting an appropriate distribution for the response. For example, an outlier under the assumption of a normal distribution for the response may no longer be considered an outlier if a distribution from the t-family is assumed. The function `data_response()`, discussed in @sec-data-response provides guidelines on appropriate actions. This section focuses on outliers in the explanatory variables.
 
-Outliers in the continuous explanatory variables can potentially affect curve fitting, whether using linear or smooth non-parametric terms. In such cases, removing outliers from the x-variables can make the model more robust. Outliers are observations that deviate significantly from the rest of the data, but the concept depends on the dimension being considered. An single observation value might be an outlier within an explanatory variable. A pair observation might be an outlier examining within a pair-wise relationships. In a one-dimensional search, we identify extreme observations in individual continuous variables, based on how far they lie from the majority of the data. In a two-dimensional search, we look for outliers in pairwise plots of continuous variables, examining how observations deviate from typical relationships between variable pairs. Leverage points are useful to identify outliers when we look for outliers in $r$ dimension when $r$ is the number of explanatory variables.
+Outliers in the continuous explanatory variables can potentially affect curve fitting, whether using linear or smooth non-parametric terms. In such cases, removing outliers from the x-variables can make the model more robust. Outliers are observations that deviate significantly from the rest of the data, but note that the concept also depends on the dimension being considered. An single observation value might be an outlier within an explanatory variable. A pair observation might be an outlier examining within a pair-wise relationships. We identify extreme observations on  individual continuous variables, based on how far they lie from the majority of the data.  Pairwise plots of continuous variables may identify  outliers in two-dimensions. Leverage points are useful to identify outliers in the $r$ dimensions where $r$ is the length of the x-variables. 
 
 ::: callout-note
-At this preliminary stage of the analysis, where no model has yet been fitted, it is difficult to identify outliers among factors. This is because outliers in factors typically do not appear unusual when examining individual variables. Their outlier status usually becomes apparent only when considered in combination with other variables or factors. Identifying such outliers is a task better suited for the modelling stage of the analysis.
+At this preliminary stage of the analysis (no model has been fitted yet), it is difficult to identify outliers among `factors`. This is because outliers in factors typically do not appear unusual when examining individual variables but only in combination of other factors or variables. Identifying `factor` outliers is a task better suited for the modelling stage of the analysis.
 :::
 
-The function `y_outliers()` in @sec-y-outliers uses two methodologies to identify outliers; The default uses simple algorithm to identify potential one-dimensional outliers in continuous explanatory variables. It is designed specifically for continuous variables.
+The function `y_outliers()` in @sec-y-outliers, applied  only to continuous variables, uses two methodologies (option `type`) to identify outliers; 
 
--   For variables defined on the full real line, (i.e., from $-\infty$ to $+\infty$, the algorithm fits a parametric distribution—by default, the four-parameter `SHASHo` distribution—and computes z-scores (quantile residuals) to assess outlier status.
+- the z-scores, `type="zscorses"` (the default)  and 
 
--   For variables defined on the positive real line (i.e., from $0$ to $+ \infty$), an additional transformation step is included. These variables are often highly right-skewed, and extreme values in the right tail can dominate any outlier detection process. To address this, the function attempts to find a power transformation $T = X^\lambda$ that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. To find the optimal power parameters $\lambda$ the function `y_outliers()` uses the internal function `x_Ptrans()`. After this transformation, the `SHASHo` distribution is fitted, and z-scores are computed. The Jarque-Bera test statistic is always non-negative; the further it is from zero, the stronger the evidence against normality. The goal is to reduce skewness and kurtosis in the data before assessing outliers.
+- the quantile rule, `type="quantile"`.
 
-Outliers are identify for observations with very low or hight z-scores. For example, if a z-scores is greater in absolute value to a specified value say 3. The methodology is appropriate for identifying outliers in one dimension. Pair-wise scatter plots of all continuous variables in the data can be use to identify outliers in two dimensions. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, can be used.
+
+
+Both methodologies are trying to remove extreme skewness in the variables before looking for outliers by using the (internal) function `x_Ptrans()`.  The function is applied to any variable with  positive values. The assumption,  is that positive variables are more likely to be  highly skewed.  The function `x_Ptrans()`  attempts to find the power $\lambda$, of a power transformation $T = X^\lambda$, that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. [The Jarque-Bera test statistic is always non-negative and a value further than zero indicates stronger evidence against normality.] The goal of this methodology is to reduce extreme skewness in the data before identify the outliers. If the data are not extremely 
+skewed the power transformation will do no big harm.  
+
+
+Now given that the positive variables are transformed (using the power transformation) and that all the rest pf variables remain untransformed, the z-scores methodology fits a four parameter distribution to the variable (the default is the `SHASHo` distribution) and computes the residuals (z-scores).  The z-scores methodology identify outliers if a  z-scores have have absolute value bigger that a predetermining  point  while the quantile rule methodology identify outliers if there are further than $K \times SIR$ way from the median.  The predetermining value and the $K$ are set by the option `value` of the function `y_outliers()`. Note that if `value` is missing it is calculated using the formulas $\Phi^{-1}(1/(10 \times N))$, where N is the number of observations. The methodology is appropriate for identifying outliers in one dimension. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, can be used.
 
 ::: callout-note
 Several of the graphical functions described in @sec-Graphical-functions are good for identify visualy outliers. In fact we recommend that the function `data_outliers()` should be used in combination with functions like `data_plot()` or `data_zscores()`.
@@ -760,7 +781,7 @@ Several of the graphical functions described in @sec-Graphical-functions are goo
 
 #### `y_outliers()` {#sec-y-outliers}
 
-The function `y_outliers()` identify outliers in one $X$ variable. There are two methodologies to do that;
+The function `y_outliers()` identify outliers in one $x$ variable. There are two methodologies to do that;
 
 -  `zscores`: A  distribution is fitted to the data (usually `SHASHo`) then the residuals (z-scores) are taken and observations with large residuals are identified (see also the above comment).
 
