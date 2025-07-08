@@ -122,14 +122,15 @@ Functions that facilitate partitioning data to improve inference and avoid overf
 
 The aim of this vignette is to demonstrate how to manipulate and prepare data before applying a distributional regression analysis.
 
-The general form a distributional regression model can be written as; $$
+The general form a distributional regression model can be written as; 
+$$ 
 \begin{split}
-\textbf{y}     &  \stackrel{\small{ind}}{\sim }  \mathcal{D}( \boldsymbol{\theta}_1, \ldots, \boldsymbol{\theta}_k) \nonumber \\
+\textbf{y}    &  \stackrel{\small{ind}}{\sim }  \mathcal{D}( \boldsymbol{\theta}_1, \ldots, \boldsymbol{\theta}_k) \nonumber \\
 g_1(\boldsymbol{\theta}_1) &= \mathcal{ML}_1(\textbf{x}_{11},\textbf{x}_{21}, \ldots,  \textbf{x}_{p1}) \nonumber \\
  \ldots &= \ldots \nonumber\\
 g_k(\boldsymbol{\theta}_k) &= \mathcal{ML}_k(\textbf{x}_{1k},\textbf{x}_{2k}, \ldots,  \textbf{x}_{pk}). 
  \end{split}
- $$ {#eq-GAMLSS_ML} where we assume that the response variable $y_i$ for $i=1,\ldots, n$, is independently distributed having a distribution $\mathcal{D}( \theta_1, \ldots, \theta_k)$ with $k$ parameters and where all parameters could be effected by the explanatory variables $\textbf{x}_{1},\textbf{x}_{2}, \ldots,  \textbf{x}_{p}$. The $\mathcal{ML}$ represents **any** regression type machine learning algorithm i.e. LASSO, Neural networks etc.
+$${#eq-GAMLSS_ML} where we assume that the response variable $y_i$ for $i=1,\ldots, n$, is independently distributed having a distribution $\mathcal{D}( \theta_1, \ldots, \theta_k)$ with $k$ parameters and where all parameters could be effected by the explanatory variables $\textbf{x}_{1},\textbf{x}_{2}, \ldots,  \textbf{x}_{p}$. The $\mathcal{ML}$ represents **any** regression type machine learning algorithm i.e. LASSO, Neural networks etc.
 
 When only **additive smoothing** terms are used in the fitting the model can be written as; $$\begin{split}
 \textbf{y}     &  \stackrel{\small{ind}}{\sim }  \mathcal{D}(  \boldsymbol{\theta}_1, \ldots,  \boldsymbol{\theta}_k) \nonumber \\
@@ -739,7 +740,7 @@ The available functions are;
 | Functions | Usage |
 |:-----------------------------------|-----------------------------------:|
 | [`y_outliers()`](#sec-y-outliers) | identify possible outliers for one continuous variable  |
-| [`y_both_outliers()`](#sec-y-both-outliers) | identify possible outliers using both z-scores and quantile rule methodologies|
+| [`y_outliers_both()`](#sec-y-both-outliers) | identify possible outliers using both z-scores and quantile rule methodologies|
 | [`data_outliers()`](#sec-data-outliers) | identify possible outliers for all continuous x-variable (see also `data_zscores` in @sec-data-zscores) |
 | [`data_leverage()`](#sec-data-leverage-1) | this is a repeat of the @sec-data-leverage function |
 | [`data_index_cor()`](#sec-data-index-cor) | this function gives an index  of continuous variables  with high correlation with others continuous variables
@@ -769,23 +770,23 @@ The function `y_outliers()` in @sec-y-outliers, applied  only to continuous vari
 
 
 
-Both methodologies are trying to remove extreme skewness in the variables before looking for outliers by using the (internal) function `x_Ptrans()`.  The function is applied to any variable with  positive values. The assumption,  is that positive variables are more likely to be  highly skewed.  The function `x_Ptrans()`  attempts to find the power $\lambda$, of a power transformation $T = X^\lambda$, that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. [The Jarque-Bera test statistic is always non-negative and a value further than zero indicates stronger evidence against normality.] The goal of this methodology is to reduce extreme skewness in the data before identify the outliers. If the data are not extremely 
-skewed the power transformation will do no big harm.  
+Both methodologies are trying to remove extreme skewness in the variables before looking for outliers by using the (internal) function `y_Ptrans()`.  The function is applied to any variable with  positive values. The assumption,  is that positive variables are more likely to be  highly skewed.  The function `y_Ptrans()`  attempts to find the power $\lambda$, of a power transformation $T = X^\lambda$, that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. [The Jarque-Bera test statistic is always non-negative and a value further than zero indicates stronger evidence against normality.] The goal of this methodology is to reduce extreme skewness in the data before identify the outliers. If the data are not extremely 
+skewed the power transformation will do no harm.  
 
 
-Now given that the positive variables are transformed (using the power transformation) and that all the rest pf variables remain untransformed, the z-scores methodology fits a four parameter distribution to the variable (the default is the `SHASHo` distribution) and computes the residuals (z-scores).  The z-scores methodology identify outliers if a  z-scores have have absolute value bigger that a predetermining  point  while the quantile rule methodology identify outliers if there are further than $K \times SIR$ way from the median.  The predetermining value and the $K$ are set by the option `value` of the function `y_outliers()`. Note that if `value` is missing it is calculated using the formulas $\Phi^{-1}(1/(10 \times N))$, where N is the number of observations. The methodology is appropriate for identifying outliers in one dimension. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, can be used.
+Now given that the positive variables are transformed (using the power transformation) and that all the rest of variables remain untransformed, the z-scores methodology fits a four parameter distribution to the variable (with default the `SHASHo` distribution) and computes the residuals of the fitted model (z-scores).  The z-scores methodology identify outliers if a z-score  have an absolute value bigger that a predetermining  value say $K$. The  quantile rule methodology identify outliers by doing something similar. It identify an  observation if it  is further than $K \times MAD$ way from the median.  The value of $K$ is set by the option `value` of the function `y_outliers()`. But if the `value` is missing it is calculated using the formulas $\Phi^{-1}(1/(10 \times N))$, where N is the number of observations. The methodology is appropriate for identifying outliers in one dimension. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, can be used instead.
 
 ::: callout-note
-Several of the graphical functions described in @sec-Graphical-functions are good for identify visualy outliers. In fact we recommend that the function `data_outliers()` should be used in combination with functions like `data_plot()` or `data_zscores()`.
+Several of the graphical functions described in @sec-Graphical-functions are good for identify  outliers visually. In fact we recommend that the function `data_outliers()` and its related function  `data_outliers_both()` and `data_outliers_by()` should be used in combination with functions like `data_plot()` or `data_zscores()` or `y_dots()` of the package `gamlss.gplots`.
 :::
 
 #### `y_outliers()` {#sec-y-outliers}
 
 The function `y_outliers()` identify outliers in one $x$ variable. There are two methodologies to do that;
 
--  `zscores`: A  distribution is fitted to the data (usually `SHASHo`) then the residuals (z-scores) are taken and observations with large residuals are identified (see also the above comment).
+-  `zscores`: A  distribution is fitted to the data (default `SHASHo`) then the residuals (z-scores) are taken and observations with large residuals are identified.
 
-- `quantile`: This is the classical methodology and it is based on sample quantiles.  An observation is identified if it far from the median. How far usually is taken  as three time the semi-inter-quantiles range. The option `value` is set to 4 as a default in the function. 
+- `quantile`: This is the classical methodology and it is based on sample quantiles.  An observation is identified if it far from the median. How far usually is taken  as $K$ time the MAD.  
 
 Using the zscores;
 ```{r}
@@ -794,28 +795,40 @@ y_outliers(da$rent)
 or  using the `quantile` 
 
 ```{r}
-y_outliers(da$rent, type="quantile", value=4)
+y_outliers(da$rent, type="quantile")
 ```
 
-Note that the `y_outliers()` is used by `data_outliers()` to identify outliers in all continuous variables in the data.
+Note that the function `y_outliers()` is used by `data_outliers()` to identify outliers in all continuous variables in the data.
 
-::: callout-note
-For very skew data the `value` in the option `type="quantile"` need to be increased.  
-:::
 
 
 [back to table](#tbl-features)
 
 
-#### `y_both_outliers()` {#sec-y-both-outliers}
+#### `y_outliers_both()` {#sec-y-both-outliers}
 
-The function `y_both_outliers()` uses both `zscores` and `quantiles` and reports the obsrarvations appearing in both sets. Note that the defaule `value` is 4 for both cases.
+The function `y_outliers_both()` uses both `zscores` and `quantile` methodology and reports the observations appearing either in the `method=intersection` (default) or in the  `method=union`. 
 
 ```{r}
-y_both_outliers(da$rent)
+y_outliers_both(da$rent, method="union")
 ```
 
+
 [back to table](#tbl-features)
+
+#### `y_outliers_by()` {#sec-y-both-by}
+
+The function `y_outliers_by()` splits the data, before it performes the detection of outliers, **by** a given factor. It is useful if the given factor split the data in a meaningful ways. Continuous variable cab be split in advange using the function `cut()`. 
+
+```{r}
+y_outliers_by(da$rent, by=da$location)
+```
+
+
+[back to table](#tbl-features)
+
+
+
 
 #### `data_outliers()` {#sec-data-outliers}
 
