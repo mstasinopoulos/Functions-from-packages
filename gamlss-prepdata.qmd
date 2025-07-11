@@ -54,9 +54,9 @@ packageVersion("gamlss.prepdata")
 
 ## The package: `gamlss.prepdata` 
 
-The `gamlss.prepdata` package originated from the `gamlss.ggplots` package. As `gamlss.ggplots` became too large for easy maintenance, it was split into two separate packages, and `gamlss.prepdata` was created.
+The `gamlss.prepdata` package originated from the `gamlss.ggplots` package. As `gamlss.ggplots` became too large, for easy maintenance, it was split into two separate packages, and `gamlss.prepdata` was created.
 
-Since `gamlss.prepdata` is still at an experimental stage, some functions are hidden to allow time for thorough checking and validation. These hidden functions can still be accessed using the triple colon notation, for example: `gamlss.prepdata:::`.
+Since `gamlss.prepdata` is still at an experimental stage, some of functions are remained hidden to allow time for thorough checking and validation. These hidden functions can still be accessed using the triple colon notation, for example: `gamlss.prepdata:::`.
 
 The functions available in `gamlss.prepdata` are intended for pre-fitting — that is, to be used before applying the `gamlss()` or `gamlss2()` fitting functions. The available functions can be grouped into the following categories:
 
@@ -64,7 +64,6 @@ The functions available in `gamlss.prepdata` are intended for pre-fitting — th
 
 These functions provide information about:
 
-       
 - the size of the dataset;
 
 - the  extent of missing values;
@@ -77,24 +76,24 @@ These functions provide information about:
 
 These functions allow plotting;
    
--   individual variables;
+-   individual variables and
 
--   pairwise relationships.
+-   pairwise relationships of variables
 
 
 #### **Features** functions
 
-Functions that assist in:
+These functions can assist in:
 
 -   detecting outliers;
 
--   applying transformations;
+-   applying transformations to variables and 
 
 -   scaling variables.
 
 #### **Data Partition** functions
 
-Functions that facilitate partitioning data to improve inference and avoid overfitting during model selection.
+Functions that facilitate partitioningy the data to improve inference and avoid overfitting during model selection.
 
 <!-- ### The purpose  -->
 
@@ -154,9 +153,9 @@ The functions for obtaining information from a dataset are described in this sec
 
 -   Information about the observations in the dataset
 
--  Transform the variables into suitable **R** classes 
+-  Changing the variables into suitable **R** classes for futher analysis. 
 
-All functions have a `data.frame` as their first argument.
+The functions which use a  `data.frame` as their first argument are staring from `data_` while ones variable whixg take only a variable start fro, `y_`. 
 
 Here is a table of the information functions;
 
@@ -168,7 +167,7 @@ Here is a table of the information functions;
 | [`data_shorter_names()`](#sec-data-shorter-names) | Allows shortening the names of one or more variables in the dataset |
 | [`data_distinct()`](#sec-data-distinct) | Displays the number of distinct values for each variable in the dataset |
 | [`data_na_vars()`](#sec-data-na-vars) | Displays the count of NA (missing) values for each variable in the dataset |
-| [`data_na_obs()`](#sec-data-na-obs) | Displays the count of NA (missing) values for each variable in the dataset |
+| [`data_na_obs()`](#sec-data-na-obs) | Displays which observation are missing  for each variable |
 | [`data_omit()`](#sec-data-omit) | Removes all rows (observations) that contain NA's (missing values) |
 | [`data_str()`](#sec-data-str) | Displays the class for each variable (e.g., numeric, factor, etc.) along with additional detail |
 | [`data_cha2fac()`](#sec-data-cha2fac) | Converts all character variables in the dataset to factors |
@@ -181,6 +180,7 @@ Here is a table of the information functions;
 | [`data_select()`](#sec-data-select) | Allows selection of one or more variables (columns) |
 | [`data_exclude_class()`](#sec-data-exclude-class) | Removes all variables of a specified class (e.g., factor, numeric) from the dataset |
 | [`data_only_continuous()`](#sec-data-only-continuous) | Retains only the numeric variables (excluding factors or other variable types) |
+| [`data_factor()`](#sec-data-only-continuous) | For  all factors in the data the first level becomes the level with `lower` of `higher` number of observations   |
 
 : A summary table of the functions to obtain information {#tbl-infromation} {tbl-colwidths="\[50,50\]"}
 
@@ -429,6 +429,19 @@ The output of the function is a new data frame.
 
 [back to table](#tbl-infromation)
 
+#### `data_factor()` {#sec-data-factor}
+
+This function changes the reference level of factors to be the the `lower` or `higher`  of the number of obserevations.
+
+```{r}
+da |> gamlss.prepdata:::data_factor()  -> da1
+levels(da1$loc)
+```
+It moved the level `3` into the first place. The output of the function is a new data frame.
+
+[back to table](#tbl-infromation)
+
+
 ## Graphical functions {#sec-Graphical-functions}
 
 Graphical methods are used in pre-analysis to examine individual variables or pair-wise relationships between variables.
@@ -489,7 +502,8 @@ da |> data_response(, response=rent)
 
 #### `data_zscores()` {#sec-data-zscores}
 
-One could fit any four parameter (GAMLSS) distribution, defined on $-\infty$ to $\infty$, to any continuous variable, where skewness and kurtosis is suspected and take the quantile residuals (or z-scores) as the transformed values x-values. The function `y_zscores()` performs just this. It takes a continuous variable and fits a continuous four parameter distribution and gives the z-scores. The fitting distribution can be specified by the user, but as default we use the SHASHo distribution. Below we demonstrate that the function y_zscores() is equivalent to fitting the SHASHo distribution to a continuous variable and then take the quqntile residuals from the fitted model as the result.
+One could fit any four parameter (GAMLSS) distribution, defined on $-\infty$ to $\infty$, to any continuous variable, where skewness and kurtosis is suspected and take the quantile residuals (z-scores) as the transformed values of the x-values. The function `y_zscores()` performs just this. It takes a continuous variable and fits a continuous (four parameter `SHASHo`)  distribution and gives the z-scores. The fitting distribution is specified by the user, but the default is SHASHo. The function `data_zscores()` takes all continuous variables and plots their z-scores. The methodology is use also to identify outliers in `data_outliers()`.  
+
 
 ```{r}
 #| warning: false
@@ -686,7 +700,6 @@ low_val(Tabinter, plot=T)
 
 [back to table](#tbl-graphical)
 
-NOT DOCUMENTED IN HELP FOR THIS FUNCTION
 
 
 #### `data_leverage()` {#sec-data-leverage}
@@ -711,7 +724,7 @@ What happen if multiple response are in the data?
 
 #### `data_Ptrans_plot()` {#sec-data-Ptrans-plot}
 
-The essence of this plot is to visually decide whether certain values of $\lambda$ in a power transformation are appropriate or not. @sec-Transformations describes the power transformation, $T=X^\lambda$ for $\lambda>0$, in more details. For each continuous explanatory variable $X$, the function show the response against $X$, ($\lambda=1$), the response against the square root of $X$, ($\lambda=1/2$) and the response against the log of $X$ ($\lambda \rightarrow 0$). The user then can decide whether any of those transformation are appropriate.
+The essence of this plot is to visually decide whether certain values of $\lambda$ in a power transformation are appropriate or not. @sec-Transformations describes the power transformation, $T=X^\lambda$ for $\lambda>0$, in more details. For each continuous explanatory variable $X$, the function show the response against $X$, ($\lambda=1$), the response against the square root of $X$, ($\lambda=1/2$) and the response against the log of $X$ ($\lambda \rightarrow 0$). The user then can decide whether any of those transformation are appropriate. Note that the square root and log transformations are appropriate for righ skew variables.
 
 ```{r}
 gamlss.prepdata:::data_Ptrans_plot(da, rent) 
@@ -725,22 +738,25 @@ It look that no transformation is needed for the continuous explanatory variable
 
 The features functions are functions to help with the continuous explanatory x-variables; We divide them here in five sections; Functions for
 
--   `outliers`;
+-  identify  `outliers`;
 
--  `correlation` between variables;
+-  identify  `correlation` between variables;
 
--   `scaling`;
+-   `scaling` continuous variables;
 
--   `transformations` and
+-   `transforming` continuous variables and
 
--   function approproate for `time series`
+-   function appropriate for dates and time helpful for `time series` data analysis.
 
 The available functions are;
 
 | Functions | Usage |
 |:-----------------------------------|-----------------------------------:|
-| [`y_outliers()`](#sec-y-outliers) | identify possible outliers for one continuous variable  |
-| [`y_outliers_both()`](#sec-y-both-outliers) | identify possible outliers using both z-scores and quantile rule methodologies|
+| [`y_outliers()`](#sec-y-outliers) | identify possible outliers for one continuous variable|
+| [`y_outliers_both()`](#sec-y-both-outliers) | identify possible outliers using both z-scores and the quantile rule methodology|
+| [`y_outliers_loop()`](#sec-y-outliers-loop) | identify outliers (using z-scores) by fitting several times the chossen `family`   eliminating each time observations identifyied as outliers in the prievious  fits|
+| [`y_outliers_by()`](#sec-y-outliers-by) | identify possible outliers (using z-scores) at  partitions of the data by a factor|
+| [`y_outliers_z()`](#sec-y-outliers-z) | identify possible outliers (using z-scores) for different combination of `loop` and `by`|
 | [`data_outliers()`](#sec-data-outliers) | identify possible outliers for all continuous x-variable (see also `data_zscores` in @sec-data-zscores) |
 | [`data_leverage()`](#sec-data-leverage-1) | this is a repeat of the @sec-data-leverage function |
 | [`data_index_cor()`](#sec-data-index-cor) | this function gives an index  of continuous variables  with high correlation with others continuous variables
@@ -754,15 +770,15 @@ The available functions are;
 
 ### Outliers {#sec-Outliers}
 
-Outliers in the response variable, within a distributional regression framework like GAMLSS, are better handled by selecting an appropriate distribution for the response. For example, an outlier under the assumption of a normal distribution for the response may no longer be considered an outlier if a distribution from the t-family is assumed. The function `data_response()`, discussed in @sec-data-response provides guidelines on appropriate actions. This section focuses on outliers in the explanatory variables.
+Outliers in the response variable, within a distributional regression framework like GAMLSS, are better handled by selecting an appropriate distribution for the response. For example, an outlier under the assumption of a normal distribution for the response may no longer be considered an outlier if a distribution from the t-family is assumed. Considerations of contanimnated responses data are not considered here. The function `data_response()`, discussed in @sec-data-response and uses the z-scores methodology,  provides some guidelines for appropriate action to identify ouliers in the response. This section focuses on outliers in the explanatory variables.
 
-Outliers in the continuous explanatory variables can potentially affect curve fitting, whether using linear or smooth non-parametric terms. In such cases, removing outliers from the x-variables can make the model more robust. Outliers are observations that deviate significantly from the rest of the data, but note that the concept also depends on the dimension being considered. An single observation value might be an outlier within an explanatory variable. A pair observation might be an outlier examining within a pair-wise relationships. We identify extreme observations on  individual continuous variables, based on how far they lie from the majority of the data.  Pairwise plots of continuous variables may identify  outliers in two-dimensions. Leverage points are useful to identify outliers in the $r$ dimensions where $r$ is the length of the x-variables. 
+Outliers in the continuous explanatory variables can potentially affect curve fitting, whether using linear or smooth non-parametric terms. In such cases, removing outliers from the x-variables can make the model more robust. Outliers are observations that deviate significantly from the rest of the data, but the concept also depends on the dimension being considered. An single observation value might be an outlier on an explanatory variable. A pair of  observations could be an outlier when examined within a pair-wise relationships. Extreme observations identification   on  continuous variables, is based on how far the observation  lies from the majority of the data.  Pairwise plots of continuous variables could identify  outliers in the  two-dimensions. Leverage points are useful to identify outliers in  $r$ dimensions where $r$ is the size of the explanatory variables. 
 
 ::: callout-note
-At this preliminary stage of the analysis (no model has been fitted yet), it is difficult to identify outliers among `factors`. This is because outliers in factors typically do not appear unusual when examining individual variables but only in combination of other factors or variables. Identifying `factor` outliers is a task better suited for the modelling stage of the analysis.
+At this preliminary stage of the analysis (no model has been fitted yet), it is difficult to identify outliers among `factors`. This is because outliers in factors typically do not appear unusual unless are examined in combination with rest of factors or variables. Identifying `factor` outliers is a task better suited for the modelling stage of the analysis.
 :::
 
-The function `y_outliers()` in @sec-y-outliers, applied  only to continuous variables, uses two methodologies (option `type`) to identify outliers; 
+The function `y_outliers()` in @sec-y-outliers, is applied to continuous variables only, and it uses two different methodologies (option `type`); 
 
 - the z-scores, `type="zscorses"` (the default)  and 
 
@@ -770,36 +786,39 @@ The function `y_outliers()` in @sec-y-outliers, applied  only to continuous vari
 
 
 
-Both methodologies are trying to remove extreme skewness in the variables before looking for outliers by using the (internal) function `y_Ptrans()`.  The function is applied to any variable with  positive values. The assumption,  is that positive variables are more likely to be  highly skewed.  The function `y_Ptrans()`  attempts to find the power $\lambda$, of a power transformation $T = X^\lambda$, that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. [The Jarque-Bera test statistic is always non-negative and a value further than zero indicates stronger evidence against normality.] The goal of this methodology is to reduce extreme skewness in the data before identify the outliers. If the data are not extremely 
-skewed the power transformation will do no harm.  
+Both methodologies are trying to remove extreme skewness in the variables before looking for outliers by using the (internal) function `y_Ptrans()`.  The function is applied to any variable with  positive values. The assumption, is that positive variables are more likely to be right skewed and therefor a power transformation will correct that.  The function `y_Ptrans()`  attempts to find the power $\lambda$, of a transformation $T = X^\lambda$, that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. The Jarque-Bera test statistic is always non-negative and a value way from zero indicates strong evidence against normality. The goal of this methodology is to reduce extreme skewness in the data before attempt to identify the outliers. If the data are not so skewed the power transformation will genraly do no harm. 
 
-
-Now given that the positive variables are transformed (using the power transformation) and that all the rest of variables remain untransformed, the z-scores methodology fits a four parameter distribution to the variable (with default the `SHASHo` distribution) and computes the residuals of the fitted model (z-scores).  The z-scores methodology identify outliers if a z-score  have an absolute value bigger that a predetermining  value say $K$. The  quantile rule methodology identify outliers by doing something similar. It identify an  observation if it  is further than $K \times MAD$ way from the median.  The value of $K$ is set by the option `value` of the function `y_outliers()`. But if the `value` is missing it is calculated using the formulas $\Phi^{-1}(1/(10 \times N))$, where N is the number of observations. The methodology is appropriate for identifying outliers in one dimension. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, can be used instead.
 
 ::: callout-note
-Several of the graphical functions described in @sec-Graphical-functions are good for identify  outliers visually. In fact we recommend that the function `data_outliers()` and its related function  `data_outliers_both()` and `data_outliers_by()` should be used in combination with functions like `data_plot()` or `data_zscores()` or `y_dots()` of the package `gamlss.gplots`.
+At the momment we allow the power parameter of the tranformation $\lambda$ to vary at the range $0$ to $1.5$. This range cover only right skewed behaviour. More work has to be done to establishes suitable range.   
+:::
+
+
+Now given that the positive variables are transformed (using the power transformation) and that all the rest of variables, containg negative values,  remain untransformed, the z-scores methodology fits a parametertic distribution to the variable and computes the residuals of the fitted model (z-scores). The default distribution is the four parameter `SHASHo` distribution. The z-scores methodology identify outliers if a spesific residual (z-score)  has an absolute value bigger that a predetermining  `value` ay $K$. The  quantile rule methodology works similar. It identify an  observation if it  is further than $K \times MAD$ way from the median.  The value of $K$ is set by the option `value` of the function `y_outliers()`. If the `value` is missing it is calculated using the formulas $\Phi^{-1}(1/(10 \times N))$, where N is the number of observations. The two methodologies  are appropriate for identifying outliers in one dimension. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, shouls be used.
+
+::: callout-note
+Several of the graphical functions described in @sec-Graphical-functions are good for identify  outliers visually. In fact we recommend that the function `data_outliers()` and its related function  `data_outliers_both()`, `data_outliers_by()` and `data_outliers_z()` should be used in combination with functions like `data_plot()` or `data_zscores()` or `y_dots()` of the package `gamlss.gplots`.
 :::
 
 #### `y_outliers()` {#sec-y-outliers}
 
-The function `y_outliers()` identify outliers in one $x$ variable. There are two methodologies to do that;
+The function `y_outliers()` identify outliers in one $x$ variable using the two methodologies described  above, The 
 
--  `zscores`: A  distribution is fitted to the data (default `SHASHo`) then the residuals (z-scores) are taken and observations with large residuals are identified.
+-  `zscores`: wherte a  distribution is fitted to the data (default `SHASHo`), the residuals (z-scores) are taken and observations with large residuals are identified as outliers.
 
-- `quantile`: This is the classical methodology and it is based on sample quantiles.  An observation is identified if it far from the median. How far usually is taken  as $K$ time the MAD.  
+- `quantile`: This is more realing with the classical methodology based on sample quantiles.  An observation is identified if it far from the median. How far usually is taken  as $K$ time the Mean Absolute Deviation (MAD).  
 
-Using the zscores;
+Hewe is an example using the zscores;
 ```{r}
 y_outliers(da$rent)
 ```
-or  using the `quantile` 
+and here using the `quantile`; 
 
 ```{r}
 y_outliers(da$rent, type="quantile")
 ```
 
-Note that the function `y_outliers()` is used by `data_outliers()` to identify outliers in all continuous variables in the data.
-
+Note that the function `y_outliers()` is used by `data_outliers()` to identify outliers in all continuous variables in the data. There are several variation of the basic function `y_outliers()` described next.
 
 
 [back to table](#tbl-features)
@@ -807,7 +826,7 @@ Note that the function `y_outliers()` is used by `data_outliers()` to identify o
 
 #### `y_outliers_both()` {#sec-y-both-outliers}
 
-The function `y_outliers_both()` uses both `zscores` and `quantile` methodology and reports the observations appearing either in the `method=intersection` (default) or in the  `method=union`. 
+The function `y_outliers_both()` uses both `zscores` and `quantile` methodology and reports the observations appearing  in the intersection of both sets, `method=intersection` (the default), or  the union of both, `method=union`. 
 
 ```{r}
 y_outliers_both(da$rent, method="union")
@@ -816,9 +835,9 @@ y_outliers_both(da$rent, method="union")
 
 [back to table](#tbl-features)
 
-#### `y_outliers_by()` {#sec-y-both-by}
+#### `y_outliers_by()` {#sec-y-outliers-by}
 
-The function `y_outliers_by()` splits the data, before it performes the detection of outliers, **by** a given factor. It is useful if the given factor split the data in a meaningful ways. Continuous variable cab be split in advange using the function `cut()`. 
+The function `y_outliers_by()` splits the data according to given factor, option `by` before it performes the detection of outliers. It is useful if the given factor split the data in a meaningful way. Continuous variable can be split in advange to create a factors using the **R** function `cut()`. 
 
 ```{r}
 y_outliers_by(da$rent, by=da$location)
@@ -828,6 +847,31 @@ y_outliers_by(da$rent, by=da$location)
 [back to table](#tbl-features)
 
 
+#### `y_outliers_loop()` {#sec-y-outliers-loop}
+
+The function `y_outliers_loop()` tries to identify more data than the `y_outliers()` function by using the folwing extra loop; It starts by fitting the distribution to the data which help to identify from the z-scores certain obsevations as outliers. Thaose outliers are `then removed and the procees starts again. It stops whete there are no more observations removed.  This loop allows more obsrvations to be identify and it is design to help when banch of  data points masks other point to be identified as outliers.        
+
+
+```{r}
+gamlss.prepdata:::y_outliers_loop(da$rent)
+```
+
+
+[back to table](#tbl-features)
+
+
+#### `y_outliers_z()` {#sec-y-outliers-z}
+
+The function `y_outliers_z()` tries to put the  fdunctions `y_outliers_loop()` and `y_outliers_by()`. It works only for the z-scores methodology but al the four combination of 
+`by` and `loop` can be used. m      
+
+
+```{r}
+gamlss.prepdata:::y_outliers_z(da$rent, by=da$loc)
+```
+
+
+[back to table](#tbl-features)
 
 
 #### `data_outliers()` {#sec-data-outliers}
