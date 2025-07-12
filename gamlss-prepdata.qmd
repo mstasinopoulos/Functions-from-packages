@@ -460,6 +460,8 @@ Graphical methods are used in pre-analysis to examine individual variables or pa
 | [`data_leverage()`](#sec-data-leverage) | Detects outliers in the continuous explanatory variables (x-variables) as a group to highlight unusual observations |
 | [`data_Ptrans_plot()`](#sec-data-Ptrans-plot) | Plots the response variable against various power transformations of the continuous x-variables to explore potential relationships and model suitability |
 
+
+
 : A summary table of the graphical functions {#tbl-graphical} {tbl-colwidths="\[50,50\]"}
 
 Next we give examples of the graphical functions.
@@ -740,13 +742,13 @@ The features functions are functions to help with the continuous explanatory x-v
 
 -  identify  `outliers`;
 
--  identify  `correlation` between variables;
+-  identify  hight `correlation` between variables;
 
 -   `scaling` continuous variables;
 
 -   `transforming` continuous variables and
 
--   function appropriate for dates and time helpful for `time series` data analysis.
+-   function appropriate for `dates` and `time` (helpful for time series data analysis).
 
 The available functions are;
 
@@ -764,9 +766,11 @@ The available functions are;
 | [`data_scale()`](#sec-data-scale) | scales all continuous x-variables  to zero mean and one s.d. or to the range \[0,1\] |
 | [`xy_Ptrans()`](#sec-xy-Ptrans) | looking for appropriate power transformation for response against one of the x-variable |
 | [`data_Ptrans()`](#sec-data-Ptrans) | looking for appropriate power transformation for response against all x-variable |
-| [`data_Ptrans_plot()`](#data-Ptrans-plot) | plotting all x's agains the response using identity, square root and log transformations |
+| [`data_Ptrans_plot()`](#data-Ptrans-plot) | plotting all x's against the response using identity, square root and log transformations |
+| [`time_dt2dh()`](#sec-time-dt2dhours) | Separates a date and time variable into two variables |
+| [`time_hour2num()`](#sec-time-2num) |  takes hours ans translate to numeric|
 
-: The outliers, scalling, transformation and time series functions {#tbl-features} {tbl-colwidths="\[50,50\]"}
+: The outliers, scaling, transformation and date and time functions {#tbl-features} {tbl-colwidths="\[50,50\]"}
 
 ### Outliers {#sec-Outliers}
 
@@ -862,11 +866,24 @@ gamlss.prepdata:::y_outliers_loop(da$rent)
 
 #### `y_outliers_z()` {#sec-y-outliers-z}
 
-The function `y_outliers_z()` tries to put the  fdunctions `y_outliers_loop()` and `y_outliers_by()`. It works only for the z-scores methodology but al the four combination of 
-`by` and `loop` can be used. m      
+The function `y_outliers_z()` tries to put the  functions `y_outliers_loop()` and `y_outliers_by()` together. It works only for the z-scores methodology but its option allow different combinations of the algorithm. For example the options;  
+
+- `by`: allows to fit for levels of a factor;
+
+- `value`: allows different values in th edetection of z-scores outliers;  
+
+
+- `family`; allows different families of distribution to be fitted (instead of the `SHASHo`) 
+
+- `transform` allows to switch off the transformation option
+
+- `loop`; allows  looping the algorithm, `TRUE` or `FALSE`. 
+
+    
 
 
 ```{r}
+#| warning: false
 gamlss.prepdata:::y_outliers_z(da$rent, by=da$loc)
 ```
 
@@ -921,7 +938,7 @@ Here we have zero outliers but in general we would expect to find common observa
 [back to table](#tbl-features)
 
 
-### Correlations {#sec-correlations}
+### Hight correlations {#sec-correlations}
 
 The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors.
 Note that the method used to  identify the variables is identical to the method used in the package `caret` see page 5 of @packageCaret. 
@@ -1023,13 +1040,13 @@ gamlss.prepdata:::data_Ptrans_plot(da, rent)
 
 [back to table](#tbl-features)
 
-### Time series {#sec-Timeseries}
+### Dates and Time  {#sec-Dates-Time}
 
 Time series data sets consist of observations collected at consistent time intervals—e.g., daily, weekly, or monthly. These data require special treatment because observations that are closer together in time tend to be more similar, violating the usual assumption of independence between observations. A similar issue arises in spatial data sets, where observations that are geographically closer often exhibit spatial correlation, again violating independence.
 
 Many data sets include spatial or temporal features —such as longitude and latitude or timestamps (e.g., 12/10/2012)— those variables are can be used for for modeling directly, but also for interpreting or visualization of the results. If temporal or spatial information exists in the data, it is essential to ensure these features are correctly read and interpreted in `R`. For instance, dates in `R` can be handled using the `as.Date()` function. To understand its functionality and options associated with the function please consult the help documentation via `help("as.Date")`. Below, we provide two simple functions of how to work with date-time variables.
 
-#### `time_dt2dhour()` {#sec-time-dt2dhour}
+#### `time_dt2dh()` {#sec-time-dt2dhours}
 
 Suppose the variable `dt` contains both a date and a time. We may want to extract and separate this into two components: one containing the date, and another capturing the hour of the day.
 
@@ -1040,7 +1057,7 @@ dt <- c("01/01/2011 00:00", "01/01/2011 01:00", "01/01/2011 02:00", "01/01/2011 
 The function to do this separation can lok like;
 
 ```{r}
-time_dt2dhour <- function(datetime, format=NULL) 
+time_dt2dh <- function(datetime, format=NULL) 
   { 
           X <- t(as.data.frame(strsplit(datetime,' '))) 
 rownames(X) <- NULL 
@@ -1052,11 +1069,13 @@ colnames(X) <- c("date", "time")
 ```
 
 ```{r}
-P <- time_dt2dhour(dt, "%d/%m/%Y") 
+P <- time_dt2dh(dt, "%d/%m/%Y") 
 P
 ```
 
-#### `time_2num()` {#sec-time-2num}
+[back to table](#tbl-features)
+
+#### `time_hour2num()` {#sec-time-2num}
 
 The second example contains time given in its common format, `c("12:35", "10:50")` and we would like t change it to numeric which we can use in the model.
 
@@ -1067,15 +1086,17 @@ t <- c("12:35", "10:50")
 The function to change this to numeric;
 
 ```{r}
-time_2num <- function(time, pattern=":") 
+time_hour2num <- function(time, pattern=":") 
   { 
   t <- gsub(pattern, ".", time) 
    as.numeric(t) 
   } 
-time_2num(t) 
+time_hour2num(t) 
 ```
 
 For user who deal with a lot of time series try the function `POSXct()` and also the function `select()` from the `dplur` package.
+
+[back to table](#tbl-features)
 
 ## Data Partition {#sec-Partition}
 
