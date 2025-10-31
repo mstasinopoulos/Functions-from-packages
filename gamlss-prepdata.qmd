@@ -52,7 +52,7 @@ packageVersion("gamlss2")
 packageVersion("gamlss.prepdata")
 ```
 
-## The package: `gamlss.prepdata` 
+## The package: `gamlss.prepdata`
 
 The `gamlss.prepdata` package originated from the `gamlss.ggplots` package. As `gamlss.ggplots` became too large, for easy maintenance, it was split into two separate packages, and `gamlss.prepdata` was created.
 
@@ -64,22 +64,21 @@ The functions available in `gamlss.prepdata` are intended for pre-fitting — th
 
 These functions provide information about:
 
-- the size of the dataset;
+-   the size of the dataset;
 
-- the  extent of missing values;
+-   the extent of missing values;
 
-- the structure of the dataset;
+-   the structure of the dataset;
 
--  whether the class of variables is appropriate for analysis.
+-   whether the class of variables is appropriate for analysis.
 
 #### **Plotting** functions
 
 These functions allow plotting;
-   
+
 -   individual variables and
 
 -   pairwise relationships of variables
-
 
 #### **Features** functions
 
@@ -87,24 +86,30 @@ These functions can assist in:
 
 -   detecting outliers;
 
--   applying transformations to variables and 
+-   applying transformations to variables and
 
 -   scaling variables.
 
 #### **Data Partition** functions
 
-Functions that facilitate partitioningy the data to improve inference and avoid overfitting during model selection.
+Functions that facilitate partitioning the data to improve inference and avoid overfitting during model selection.
 
 <!-- ### The purpose  -->
 
 <!-- The information and plotting functions provide valuable insights that assist in building better models, including: -->
 
 <!-- -   Understanding the distribution of the *response* variable -->
+
 <!-- -   Choosing the appropriate *type* of analysis -->
+
 <!-- -   Examining explanatory variables, including: -->
+
 <!--     -   Range and spread of values -->
+
 <!--     -   Presence of missing values -->
+
 <!--     -   *Associations* and *interactions* between explanatory variables -->
+
 <!--     -   Nature of relationships between response and explanatory variables (*linear* or *non-linear*) -->
 
 <!-- The features functions focus on handling outliers, scaling, and transforming explanatory variables (x-variables) before modeling. -->
@@ -121,15 +126,14 @@ Functions that facilitate partitioningy the data to improve inference and avoid 
 
 The aim of this vignette is to demonstrate how to manipulate and prepare data before applying a distributional regression analysis.
 
-The general form a distributional regression model can be written as; 
-$$ 
+The general form a distributional regression model can be written as; $$ 
 \begin{split}
 \textbf{y}    &  \stackrel{\small{ind}}{\sim }  \mathcal{D}( \boldsymbol{\theta}_1, \ldots, \boldsymbol{\theta}_k) \nonumber \\
 g_1(\boldsymbol{\theta}_1) &= \mathcal{ML}_1(\textbf{x}_{11},\textbf{x}_{21}, \ldots,  \textbf{x}_{p1}) \nonumber \\
  \ldots &= \ldots \nonumber\\
 g_k(\boldsymbol{\theta}_k) &= \mathcal{ML}_k(\textbf{x}_{1k},\textbf{x}_{2k}, \ldots,  \textbf{x}_{pk}). 
  \end{split}
-$${#eq-GAMLSS_ML} where we assume that the response variable $y_i$ for $i=1,\ldots, n$, is independently distributed having a distribution $\mathcal{D}( \theta_1, \ldots, \theta_k)$ with $k$ parameters and where all parameters could be effected by the explanatory variables $\textbf{x}_{1},\textbf{x}_{2}, \ldots,  \textbf{x}_{p}$. The $\mathcal{ML}$ represents **any** regression type machine learning algorithm i.e. LASSO, Neural networks etc.
+$$ {#eq-GAMLSS_ML} where we assume that the response variable $y_i$ for $i=1,\ldots, n$, is independently distributed having a distribution $\mathcal{D}( \theta_1, \ldots, \theta_k)$ with $k$ parameters and where all parameters could be effected by the explanatory variables $\textbf{x}_{1},\textbf{x}_{2}, \ldots,  \textbf{x}_{p}$. The $\mathcal{ML}$ represents **any** regression type machine learning algorithm i.e. LASSO, Neural networks etc.
 
 When only **additive smoothing** terms are used in the fitting the model can be written as; $$\begin{split}
 \textbf{y}     &  \stackrel{\small{ind}}{\sim }  \mathcal{D}(  \boldsymbol{\theta}_1, \ldots,  \boldsymbol{\theta}_k) \nonumber \\
@@ -153,9 +157,9 @@ The functions for obtaining information from a dataset are described in this sec
 
 -   Information about the observations in the dataset
 
--  Changing the variables into suitable **R** classes for futher analysis. 
+-   Changing the variables into suitable **R** classes for futher analysis.
 
-The functions which use a  `data.frame` as their first argument are staring from `data_` while ones variable whixg take only a variable start fro, `y_`. 
+The functions which use a `data.frame` as their first argument are staring from `data_` while ones variable whixg take only a variable start fro, `y_`.
 
 Here is a table of the information functions;
 
@@ -167,24 +171,24 @@ Here is a table of the information functions;
 | [`data_shorter_names()`](#sec-data-shorter-names) | Allows shortening the names of one or more variables in the dataset |
 | [`data_distinct()`](#sec-data-distinct) | Displays the number of distinct values for each variable in the dataset |
 | [`data_na_vars()`](#sec-data-na-vars) | Displays the count of NA (missing) values for each variable in the dataset |
-| [`data_na_obs()`](#sec-data-na-obs) | Displays which observation are missing  for each variable |
+| [`data_na_obs()`](#sec-data-na-obs) | Displays which observation are missing for each variable |
 | [`data_omit()`](#sec-data-omit) | Removes all rows (observations) that contain NA's (missing values) |
 | [`data_str()`](#sec-data-str) | Displays the class for each variable (e.g., numeric, factor, etc.) along with additional detail |
 | [`data_cha2fac()`](#sec-data-cha2fac) | Converts all character variables in the dataset to factors |
 | [`data_few2fac()`](#sec-data-few2fac) | Converts variables with a small number of distinct values (e.g., binary or categorical) to factors |
 | [`data_int2num()`](#sec-data-int2num) | Converts integer variables with several distinct values to numeric |
-| [`data_fac2num()`](#sec-data-fac2num) | Converts factors or characters to   to numeric |
+| [`data_fac2num()`](#sec-data-fac2num) | Converts factors or characters to to numeric |
 | [`data_rm()`](#sec-data-rm) | Removes one or more variables (columns) from the dataset |
-| [`data_rmNAvars()`](#sec-data-rmNAvars) | Removes all variables  with NA's as their only value. |
-| [`data_rm1val()`](#sec-data-rm1val) | Removes all variables/factors   with a single value/level   |
+| [`data_rmNAvars()`](#sec-data-rmNAvars) | Removes all variables with NA's as their only value. |
+| [`data_rm1val()`](#sec-data-rm1val) | Removes all variables/factors with a single value/level |
 | [`data_select()`](#sec-data-select) | Allows selection of one or more variables (columns) |
 | [`data_exclude_class()`](#sec-data-exclude-class) | Removes all variables of a specified class (e.g., factor, numeric) from the dataset |
 | [`data_only_continuous()`](#sec-data-only-continuous) | Retains only the numeric variables (excluding factors or other variable types) |
-| [`data_factor()`](#sec-data-only-continuous) | For  all factors in the data the first level becomes the level with `lower` of `higher` number of observations   |
+| [`data_factor()`](#sec-data-only-continuous) | For all factors in the data the first level becomes the level with `lower` of `higher` number of observations |
 
 : A summary table of the functions to obtain information {#tbl-infromation} {tbl-colwidths="\[50,50\]"}
 
-Next we demonstrate simple  use of the functions.
+Next we demonstrate simple use of the functions.
 
 #### `data_dim()` {#sec-data-dim}
 
@@ -204,7 +208,7 @@ This function provides the names of the variables in the `data.frame`, similar t
 rent99 |> data_names()
 ```
 
-The output of the function is the original data frame. 
+The output of the function is the original data frame.
 
 [back to table](#tbl-infromation)
 
@@ -261,7 +265,6 @@ The output of the function is the original data frame nothing is changing.
 
 [back to table](#tbl-infromation)
 
-
 #### `data_na_obs()` {#sec-data-na-obs}
 
 This function provides information about which variables have missing observations and how many missing values there are for each variable;
@@ -274,7 +277,6 @@ The output of the function is the original data frame nothing is changing.
 
 [back to table](#tbl-infromation)
 
-
 #### `data_omit()` {#sec-data-omit}
 
 The function `data_omit()` omits all observations with missing values.
@@ -286,7 +288,7 @@ rent99 |> data_omit()
 The output of the function is a new data frame withll NA's omitted.
 
 ::: callout-warning
-It is important to select the relevant variables for the analysis before using the `data_omit()` function, as some unwanted  variables may contain many missing values that that could lead to unnecessary omissions.
+It is important to select the relevant variables for the analysis before using the `data_omit()` function, as some unwanted variables may contain many missing values that that could lead to unnecessary omissions.
 :::
 
 [back to table](#tbl-infromation)
@@ -319,7 +321,7 @@ Since no character were found nothing have changed. The output of the function i
 
 #### `data_few2fac()` {#sec-data-few2fac}
 
-There are occasions when some variables have very few distinct observations, and it may be better to treat them as factors. The function `data_few2fac()` converts  (numeric) vectors with a small number of distinct values into factors.
+There are occasions when some variables have very few distinct observations, and it may be better to treat them as factors. The function `data_few2fac()` converts (numeric) vectors with a small number of distinct values into factors.
 
 ```{r}
 rent99 |>  data_few2fac() -> da 
@@ -431,16 +433,16 @@ The output of the function is a new data frame.
 
 #### `data_factor()` {#sec-data-factor}
 
-This function changes the reference level of factors to be the the `lower` or `higher`  of the number of obserevations.
+This function changes the reference level of factors to be the the `lower` or `higher` of the number of obserevations.
 
 ```{r}
 da |> gamlss.prepdata:::data_factor()  -> da1
 levels(da1$loc)
 ```
+
 It moved the level `3` into the first place. The output of the function is a new data frame.
 
 [back to table](#tbl-infromation)
-
 
 ## Graphical functions {#sec-Graphical-functions}
 
@@ -454,13 +456,12 @@ Graphical methods are used in pre-analysis to examine individual variables or pa
 | [`data_zscores()`](#sec-data-zscores) | Plots the z-scores for all continuous variables in the dataset, allowing for easy visualization of the standardized values (see also @sec-Outliers) |
 | [`data_xyplot()`](#sec-data-xyplot) | Generates pairwise plots of the response variable against all other variables in the dataset to visualize their relationships |
 | [`data_cor()`](#sec-data-cor) | Calculates and plots the pairwise correlations for all continuous variables in the dataset to assess linear relationships between them |
+| [`data_mcor()`](#sec-data-mcor) | Calculates and plots the pairwise maximal correlations for all continuous variables in the dataset to assess non-linear relationships between them |
 | [`data_void()`](#sec-data-void) | Searches for pairwise empty spaces across all continuous variables in the dataset to identify problems with interpretation or prediction |
 | [`data_pcor()`](#sec-data-pcor) | Calculates and plots the pairwise patrial-correlations for all continuous variables in the dataset |
 | [`data_inter()`](#sec-data-inter) | Searches for potential pairwise interactions between variables in the dataset to identify relationships or dependencies that may be useful for modelling |
 | [`data_leverage()`](#sec-data-leverage) | Detects outliers in the continuous explanatory variables (x-variables) as a group to highlight unusual observations |
 | [`data_Ptrans_plot()`](#sec-data-Ptrans-plot) | Plots the response variable against various power transformations of the continuous x-variables to explore potential relationships and model suitability |
-
-
 
 : A summary table of the graphical functions {#tbl-graphical} {tbl-colwidths="\[50,50\]"}
 
@@ -504,8 +505,7 @@ da |> data_response(, response=rent)
 
 #### `data_zscores()` {#sec-data-zscores}
 
-One could fit any four parameter (GAMLSS) distribution, defined on $-\infty$ to $\infty$, to any continuous variable, where skewness and kurtosis is suspected and take the quantile residuals (z-scores) as the transformed values of the x-values. The function `y_zscores()` performs just this. It takes a continuous variable and fits a continuous (four parameter `SHASHo`)  distribution and gives the z-scores. The fitting distribution is specified by the user, but the default is SHASHo. The function `data_zscores()` takes all continuous variables and plots their z-scores. The methodology is use also to identify outliers in `data_outliers()`.  
-
+One could fit any four parameter (GAMLSS) distribution, defined on $-\infty$ to $\infty$, to any continuous variable, where skewness and kurtosis is suspected and take the quantile residuals (z-scores) as the transformed values of the x-values. The function `y_zscores()` performs just this. It takes a continuous variable and fits a continuous (four parameter `SHASHo`) distribution and gives the z-scores. The fitting distribution is specified by the user, but the default is SHASHo. The function `data_zscores()` takes all continuous variables and plots their z-scores. The methodology is use also to identify outliers in `data_outliers()`.
 
 ```{r}
 #| warning: false
@@ -585,6 +585,38 @@ network_plot(Tabcor)
 ```
 
 [back to table](#tbl-graphical)
+
+
+#### `data_mcor()` {#sec-data-mcor}
+
+The function `data_mcor()` is taking a `data.frame` object and plot the maximal correlation coefficients of all its continuous variables.
+
+```{r}
+data_mcor(da, lab=TRUE)
+```
+
+A different type of plot can be produce if we use;
+
+```{r}
+data_mcor(da, method="circle", circle.size = 40)
+```
+
+To get the variables with higher, say, than \$0.4 \$ correlation values use;
+
+```{r}
+Tabcor <- data_mcor(da, plot=FALSE)
+high_val(Tabcor, val=0.4)
+```
+
+We can plot the path of those variables using the package `corr`;
+
+```{r}
+library(corrr)
+network_plot(Tabcor)
+```
+
+[back to table](#tbl-graphical)
+
 
 #### `data_association()`
 
@@ -702,8 +734,6 @@ low_val(Tabinter, plot=T)
 
 [back to table](#tbl-graphical)
 
-
-
 #### `data_leverage()` {#sec-data-leverage}
 
 The function `data_leverage()` uses the linear model methodology to identify posible unusual observations within the explanatory variables as a group (not indivisually). It fit a linear (normal) model with response, the response of the data, and all explanatory variables in the data, as x's. It then calculates the leverage points and plots them. A leverage is a number between zero and 1. Large leverage correspond to extremes in the x's.
@@ -736,13 +766,13 @@ It look that no transformation is needed for the continuous explanatory variable
 
 [back to table](#tbl-graphical)
 
-## Feature functions  {#sec-Features}
+## Feature functions {#sec-Features}
 
 The features functions are functions to help with the continuous explanatory x-variables; We divide them here in five sections; Functions for
 
--  identify  `outliers`;
+-   identify `outliers`;
 
--  identify  hight `correlation` between variables;
+-   identify hight `correlation` between variables;
 
 -   `scaling` continuous variables;
 
@@ -754,69 +784,67 @@ The available functions are;
 
 | Functions | Usage |
 |:-----------------------------------|-----------------------------------:|
-| [`y_outliers()`](#sec-y-outliers) | identify possible outliers for one continuous variable|
-| [`y_outliers_both()`](#sec-y-both-outliers) | identify possible outliers using both z-scores and the quantile rule methodology|
-| [`y_outliers_loop()`](#sec-y-outliers-loop) | identify outliers (using z-scores) by fitting several times the chossen `family`   eliminating each time observations identifyied as outliers in the prievious  fits|
-| [`y_outliers_by()`](#sec-y-outliers-by) | identify possible outliers (using z-scores) at  partitions of the data by a factor|
-| [`y_outliers_z()`](#sec-y-outliers-z) | identify possible outliers (using z-scores) for different combination of `loop` and `by`|
+| [`y_outliers()`](#sec-y-outliers) | identify possible outliers for one continuous variable |
+| [`y_outliers_both()`](#sec-y-both-outliers) | identify possible outliers using both z-scores and the quantile rule methodology |
+| [`y_outliers_loop()`](#sec-y-outliers-loop) | identify outliers (using z-scores) by fitting several times the chossen `family` eliminating each time observations identifyied as outliers in the prievious fits |
+| [`y_outliers_by()`](#sec-y-outliers-by) | identify possible outliers (using z-scores) at partitions of the data by a factor |
+| [`y_outliers_z()`](#sec-y-outliers-z) | identify possible outliers (using z-scores) for different combination of `loop` and `by` |
 | [`data_outliers()`](#sec-data-outliers) | identify possible outliers for all continuous x-variable (see also `data_zscores` in @sec-data-zscores) |
 | [`data_leverage()`](#sec-data-leverage-1) | this is a repeat of the @sec-data-leverage function |
-| [`data_index_cor()`](#sec-data-index-cor) | this function gives an index  of continuous variables  with high correlation with others continuous variables
-| [`data_index_association()`](#sec-data-index-cor) | this function gives an index  of variables with high association with others continuous or factor variables 
-| [`data_scale()`](#sec-data-scale) | scales all continuous x-variables  to zero mean and one s.d. or to the range \[0,1\] |
+| [`data_index_cor()`](#sec-data-index-cor) | this function gives an index of continuous variables with high correlation with others continuous variables |
+| [`data_index_association()`](#sec-data-index-cor) | this function gives an index of variables with high association with others continuous or factor variables |
+| [`data_scale()`](#sec-data-scale) | scales all continuous x-variables to zero mean and one s.d. or to the range \[0,1\] |
 | [`xy_Ptrans()`](#sec-xy-Ptrans) | looking for appropriate power transformation for response against one of the x-variable |
 | [`data_Ptrans()`](#sec-data-Ptrans) | looking for appropriate power transformation for response against all x-variable |
 | [`data_Ptrans_plot()`](#data-Ptrans-plot) | plotting all x's against the response using identity, square root and log transformations |
 | [`time_dt2dh()`](#sec-time-dt2dhours) | Separates a date and time variable into two variables |
-| [`time_hour2num()`](#sec-time-2num) |  takes hours ans translate to numeric|
+| [`time_hour2num()`](#sec-time-2num) | takes hours ans translate to numeric |
 
 : The outliers, scaling, transformation and date and time functions {#tbl-features} {tbl-colwidths="\[50,50\]"}
 
 ### Outliers {#sec-Outliers}
 
-Outliers in the response variable, within a distributional regression framework like GAMLSS, are better handled by selecting an appropriate distribution for the response. For example, an outlier under the assumption of a normal distribution for the response may no longer be considered an outlier if a distribution from the t-family is assumed. Considerations of contanimnated responses data are not considered here. The function `data_response()`, discussed in @sec-data-response and uses the z-scores methodology,  provides some guidelines for appropriate action to identify ouliers in the response. This section focuses on outliers in the explanatory variables.
+Outliers in the response variable, within a distributional regression framework like GAMLSS, are better handled by selecting an appropriate distribution for the response. For example, an outlier under the assumption of a normal distribution for the response may no longer be considered an outlier if a distribution from the t-family is assumed. Considerations of contanimnated responses data are not considered here. The function `data_response()`, discussed in @sec-data-response and uses the z-scores methodology, provides some guidelines for appropriate action to identify ouliers in the response. This section focuses on outliers in the explanatory variables.
 
-Outliers in the continuous explanatory variables can potentially affect curve fitting, whether using linear or smooth non-parametric terms. In such cases, removing outliers from the x-variables can make the model more robust. Outliers are observations that deviate significantly from the rest of the data, but the concept also depends on the dimension being considered. An single observation value might be an outlier on an explanatory variable. A pair of  observations could be an outlier when examined within a pair-wise relationships. Extreme observations identification   on  continuous variables, is based on how far the observation  lies from the majority of the data.  Pairwise plots of continuous variables could identify  outliers in the  two-dimensions. Leverage points are useful to identify outliers in  $r$ dimensions where $r$ is the size of the explanatory variables. 
+Outliers in the continuous explanatory variables can potentially affect curve fitting, whether using linear or smooth non-parametric terms. In such cases, removing outliers from the x-variables can make the model more robust. Outliers are observations that deviate significantly from the rest of the data, but the concept also depends on the dimension being considered. An single observation value might be an outlier on an explanatory variable. A pair of observations could be an outlier when examined within a pair-wise relationships. Extreme observations identification on continuous variables, is based on how far the observation lies from the majority of the data. Pairwise plots of continuous variables could identify outliers in the two-dimensions. Leverage points are useful to identify outliers in $r$ dimensions where $r$ is the size of the explanatory variables.
 
 ::: callout-note
 At this preliminary stage of the analysis (no model has been fitted yet), it is difficult to identify outliers among `factors`. This is because outliers in factors typically do not appear unusual unless are examined in combination with rest of factors or variables. Identifying `factor` outliers is a task better suited for the modelling stage of the analysis.
 :::
 
-The function `y_outliers()` in @sec-y-outliers, is applied to continuous variables only, and it uses two different methodologies (option `type`); 
+The function `y_outliers()` in @sec-y-outliers, is applied to continuous variables only, and it uses two different methodologies (option `type`);
 
-- the z-scores, `type="zscorses"` (the default)  and 
+-   the z-scores, `type="zscorses"` (the default) and
 
-- the quantile rule, `type="quantile"`.
+-   the quantile rule, `type="quantile"`.
 
-
-
-Both methodologies are trying to remove extreme skewness in the variables before looking for outliers by using the (internal) function `y_Ptrans()`.  The function is applied to any variable with  positive values. The assumption, is that positive variables are more likely to be right skewed and therefor a power transformation will correct that.  The function `y_Ptrans()`  attempts to find the power $\lambda$, of a transformation $T = X^\lambda$, that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. The Jarque-Bera test statistic is always non-negative and a value way from zero indicates strong evidence against normality. The goal of this methodology is to reduce extreme skewness in the data before attempt to identify the outliers. If the data are not so skewed the power transformation will genraly do no harm. 
-
+Both methodologies are trying to remove extreme skewness in the variables before looking for outliers by using the (internal) function `y_Ptrans()`. The function is applied to any variable with positive values. The assumption, is that positive variables are more likely to be right skewed and therefor a power transformation will correct that. The function `y_Ptrans()` attempts to find the power $\lambda$, of a transformation $T = X^\lambda$, that minimizes the Jarque-Bera test statistic—a measure of deviation from normality. The Jarque-Bera test statistic is always non-negative and a value way from zero indicates strong evidence against normality. The goal of this methodology is to reduce extreme skewness in the data before attempt to identify the outliers. If the data are not so skewed the power transformation will genraly do no harm.
 
 ::: callout-note
-At the momment we allow the power parameter of the tranformation $\lambda$ to vary at the range $0$ to $1.5$. This range cover only right skewed behaviour. More work has to be done to establishes suitable range.   
+At the momment we allow the power parameter of the tranformation $\lambda$ to vary at the range $0$ to $1.5$. This range cover only right skewed behaviour. More work has to be done to establishes suitable range.
 :::
 
-
-Now given that the positive variables are transformed (using the power transformation) and that all the rest of variables, containg negative values,  remain untransformed, the z-scores methodology fits a parametertic distribution to the variable and computes the residuals of the fitted model (z-scores). The default distribution is the four parameter `SHASHo` distribution. The z-scores methodology identify outliers if a spesific residual (z-score)  has an absolute value bigger that a predetermining  `value` ay $K$. The  quantile rule methodology works similar. It identify an  observation if it  is further than $K \times MAD$ way from the median.  The value of $K$ is set by the option `value` of the function `y_outliers()`. If the `value` is missing it is calculated using the formulas $\Phi^{-1}(1/(10 \times N))$, where N is the number of observations. The two methodologies  are appropriate for identifying outliers in one dimension. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, shouls be used.
+Now given that the positive variables are transformed (using the power transformation) and that all the rest of variables, containg negative values, remain untransformed, the z-scores methodology fits a parametertic distribution to the variable and computes the residuals of the fitted model (z-scores). The default distribution is the four parameter `SHASHo` distribution. The z-scores methodology identify outliers if a spesific residual (z-score) has an absolute value bigger that a predetermining `value` ay $K$. The quantile rule methodology works similar. It identify an observation if it is further than $K \times MAD$ way from the median. The value of $K$ is set by the option `value` of the function `y_outliers()`. If the `value` is missing it is calculated using the formulas $\Phi^{-1}(1/(10 \times N))$, where N is the number of observations. The two methodologies are appropriate for identifying outliers in one dimension. To identify outliers in $p$ dimensions the function `data_leverage()`, see @sec-data-leverage-1, shouls be used.
 
 ::: callout-note
-Several of the graphical functions described in @sec-Graphical-functions are good for identify  outliers visually. In fact we recommend that the function `data_outliers()` and its related function  `data_outliers_both()`, `data_outliers_by()` and `data_outliers_z()` should be used in combination with functions like `data_plot()` or `data_zscores()` or `y_dots()` of the package `gamlss.gplots`.
+Several of the graphical functions described in @sec-Graphical-functions are good for identify outliers visually. In fact we recommend that the function `data_outliers()` and its related function `data_outliers_both()`, `data_outliers_by()` and `data_outliers_z()` should be used in combination with functions like `data_plot()` or `data_zscores()` or `y_dots()` of the package `gamlss.gplots`.
 :::
 
 #### `y_outliers()` {#sec-y-outliers}
 
-The function `y_outliers()` identify outliers in one $x$ variable using the two methodologies described  above, The 
+The function `y_outliers()` identify outliers in one $x$ variable using the two methodologies described above, The
 
--  `zscores`: wherte a  distribution is fitted to the data (default `SHASHo`), the residuals (z-scores) are taken and observations with large residuals are identified as outliers.
+-   `zscores`: wherte a distribution is fitted to the data (default `SHASHo`), the residuals (z-scores) are taken and observations with large residuals are identified as outliers.
 
-- `quantile`: This is more realing with the classical methodology based on sample quantiles.  An observation is identified if it far from the median. How far usually is taken  as $K$ time the Mean Absolute Deviation (MAD).  
+-   `quantile`: This is more realing with the classical methodology based on sample quantiles. An observation is identified if it far from the median. How far usually is taken as $K$ time the Mean Absolute Deviation (MAD).
 
 Hewe is an example using the zscores;
+
 ```{r}
 y_outliers(da$rent)
 ```
-and here using the `quantile`; 
+
+and here using the `quantile`;
 
 ```{r}
 y_outliers(da$rent, type="quantile")
@@ -824,72 +852,58 @@ y_outliers(da$rent, type="quantile")
 
 Note that the function `y_outliers()` is used by `data_outliers()` to identify outliers in all continuous variables in the data. There are several variation of the basic function `y_outliers()` described next.
 
-
 [back to table](#tbl-features)
-
 
 #### `y_outliers_both()` {#sec-y-both-outliers}
 
-The function `y_outliers_both()` uses both `zscores` and `quantile` methodology and reports the observations appearing  in the intersection of both sets, `method=intersection` (the default), or  the union of both, `method=union`. 
+The function `y_outliers_both()` uses both `zscores` and `quantile` methodology and reports the observations appearing in the intersection of both sets, `method=intersection` (the default), or the union of both, `method=union`.
 
 ```{r}
 y_outliers_both(da$rent, method="union")
 ```
 
-
 [back to table](#tbl-features)
 
 #### `y_outliers_by()` {#sec-y-outliers-by}
 
-The function `y_outliers_by()` splits the data according to given factor, option `by` before it performes the detection of outliers. It is useful if the given factor split the data in a meaningful way. Continuous variable can be split in advange to create a factors using the **R** function `cut()`. 
+The function `y_outliers_by()` splits the data according to given factor, option `by` before it performes the detection of outliers. It is useful if the given factor split the data in a meaningful way. Continuous variable can be split in advange to create a factors using the **R** function `cut()`.
 
 ```{r}
 y_outliers_by(da$rent, by=da$location)
 ```
 
-
 [back to table](#tbl-features)
-
 
 #### `y_outliers_loop()` {#sec-y-outliers-loop}
 
-The function `y_outliers_loop()` tries to identify more data than the `y_outliers()` function by using the folwing extra loop; It starts by fitting the distribution to the data which help to identify from the z-scores certain obsevations as outliers. Thaose outliers are `then removed and the procees starts again. It stops whete there are no more observations removed.  This loop allows more obsrvations to be identify and it is design to help when banch of  data points masks other point to be identified as outliers.        
-
+The function `y_outliers_loop()` tries to identify more data than the `y_outliers()` function by using the folwing extra loop; It starts by fitting the distribution to the data which help to identify from the z-scores certain obsevations as outliers. Thaose outliers are \`then removed and the procees starts again. It stops whete there are no more observations removed. This loop allows more obsrvations to be identify and it is design to help when banch of data points masks other point to be identified as outliers.
 
 ```{r}
 gamlss.prepdata:::y_outliers_loop(da$rent)
 ```
 
-
 [back to table](#tbl-features)
-
 
 #### `y_outliers_z()` {#sec-y-outliers-z}
 
-The function `y_outliers_z()` tries to put the  functions `y_outliers_loop()` and `y_outliers_by()` together. It works only for the z-scores methodology but its option allow different combinations of the algorithm. For example the options;  
+The function `y_outliers_z()` tries to put the functions `y_outliers_loop()` and `y_outliers_by()` together. It works only for the z-scores methodology but its option allow different combinations of the algorithm. For example the options;
 
-- `by`: allows to fit for levels of a factor;
+-   `by`: allows to fit for levels of a factor;
 
-- `value`: allows different values in th edetection of z-scores outliers;  
+-   `value`: allows different values in th edetection of z-scores outliers;
 
+-   `family`; allows different families of distribution to be fitted (instead of the `SHASHo`)
 
-- `family`; allows different families of distribution to be fitted (instead of the `SHASHo`) 
+-   `transform` allows to switch off the transformation option
 
-- `transform` allows to switch off the transformation option
-
-- `loop`; allows  looping the algorithm, `TRUE` or `FALSE`. 
-
-    
-
+-   `loop`; allows looping the algorithm, `TRUE` or `FALSE`.
 
 ```{r}
 #| warning: false
 gamlss.prepdata:::y_outliers_z(da$rent, by=da$loc)
 ```
 
-
 [back to table](#tbl-features)
-
 
 #### `data_outliers()` {#sec-data-outliers}
 
@@ -937,15 +951,13 @@ Here we have zero outliers but in general we would expect to find common observa
 
 [back to table](#tbl-features)
 
-
 ### Hight correlations {#sec-correlations}
 
-The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors.
-Note that the method used to  identify the variables is identical to the method used in the package `caret` see page 5 of @packageCaret. 
+The idea here is to identify variables with high correlation or association with the possibility to eliminated them from the data. The first function is appropriate for continuous variables while the second for both continuous and factors. Note that the method used to identify the variables is identical to the method used in the package `caret` see page 5 of @packageCaret.
 
 #### `data_index_cor()` {#sec-data-index-cor}
 
-The function  `data_index_cor()`, It takes a `data.frame` as input calculates correlation coefficients  of the continuous variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.      
+The function `data_index_cor()`, It takes a `data.frame` as input calculates correlation coefficients of the continuous variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.
 
 ```{r}
 gamlss.prepdata:::data_index_cor(rent99[,-1])
@@ -955,14 +967,13 @@ gamlss.prepdata:::data_index_cor(rent99[,-1])
 
 #### `data_index_association()` {#sec-data-index-association}
 
-The function  `data_index_association()`, It takes a `data.frame` as input calculates the association coefficients  of all the variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.      
+The function `data_index_association()`, It takes a `data.frame` as input calculates the association coefficients of all the variables in the data and creates an index for variables which could be possible to eliminate from the further analysis.
 
 ```{r}
 gamlss.prepdata:::data_index_association(rent99[,-1])
 ```
 
 [back to table](#tbl-features)
-
 
 ### Scaling {#sec-Scaling}
 
@@ -1040,7 +1051,7 @@ gamlss.prepdata:::data_Ptrans_plot(da, rent)
 
 [back to table](#tbl-features)
 
-### Dates and Time  {#sec-Dates-Time}
+### Dates and Time {#sec-Dates-Time}
 
 Time series data sets consist of observations collected at consistent time intervals—e.g., daily, weekly, or monthly. These data require special treatment because observations that are closer together in time tend to be more similar, violating the usual assumption of independence between observations. A similar issue arises in spatial data sets, where observations that are geographically closer often exhibit spatial correlation, again violating independence.
 
@@ -1100,16 +1111,15 @@ For user who deal with a lot of time series try the function `POSXct()` and also
 
 ## Data Partition {#sec-Partition}
 
-###  Introduction to data partition {#sec-Intro-Partition}
+### Introduction to data partition {#sec-Intro-Partition}
 
-Partitioning the data is essential for comparing different models and checking for overfitting. Overfitting occurs when a model fails to generalize well to new data, typically because it is too closely fitted to the data. In contrast, underfitting refers to a poor model that fails to capture the essential patterns in both fitted and the new data, resulting to a model that is far the population intended to represent.  It common to refer to data used for fitting the model  as **training** data and the new data as **test** data. 
+Partitioning the data is essential for comparing different models and checking for overfitting. Overfitting occurs when a model fails to generalize well to new data, typically because it is too closely fitted to the data. In contrast, underfitting refers to a poor model that fails to capture the essential patterns in both fitted and the new data, resulting to a model that is far the population intended to represent. It common to refer to data used for fitting the model as **training** data and the new data as **test** data.
 
-@fig-data_split shows different ways the data can be partitioned. A dataset can be split once, in **holdout** samples, or split multiple times using cross validation, **CV**, or **bootstrap**. For large datasets, it is common to split the data into a _training_ set and two holdout samples, the _test_ set, and, if needed the _validation_ set. The training set is used for fitting the models, the test set is used to evaluate the prediction power and also to compare models, and the validation set is used for tuning the `hyperparameters`. [Note that for additive smoothing regression models, the hyper parameters are the `smoothing` parameters.] Observations in the training set are often referred to as the `in-bag`  data, while observations in the test or validation set are termed the `out-of-bag` data. 
+@fig-data_split shows different ways the data can be partitioned. A dataset can be split once, in **holdout** samples, or split multiple times using cross validation, **CV**, or **bootstrap**. For large datasets, it is common to split the data into a *training* set and two holdout samples, the *test* set, and, if needed the *validation* set. The training set is used for fitting the models, the test set is used to evaluate the prediction power and also to compare models, and the validation set is used for tuning the `hyperparameters`. \[Note that for additive smoothing regression models, the hyper parameters are the `smoothing` parameters.\] Observations in the training set are often referred to as the `in-bag` data, while observations in the test or validation set are termed the `out-of-bag` data.
 
+Partitioning the data into training, test, and validation sets should be done randomly. This bring us to the two possible problems which could occurred when splitting the data; The **zero variance variable** and the **extreme values** problems. The zero variance variable (or nearly zero variance problem) occurs when a variable in the data (could be a factor) has only few distinct values and the frequency one of them is very low. For example, if we have the factor `gender` with mostly `female` values and only few `male` and we randomly portioning the data, there is a good change that all males could end up in only one of the partitions. That is, one of the partition would have factor gender properly with two levels, while the other partition with only one level. This would make the fitting and interpretation of the model difficult. One should check if this is the case. The extreme values problem is similar in nature but will effect overfitting. Extreme values could occurred in both the explanatory and the response variables. for the first case we have deal with `outliers` in @sec-Outliers we concentrate here on extreme values in the response. Extreme values in the response (if they genuine) are of great importance for risk analysis. There is a danger thet such evens when splitting the data can go to one partition and not to the other. Any evaluation of risks in this case could be potentially wrong. One possible solution could be **repeated** partition, i.e bootstrap.
 
-Partitioning the data into training, test, and validation sets should be done randomly. This bring us to the two possible problems which could occurred when splitting the data; The **zero variance variable**  and the **extreme values** problems. The zero variance variable (or nearly zero variance problem) occurs when a variable in the data (could be a factor) has only few distinct values and the frequency  one of them  is very low.  For example, if  we have the factor `gender` with mostly `female` values and only few `male` and we randomly portioning the data,  there is a good change that all males  could end up in only one of the partitions. That is, one of the partition would have factor gender properly with two levels, while the other partition with only one level.   This would make the fitting and interpretation of the model difficult. One should check if this is the case. The extreme values problem is similar in nature but will  effect overfitting. Extreme values could occurred in both the explanatory and the response variables.  for the first case we have deal with `outliers`  in  @sec-Outliers we  concentrate here on extreme values in the response. Extreme values in the response  (if they  genuine) are of great importance for risk analysis. There is a danger  thet such evens when splitting the data can go to one partition and not to the other. Any evaluation of risks in this case could be potentially wrong. One possible solution could be **repeated**  partition, i.e bootstrap.    
-
-Bootstrap, [middle of @fig-data_split], is a repeated  partition method. In the classical, non-parametric bootstrap, the index of the data i.e. $1,2,\ldots,n$ is sampled with replacement $B$ times and the model is refitted the on the re-sample  data. In the Bayesian bootstrap the data are weighted using weighted samples from a multinomial distribution. $B$  re-weighted models  are  refitted. While both classical and Bayesian bootstraps are computationally expensive, they provide additional insights into the model and in particular  the variability of all of its parameters. A sample of length $B$ is obtained for all the parameters of interest. 
+Bootstrap, [middle of @fig-data_split], is a repeated partition method. In the classical, non-parametric bootstrap, the index of the data i.e. $1,2,\ldots,n$ is sampled with replacement $B$ times and the model is refitted the on the re-sample data. In the Bayesian bootstrap the data are weighted using weighted samples from a multinomial distribution. $B$ re-weighted models are refitted. While both classical and Bayesian bootstraps are computationally expensive, they provide additional insights into the model and in particular the variability of all of its parameters. A sample of length $B$ is obtained for all the parameters of interest.
 
 <!-- For distributional regression models,  classical and Bayesian bootstrapping offer extra information about all the fitted parameters of the model, which includes the distributional parameters, the fitted coefficients, the  hyperparameters, and the random effects. -->
 
@@ -1128,84 +1138,69 @@ flowchart TB
   C -->  L[LOO]
 ```
 
-
-In $K$-fold cross-validation,  (right part of  @fig-data_split), the data are split into $K$ sub-samples. The model is then fitted $K$ times, each time using $K-1$ sub-samples for training and the remaining one sub-sample as test data set. By the end of the process, all $n$ observations will have been used as `test` data exactly once. This is the  main advantage of $K$-fold cross-validation is that provides reliable test data for model evaluation, (with the cost of fitting $K$ models). Leave-One-Out Cross-Validation (LOO) is a special case of K-fold cross-validation, where the model is trained on $n-1$ observations and tested on the remaining single observation, iterating this process $n$ times. Consequently, $n$ different models are refitted. 
+In $K$-fold cross-validation, (right part of @fig-data_split), the data are split into $K$ sub-samples. The model is then fitted $K$ times, each time using $K-1$ sub-samples for training and the remaining one sub-sample as test data set. By the end of the process, all $n$ observations will have been used as `test` data exactly once. This is the main advantage of $K$-fold cross-validation is that provides reliable test data for model evaluation, (with the cost of fitting $K$ models). Leave-One-Out Cross-Validation (LOO) is a special case of K-fold cross-validation, where the model is trained on $n-1$ observations and tested on the remaining single observation, iterating this process $n$ times. Consequently, $n$ different models are refitted.
 
 ::: callout-note
 Repeated partitions (i.e. bootstrapping and k-fold cross validation) could mitigating some of the problems associated from a single partitions.
 :::
 
-
-
 <!-- How bootstrap can be used to evaluate the predictive power of a model?  In classical bootstrapping because of the sampling with replacement on average 63.2% of data are in-bag data leaving the rest 33.8% as the out-of-bag data. By the end of each bootstrap iteration  the out-of-bag data can be used for prediction. At the end of all $B$ iterations there would be   -->
 
- 
 <!-- Repeatedly reusing parts of the data, such as through bootstrapping or cross-validation, can help mitigate this risk. Multi-splitting the data (shown on the left side of Figure @fig-data_split) enables the evaluation of appropriate goodness-of-fit measures using out-of-bag data. There are two conceptual ways to multi-split a dataset: the first involves rearranging the data, and the second involves reweighting the observations. \[As we will see later, the distinction between these two approaches is not always as clear-cut.\] Rearranging the data is typically accomplished by creating appropriate indices that select different parts of the data. For example data in this case are partitioned as `data[,index]`. This leads to methods such as **bootstrapping** or **cross-validation**. On the other hand, reweighting the observations during the fitting process is a technique employed in the **Bayesian Bootstrap** and **boosting**. -->
 
-Data partitioning help in selection of  models, model diagnostics and   detection of overfitting.  Here are some rules of thump applied to  distributional regression models;
+Data partitioning help in selection of models, model diagnostics and detection of overfitting. Here are some rules of thump applied to distributional regression models;
 
-- if the residuals from the training data and the test data sets behave well, one is confidence, that the distributional assumption is adequate.
+-   if the residuals from the training data and the test data sets behave well, one is confidence, that the distributional assumption is adequate.
 
-- if the fitted model performs reasonably well (using a measure of goodness-of-fit) on both the training and the test data sets, one can be confident that overfitting has been avoided.  
+-   if the fitted model performs reasonably well (using a measure of goodness-of-fit) on both the training and the test data sets, one can be confident that overfitting has been avoided.
 
-
-All methods in @fig-data_split, need  performance metrics. Those metrics can help can: i) facilitate model comparison, ii) detect overfitting, and iii) select  hyper-parameters.
-
+All methods in @fig-data_split, need performance metrics. Those metrics can help can: i) facilitate model comparison, ii) detect overfitting, and iii) select hyper-parameters.
 
 <!-- Partitioning the data is useful for comparing different models and check for overfitting. @fig-data_split shows different ways the data can be split. A data set can be either split multiple times or split once. For big data sets often the sample data is split once into `training`, and `test` data sets and if needed into a `validation` set. Observations in the the training set are often called **in-bag** and observations in the test set (or validation set) called **out-of-bag**. The training data set is used for fitting the model, test data for prediction and possible comparing the different models and validation for tuning hyper parameters of the model. Note that in additive smoothing regression models the hyper parameters are the smoothing parameters in the model. Splitting the data allows checking the performance, the suitability of the assumptions of the model and for overfitting. If the fitted model, in the training, data set perform reasonable also in the `test` data set then one could feel that **overfitting** has been avoided. Overfitting occurs when the model do not generalised well in new data. This often means that the model is too close to the sample data. By **underfitting**, we mean a bad model, a model which is unable to capture the most important feature in the data. A model which is far from both the sample but also from the population which suppose to represent. -->
 
-Various goodness-of-fit measures can be used to check and compare different distributional regression models. One of the most popular methods which do not required partition of the data is the Generalized Akaike Information Criterion (GAIC), see @Akaike83. To calculate the GAIC, only the in-bag data are required. However, calculating the GAIC requires an accurate measure of the degrees of freedom used to fit the model. For mathematical (stochastic) models, the degrees of freedom are straight forward to define as they correspond to the number of estimated parameters. In contrast, for over-parametrised algorithmic models  like neural networks, estimating the degrees of freedom is  challenging. Note that the degrees of freedom serve as a measure of the model’s complexity. We expect more complex models to be closer to the training data, which may reduce their ability to generalize well to new data (overfitting).
+Various goodness-of-fit measures can be used to check and compare different distributional regression models. One of the most popular methods which do not required partition of the data is the Generalized Akaike Information Criterion (GAIC), see @Akaike83. To calculate the GAIC, only the in-bag data are required. However, calculating the GAIC requires an accurate measure of the degrees of freedom used to fit the model. For mathematical (stochastic) models, the degrees of freedom are straight forward to define as they correspond to the number of estimated parameters. In contrast, for over-parametrised algorithmic models like neural networks, estimating the degrees of freedom is challenging. Note that the degrees of freedom serve as a measure of the model’s complexity. We expect more complex models to be closer to the training data, which may reduce their ability to generalize well to new data (overfitting).
 
 ::: callout-note
-Note that the most common of goodness-of-fit measures used in machine learning models requaring data partition are **not** appropriate for distributional regression model like  GAMLSS. This  because those measures concentrate in the behaviour at the centre of the distribution of the response which may or not be the focus of the study.
+Note that the most common of goodness-of-fit measures used in machine learning models requaring data partition are **not** appropriate for distributional regression model like GAMLSS. This because those measures concentrate in the behaviour at the centre of the distribution of the response which may or not be the focus of the study.
 :::
 
 The most common measures of goodness-of-fit used in machine learning models with partitioning are;
 
-- *RMSE*: root mean squared error; 
+-   *RMSE*: root mean squared error;
 
-- *MAE*: mean absolute error; 
+-   *MAE*: mean absolute error;
 
-- *$R^2$*: and 
+-   $R^2$: and
 
-- *MAPE*:  mean absolute percentage error.
+-   *MAPE*: mean absolute percentage error.
 
-All those measures of goodness-of-fit are OK is someone is interested how the middle part of the distribution of the response is behaving but are NOT god if the interest is in the tail or if the distribution is very skew. For  distributional regression model the following are more appropriate measures of goodness-of-fits. 
+All those measures of goodness-of-fit are OK is someone is interested how the middle part of the distribution of the response is behaving but are NOT god if the interest is in the tail or if the distribution is very skew. For distributional regression model the following are more appropriate measures of goodness-of-fits.
 
-- the **log-likelihood**: i.e. $\ell=\log L$,  or equivalent the **deviance** $d=-2 \ell$  
+-   the **log-likelihood**: i.e. $\ell=\log L$, or equivalent the **deviance** $d=-2 \ell$
 
-- *CRPS*; the continuous rank probability scores.
+-   *CRPS*; the continuous rank probability scores.
 
-
-Note that in general   goodness-of-fit measure could be can applied to both the  `in bag` and `out of bag` data sets;
-<!-- There are different goodness of fit for checking and comparing different distributional regression models. The generalised Akaike criterion, **GAIC** is a very popular method. To calculate the GAIC only the *in-bag* data are needed there is no need for data partition. Calculating the GAIC needs though an accurate measure of the *degrees of freedom* used to fit the model. In mathematical (stochatic) models the degrees of freedom are easy to define because they are the number of estimated parameters. In algorithmic based models, especially the ones overparametrised like neural networks, the degrees of freedom are more difficult to guess. The degrees of freedoms (at least for mathematical models) are a measure of the *complexity* of the model. More complex models are usually closer to the training data, therefore maybe do not generalised well. Apart from the `GAIC` other goodness of fit measures, used in the literature for regression models are; the deviance; the $R^2$; the mean square errors, MSE, e.t.c. All of them are prone to overfitting if they are evaluated in the *in-bag* data set rather than in the *out-of-bag*. One could also argue that $R^2$ is not generalised well to non-normal errors and that MSE and its variations inappropriate for distributional regression models because their focus is in the location parameters of the response distribution ans not in other characteristics of the distribution of the response. Often other part of the distribution are of interest to the practioner. -->
-
-
-
+Note that in general goodness-of-fit measure could be can applied to both the `in bag` and `out of bag` data sets; <!-- There are different goodness of fit for checking and comparing different distributional regression models. The generalised Akaike criterion, **GAIC** is a very popular method. To calculate the GAIC only the *in-bag* data are needed there is no need for data partition. Calculating the GAIC needs though an accurate measure of the *degrees of freedom* used to fit the model. In mathematical (stochatic) models the degrees of freedom are easy to define because they are the number of estimated parameters. In algorithmic based models, especially the ones overparametrised like neural networks, the degrees of freedom are more difficult to guess. The degrees of freedoms (at least for mathematical models) are a measure of the *complexity* of the model. More complex models are usually closer to the training data, therefore maybe do not generalised well. Apart from the `GAIC` other goodness of fit measures, used in the literature for regression models are; the deviance; the $R^2$; the mean square errors, MSE, e.t.c. All of them are prone to overfitting if they are evaluated in the *in-bag* data set rather than in the *out-of-bag*. One could also argue that $R^2$ is not generalised well to non-normal errors and that MSE and its variations inappropriate for distributional regression models because their focus is in the location parameters of the response distribution ans not in other characteristics of the distribution of the response. Often other part of the distribution are of interest to the practioner. -->
 
 <!-- Partitioning the data into training, test and validation has to be done randomly. An inherent risk for splitting the data once comes when the interest of the investigation lies on the tail of the distribution of the response. In this, case the few extreme observations, could fall into only one of the partitioning sets creating problems when the model is evaluated. Repetitively reusing (parts) of the data, for example, bootstrapping or cross validation could avoid that. Multi-split of the data (left size of @fig-data_split) allow the evaluation of appropriate measures of goodness of fit in out of bag data. There are conceptuality two different ways of multi-split the data set; the first is by rearrange them and the second is by reweighed. \[We will see at a later stage that this difference is not so clear cut\]. Rearranging the data usually is done by creating appropriate indexes which pick different part of the data. This leads to **bootstrapping** or **cross validation**. Reweighed the observations, during the fit, is done in the **Bayesian Bootstrap** or in **boosting**. -->
-
-
 
 <!-- In classical *bootstrapping* the data are re-sampled randomly with replacement $B$ times and the model is refitted similar times. The process, while computational expensive, could provides extra information about the model ans especially about the variability of its parameters. For distributional regression models, both *classical* and *Bayesian* bootstrap, provides extra information for all the parameters involved in the model, i.e. the distributional parameters, the fitted coefficients, the hyper parameters and als for the random effects. Bayesian bootstrap re-weights the data as samples from a a multinomial distribution and fits the re-weighted models $B$ times and provides the extra information about the variability of the parameters, the same way like the classical bootstrap does. In *boosting* each week learner, that is, each simple fitted model, is reweighed using as weights the residuals of the previous fits, then all learners are aggregated together for the final model. -->
 
 <!-- Bootstrapping helps to evaluate how far the sample is from the population by giving an estimate of the variability between the different sub-samples. It also helps to calculate standard errors from a fitted model when there is no an easy way to do so with the conventional methods. It helps us to evaluate the variability of all of the parameters of a fitted GAMLSS by providing standard errors not only for the coefficient of the model but also for the random effects and hyper parameters, see @sec-ParametersforEstimation for the definition of different parameters.  -->
 
-
-
 Computationally partition of the data for any distributional regression model, can be achieved in different ways;
 
-1. by *splitting* the original data frame in different subsets;  
+1.  by *splitting* the original data frame in different subsets;
 
-2. by using a *factor* which classifies the partitions of data sets;
+2.  by using a *factor* which classifies the partitions of data sets;
 
-3. by *indexing* the original data, i.e. `data[index,]`,
+3.  by *indexing* the original data, i.e. `data[index,]`,
 
-4. by using *prior weights* in the fitting.
+4.  by using *prior weights* in the fitting.
 
 <!-- A $k$-fold *cross validation* splits the data in $k$ sub-samples. The model is then fitted repeatedly $k$ times, each time the $k-1$-fold sets are used for training and the remaining one-fold as test data. By the time that all the $k$ models are fitted we would have $n$ observations fitted as test data fits. So the K-fold cross-validation allows us to get `test` data with the additinal cost of having to fit $K$ models. Leave one out, **LOO**, is an extreme version of the K-fold partition in which we pick $n-1$ observations for training and leave one out for test. In this case we have to refit $n$ different models. Both bootstrapping and $k$-fold cross validation when appropriate measures are used can help i) with model comparison (on test data) ii) by avoiding overfitting and iii) possible selecting the hyper parameters. -->
 
-So while we would like to think data partitioning as cutting of the original data into different subset (case 1 above), there is no inherent need for physically partition into the subgroups when fitting the models since  the same results can be achieved with different methods. For example using prior weights in a $K$-fold cross-validation, we need $K$ dummy vectors  $i_k$. The dummy vectors take the value of 1 for the $k$-th set of observations and $0$ for the rest. 
+So while we would like to think data partitioning as cutting of the original data into different subset (case 1 above), there is no inherent need for physically partition into the subgroups when fitting the models since the same results can be achieved with different methods. For example using prior weights in a $K$-fold cross-validation, we need $K$ dummy vectors $i_k$. The dummy vectors take the value of 1 for the $k$-th set of observations and $0$ for the rest.
 
 <!-- Let `da` represent the `data.frame` used to fit the model, and $i$ the $i_k$ a dummy index. vector. For each of the $K$ fits, the model fitting process would use the command $data=da[,i]$ to select the appropriate data, and `newdata=da[,i==0]` for evaluating the out-of-bag measure. Alternatively, one can use `weights=i` during the model fitting and `newdata=da[,i==0]` for evaluating any out-of-bag measures. Note that the appropriate measures for comparing models include predictive deviance (PD) and continuous rank probability scores (CRPS). The function data_Kfold() in the package generates the correct dummy vectors as a matrix of dimensions n \times B, which can be used for the cross-validation process. -->
 
@@ -1213,7 +1208,7 @@ So while we would like to think data partitioning as cutting of the original dat
 
 <!-- For the classical bootstrap, we need $B$ vectors. Unlike cross-validation (CV), where the vectors for indexing and prior weights are identical, bootstrapping requires different vectors.  -->
 
-The function `data_part()` creates a factor for holdout or k-fold CV partitions. The `data_part_list()` creates a list with different `data.frame`s for  holdout or k-fold CV partitions.  The function `data_boot_index()` and `data_Kfold_index()`  creates  appropriate vector for indexing, while `data_boot_weights()` and  `data_Kfold_weights()` generates the appropriate vectors for prior weights.  
+The function `data_part()` creates a factor for holdout or k-fold CV partitions. The `data_part_list()` creates a list with different `data.frame`s for holdout or k-fold CV partitions. The function `data_boot_index()` and `data_Kfold_index()` creates appropriate vector for indexing, while `data_boot_weights()` and `data_Kfold_weights()` generates the appropriate vectors for prior weights.\
 <!-- For Bayesian bootstrap, the $B$ vectors of length $n$ represent weights that sum to $n$. An out-of-bag observation, in this case, is one with zero weight. This distinction makes the split between rearranged and reweighed in @fig-data_split somewhat artificial, as both methods can be interpreted as refitting approaches using prior weights. -->
 
 <!-- For the classical bootstrap, we also need $B$ vectors. Contrary to CV where the vectors for indexing and prior weights are identical, bootstrapping needs different vectors. The function `data_boot_index()` creates appropriate vectors for indexing while `data_boot_weihghts()` for prior weighing. they should be different whether we used them as indices to select the right columls form the data matrix `da` or as prior weights as either for of length $n$ indicating which observations to pick and how many times. Typically a vectors say $(1,0,2,\ldots,3, 2)$, indicates that observation $1$ is picked once, observation $2$ is excluded from the fit, observation $3$ is picked up 2 times e.t.c. For Bayesian bootstrap the $B$ vectors of length $N$ are weights summing up to $n$. A out-of-bag observation in this case can be defined as an observation with zero weights. This note alsmost make the split between **rearranged** and **reweighed** in @fig-data_split rather artificial since both can be thought as refitting methods using prior weights. -->
