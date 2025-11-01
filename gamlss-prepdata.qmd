@@ -32,9 +32,26 @@ bibliography: book2024.bib
 
 This booklet introduces the `gamlss.prepdata` package and its functionality. It aims to describe the available functions and how they can be used.
 
+The idea is we have to know the data  before modelling. More precise is worth 
+knowing; 
+
+-  which variables are `continuous` and  which `categorical` in the data 
+
+- `missing` values in the data 
+
+- `outliers` in variables in the data 
+
+- pairwise `relationships` between variables in the data  
+
+- first order `interactions` between the explanatory variables 
+
+- possible future data `partitions` 
+
+
+
 <!--  At a later stage, we will try to describe their rational. -->
 
-The latest versions of the packages **gamlss**, **gamlss2** and **gamlss.prepdata** are shown below:
+The latest versions of the packages used hare  **gamlss**, **gamlss2** and **gamlss.prepdata** are shown below:
 
 ```{r}
 #| message: false

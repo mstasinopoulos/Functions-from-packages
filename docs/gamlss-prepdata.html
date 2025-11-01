@@ -328,8 +328,17 @@ window.Quarto = {
 <section id="sec-introduction" class="level2">
 <h2 class="anchored" data-anchor-id="sec-introduction">Introduction</h2>
 <p>This booklet introduces the <code>gamlss.prepdata</code> package and its functionality. It aims to describe the available functions and how they can be used.</p>
+<p>The idea is we have to know the data before modelling. More precise is worth knowing;</p>
+<ul>
+<li><p>which variables are <code>continuous</code> and which <code>categorical</code> in the data</p></li>
+<li><p><code>missing</code> values in the data</p></li>
+<li><p><code>outliers</code> in variables in the data</p></li>
+<li><p>pairwise <code>relationships</code> between variables in the data</p></li>
+<li><p>first order <code>interactions</code> between the explanatory variables</p></li>
+<li><p>possible future data <code>partitions</code></p></li>
+</ul>
 <!--  At a later stage, we will try to describe their rational. -->
-<p>The latest versions of the packages <strong>gamlss</strong>, <strong>gamlss2</strong> and <strong>gamlss.prepdata</strong> are shown below:</p>
+<p>The latest versions of the packages used hare <strong>gamlss</strong>, <strong>gamlss2</strong> and <strong>gamlss.prepdata</strong> are shown below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gamlss)</span>

@@ -81,14 +81,14 @@
     "href": "gamlss-prepdata.html",
     "title": "The Functions in the Package gamlss.prepdata",
     "section": "",
-    "text": "This booklet introduces the gamlss.prepdata package and its functionality. It aims to describe the available functions and how they can be used.\n\nThe latest versions of the packages gamlss, gamlss2 and gamlss.prepdata are shown below:\n\nrm(list=ls())\nlibrary(gamlss)\nlibrary(gamlss2)\nlibrary(ggplot2)\nlibrary(gamlss.ggplots)\nlibrary(gamlss.prepdata)\nlibrary(\"dplyr\") \npackageVersion(\"gamlss\")\n\n[1] '5.5.1'\n\npackageVersion(\"gamlss2\")\n\n[1] '0.1.0'\n\npackageVersion(\"gamlss.prepdata\")\n\n[1] '0.1.17'"
+    "text": "This booklet introduces the gamlss.prepdata package and its functionality. It aims to describe the available functions and how they can be used.\nThe idea is we have to know the data before modelling. More precise is worth knowing;\n\nwhich variables are continuous and which categorical in the data\nmissing values in the data\noutliers in variables in the data\npairwise relationships between variables in the data\nfirst order interactions between the explanatory variables\npossible future data partitions\n\n\nThe latest versions of the packages used hare gamlss, gamlss2 and gamlss.prepdata are shown below:\n\nrm(list=ls())\nlibrary(gamlss)\nlibrary(gamlss2)\nlibrary(ggplot2)\nlibrary(gamlss.ggplots)\nlibrary(gamlss.prepdata)\nlibrary(\"dplyr\") \npackageVersion(\"gamlss\")\n\n[1] '5.5.1'\n\npackageVersion(\"gamlss2\")\n\n[1] '0.1.0'\n\npackageVersion(\"gamlss.prepdata\")\n\n[1] '0.1.17'"
   },
   {
     "objectID": "gamlss-prepdata.html#sec-introduction",
     "href": "gamlss-prepdata.html#sec-introduction",
     "title": "The Functions in the Package gamlss.prepdata",
     "section": "",
-    "text": "This booklet introduces the gamlss.prepdata package and its functionality. It aims to describe the available functions and how they can be used.\n\nThe latest versions of the packages gamlss, gamlss2 and gamlss.prepdata are shown below:\n\nrm(list=ls())\nlibrary(gamlss)\nlibrary(gamlss2)\nlibrary(ggplot2)\nlibrary(gamlss.ggplots)\nlibrary(gamlss.prepdata)\nlibrary(\"dplyr\") \npackageVersion(\"gamlss\")\n\n[1] '5.5.1'\n\npackageVersion(\"gamlss2\")\n\n[1] '0.1.0'\n\npackageVersion(\"gamlss.prepdata\")\n\n[1] '0.1.17'"
+    "text": "This booklet introduces the gamlss.prepdata package and its functionality. It aims to describe the available functions and how they can be used.\nThe idea is we have to know the data before modelling. More precise is worth knowing;\n\nwhich variables are continuous and which categorical in the data\nmissing values in the data\noutliers in variables in the data\npairwise relationships between variables in the data\nfirst order interactions between the explanatory variables\npossible future data partitions\n\n\nThe latest versions of the packages used hare gamlss, gamlss2 and gamlss.prepdata are shown below:\n\nrm(list=ls())\nlibrary(gamlss)\nlibrary(gamlss2)\nlibrary(ggplot2)\nlibrary(gamlss.ggplots)\nlibrary(gamlss.prepdata)\nlibrary(\"dplyr\") \npackageVersion(\"gamlss\")\n\n[1] '5.5.1'\n\npackageVersion(\"gamlss2\")\n\n[1] '0.1.0'\n\npackageVersion(\"gamlss.prepdata\")\n\n[1] '0.1.17'"
   },
   {
     "objectID": "gamlss-prepdata.html#introduction-to-the-gamlss.prepdata-package",
