@@ -599,16 +599,60 @@ We can plot the path of those variables using the package `corr`;
 ```{r}
 library(corrr)
 network_plot(Tabcor)
+
 ```
+
+
+Note that there are two functions associated with the `data_cor()` 
+
+- `cor_perm_test()`; this function test the null hypothesis that the correlation coefficients of two continuous variables is zero or not  
+
+- `cor_boot()` this function find the bootstrap distribution of the correlation coefficients of two continuous variables. This bootstrap distribution can be used then to test the probability that the correlation coefficients could be zero.
+
 
 [back to table](#tbl-graphical)
 
 
-#### `data_mcor()` {#sec-data-mcor}
+#### `cor_perm_test()` {#sec-cor_perm_test}
 
-The function `data_mcor()` is taking a `data.frame` object and plot the maximal correlation coefficients of all its continuous variables.
+To test whether a secific correlation coeffient is equal to zero use;
+```{r}
+library(foreach)
+registerDoParallel(cores = 8)
+pp<-cor_perm_test(da$rent, da$area)
+pp 
+plot(pp)
+```
+
+
+#### `cor_boot()` {#sec-cor_boot}
+
+To find the bootstrap distribution of any correlation coefficient use; 
 
 ```{r}
+library(foreach)
+registerDoParallel(cores = 8)
+bb<-cor_boot(da$rent, da$area)
+bb 
+plot(bb)
+```
+
+For non-linear correlation use the function for maximal correlation`mcor()`
+```{r}
+registerDoParallel(cores = 8)
+bb1<-cor_boot(da$rent, da$area, fun=mcor)
+bb1 
+plot(bb1)
+```
+Note that the plot has the original value of the correlation marked as  `Observed` in a red vertical line and the average of the bootstrap simulations marked as `Sample mran` in a blue vertical line. The difference between those two values can ve consider as an estimate of the bias.  
+
+
+#### `data_mcor()` {#sec-data-mcor}
+
+The function `data_mcor()` is taking a `data.frame` object and plot the maximal correlation (non-linear) coefficients of all its continuous variables.
+
+```{r}
+registerDoParallel(cores = 8)
 data_mcor(da, lab=TRUE)
 ```
 
@@ -656,7 +700,7 @@ Tabcor <- data_cor(da, plot=FALSE)
 high_val(Tabcor, val=0.4)
 ```
 
-A different plot can be acheived using the funtion `network_plot()` of package `corr`;
+A different plot can be acheived using the function `network_plot()` of package `corr`;
 
 ```{r}
 pp=gamlss.prepdata:::data_association(rent[,-c(4,5,8)], plot=F)
