@@ -797,7 +797,7 @@ low_val(Tabinter, plot=T)
 
 #### `data_leverage()` {#sec-data-leverage}
 
-The function `data_leverage()` uses the linear model methodology to identify posible unusual observations within the explanatory variables as a group (not indivisually). It fit a linear (normal) model with response, the response of the data, and all explanatory variables in the data, as x's. It then calculates the leverage points and plots them. A leverage is a number between zero and 1. Large leverage correspond to extremes in the x's.
+The function `data_leverage()` uses the linear model methodology to identify posible unusual observations within all the explanatory variables taken as a group (not individually). It fit a linear (normal) model with response, the response of the data, and all explanatory variables in the data, as x's. It then calculates the leverage points and plots them. A leverage is a number between zero and 1. Large leverage correspond to more extremes observations for all x's.
 
 ```{r}
 rent99[, -c(2,9)] |> data_leverage( response=rent)

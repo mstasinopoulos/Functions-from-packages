@@ -349,7 +349,7 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>) </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"gamlss"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '5.5.1'</code></pre>
+<pre><code>[1] '5.5.0'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"gamlss2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1326,8 +1326,8 @@ Probability of ASL: 0 </code></pre>
 <pre><code>correlation between da$area and da$rent 
    observed: 0.585 
 sample mean: 0.584 
-       bias: 0.000354 
-  sample SD: 0.0135 
+       bias: 0.000486 
+  sample SD: 0.0142 
   sample size: 1000 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1352,8 +1352,8 @@ sample mean: 0.584
 <pre><code>correlation between da$area and da$rent 
    observed: 0.591 
 sample mean: 0.593 
-       bias: -0.00247 
-  sample SD: 0.0131 
+       bias: -0.00246 
+  sample SD: 0.0134 
   sample size: 1000 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bb1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1719,7 +1719,7 @@ that is, 3082 observations. </code></pre>
 </section>
 <section id="sec-data-leverage" class="level4">
 <h4 class="anchored" data-anchor-id="sec-data-leverage"><code>data_leverage()</code></h4>
-<p>The function <code>data_leverage()</code> uses the linear model methodology to identify posible unusual observations within the explanatory variables as a group (not indivisually). It fit a linear (normal) model with response, the response of the data, and all explanatory variables in the data, as x’s. It then calculates the leverage points and plots them. A leverage is a number between zero and 1. Large leverage correspond to extremes in the x’s.</p>
+<p>The function <code>data_leverage()</code> uses the linear model methodology to identify posible unusual observations within all the explanatory variables taken as a group (not individually). It fit a linear (normal) model with response, the response of the data, and all explanatory variables in the data, as x’s. It then calculates the leverage points and plots them. A leverage is a number between zero and 1. Large leverage correspond to more extremes observations for all x’s.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>rent99[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">9</span>)] <span class="sc">|&gt;</span> <span class="fu">data_leverage</span>( <span class="at">response=</span>rent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

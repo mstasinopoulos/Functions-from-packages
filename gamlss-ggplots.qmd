@@ -1229,6 +1229,40 @@ gamlss.ggplots:::pe_param_grid(g5, list(c("Fl", "A"), c("H", "loc")))
 gamlss.ggplots:::pe_param_grid(g5, list(c("Fl", "A"), c("H", "loc")))
 ```
 
+## `pe_pdf()`
+
+The function `pe_pdf()` plots the partial pdf of one specified term(s) given all other terms in the model remain fixed at predetermined values:
+
+```{r}
+#| label: fig-pe_pdf
+#| fig-cap: "Plotting pdf for `A`."
+#| warning: false
+pe_pdf(g4, "A")
+```
+
+Here we plot it against a categorical variable `loc`:
+
+```{r}
+#| label: fig-pe_pdf_loc
+#| fig-cap: "Plotting partial terms from `loc`."
+#| warning: false
+pe_pdf(g4, "loc")
+```
+
+
+## `pe_pdf_grid()`
+
+The function `pe_pdf_grid()` show multiple plots of fitted pdf's given all other terms in the model remain fixed at predetermined values.
+
+```{r}
+#| label: fig-pe_pdf_grid_1
+#| fig-cap: "Plotting partial terms from `loc` and `H`."
+#| warning: false
+ gamlss.ggplots:::pe_pdf_grid(g5, c("Fl", "A","H", "loc"))
+```
+
+
+
 # prediction
 
 ## `predict_pdf()`
